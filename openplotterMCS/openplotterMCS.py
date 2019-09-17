@@ -127,8 +127,8 @@ class MyFrame(wx.Frame):
 		self.output.SetSizer(sizer)
 
 	def pageMCS(self):
-		myoptionLabel = wx.StaticText(self.myapp, label=_('Sending from MCS:  '))
-		self.myoption = wx.StaticText(self.myapp, label='')
+		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Sending from MCS:  '))
+		self.myoption = wx.StaticText(self.MCS_Settings, label='')
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.Add(myoptionLabel, 0, wx.LEFT | wx.EXPAND, 5)
@@ -137,7 +137,7 @@ class MyFrame(wx.Frame):
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 5)
 		vbox.AddStretchSpacer(1)
-		self.myapp.SetSizer(vbox)
+		self.MCS_Settings.SetSizer(vbox)
 
 		self.readMyapp()
 
