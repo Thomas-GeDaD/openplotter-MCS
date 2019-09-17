@@ -1,8 +1,8 @@
 ## openplotter-MCS
 
-This is a template to help create apps for OpenPlotter. 
+This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer
 
-> Please, read these comments to edit this file and remove them in your app.
+At the Moment the App is only for development
 
 ### Installing
 
@@ -35,9 +35,7 @@ Make your changes and test them locally:
 `sudo python3 setup.py install`
 
 ##################################################################################
-Pull request your changes to github and we will check and add them to the next version of the [Debian package](https://launchpad.net/~openplotter/+archive/ubuntu/openplotter/).
-
-> Once approved we will add your app to the OpenPlotter PPA repository. Please provide any important info necessary to OpenPlotter team to create the Debian package.
+P
 
 ### Documentation
 
