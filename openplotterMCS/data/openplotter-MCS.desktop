@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=OpenPlotter MCS
+Exec=openplotter-MCS
+Icon=openplotter-MCS
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=OpenPlotter
