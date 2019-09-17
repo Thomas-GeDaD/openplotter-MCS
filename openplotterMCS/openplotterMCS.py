@@ -291,12 +291,12 @@ class MyFrame(wx.Frame):
 		self.logger.Newline()
 		# or print any program output
 		self.logger.BeginTextColour((55, 55, 55))
-		command = self.platform.admin+' ls'
+		command = self.platform.admin+' ls /dev/ttySC* '
 		popen = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, shell=True)
 		for line in popen.stdout:
 			if not 'Warning' in line and not 'WARNING' in line:
 				self.logger.WriteText(line)
-				self.ShowStatusBarYELLOW(_('Updating packages data, please wait... ')+line)
+				#self.ShowStatusBarYELLOW(_('Updating packages data, please wait... ')+line)
 				self.logger.ShowPosition(self.logger.GetLastPosition())
 		self.logger.EndTextColour()
 
