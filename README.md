@@ -28,7 +28,7 @@ Install other dependencies:
 
 Clone the repository:
 
-`git clone https://github.com/Thomas-GeDaD/OP-MCS`
+`git clone https://github.com/Thomas-GeDaD/openplotter-MCS`
 
 Make your changes and test them locally:
 
