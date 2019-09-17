@@ -36,7 +36,7 @@ class Ports:
 	def __init__(self,conf,currentLanguage):
 		self.conf = conf
 		currentdir = os.path.dirname(__file__)
-		language.Language(currentdir,'openplotter-MCS',currentLanguage)
+		language.Language(currentdir,'openplotter-myapp',currentLanguage)
 		# here you have to define what connections will be always present in your app
 		self.connections = []
 		connectionId = 'MCSConn1'
