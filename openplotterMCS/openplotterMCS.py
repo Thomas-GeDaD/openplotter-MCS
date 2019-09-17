@@ -50,7 +50,7 @@ class MyFrame(wx.Frame):
 		toolSend = self.toolbar1.AddCheckTool(103, _('Dummy Data'), wx.Bitmap(self.currentdir+"/data/send.png"))
 		self.Bind(wx.EVT_TOOL, self.OnToolSend, toolSend)
 		self.toolbar1.AddSeparator()
-		toolOutput = self.toolbar1.AddTool(106, _('Dummy Output'), wx.Bitmap(self.currentdir+"/data/check.png"))
+		toolOutput = self.toolbar1.AddTool(106, _('Read Configuration'), wx.Bitmap(self.currentdir+"/data/check.png"))
 		self.Bind(wx.EVT_TOOL, self.OnToolOutput, toolOutput)
 		self.toolbar1.AddSeparator()
 		toolApply = self.toolbar1.AddTool(104, _('Apply Changes'), wx.Bitmap(self.currentdir+"/data/apply.png"))
