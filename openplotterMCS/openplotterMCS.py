@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # This file is part of Openplotter.
-# Copyright (C) 2019 by xxxx <https://github.com/Thomas-GeDaD/openplotter-MCS>
+# Copyright (C) 2019 by GeDaD <https://github.com/Thomas-GeDaD/openplotter-MCS>
 #
 # Openplotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,9 +31,9 @@ class MyFrame(wx.Frame):
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
 		self.language = language.Language(self.currentdir,'openplotter-myapp',self.currentLanguage)
 
-		wx.Frame.__init__(self, None, title=_('OpenPlotter My App'), size=(800,444))
+		wx.Frame.__init__(self, None, title=_('OpenPlotter MCS'), size=(800,444))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
-		icon = wx.Icon(self.currentdir+"/data/openplotter-myapp.png", wx.BITMAP_TYPE_PNG)
+		icon = wx.Icon(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
 		self.CreateStatusBar()
 		font_statusBar = self.GetStatusBar().GetFont()
@@ -60,14 +60,14 @@ class MyFrame(wx.Frame):
 
 		self.notebook = wx.Notebook(self)
 		self.notebook.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.onTabChange)
-		self.myapp = wx.Panel(self.notebook)
+		self.MCS_Settings = wx.Panel(self.notebook)
 		self.connections = wx.Panel(self.notebook)
 		self.output = wx.Panel(self.notebook)
-		self.notebook.AddPage(self.myapp, _('My App'))
+		self.notebook.AddPage(self.MCS_Settings, _('MCS Settings'))
 		self.notebook.AddPage(self.connections, _('Data output'))
 		self.notebook.AddPage(self.output, _('Output'))
 		self.il = wx.ImageList(24, 24)
-		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-24.png", wx.BITMAP_TYPE_PNG))
+		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG))
 		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/connections.png", wx.BITMAP_TYPE_PNG))
 		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/output.png", wx.BITMAP_TYPE_PNG))
 		self.notebook.AssignImageList(self.il)
@@ -80,7 +80,7 @@ class MyFrame(wx.Frame):
 		vbox.Add(self.notebook, 1, wx.EXPAND)
 		self.SetSizer(vbox)
 
-		self.pageMyapp()
+		self.pageMCS()
 		self.pageConnections()
 		self.pageOutput()
 		
@@ -111,7 +111,7 @@ class MyFrame(wx.Frame):
 
 	# create your page in the manuals and add the link here
 	def OnToolHelp(self, event): 
-		url = "/usr/share/openplotter-doc/template/myapp_app.html"
+		url = "/usr/share/openplotter-doc/template/MCS_app.html"
 		webbrowser.open(url, new=2)
 
 	def OnToolSettings(self, event): 
@@ -126,8 +126,8 @@ class MyFrame(wx.Frame):
 		sizer.Add(self.logger, 1, wx.EXPAND, 0)
 		self.output.SetSizer(sizer)
 
-	def pageMyapp(self):
-		myoptionLabel = wx.StaticText(self.myapp, label=_('Sending:  '))
+	def pageMCS(self):
+		myoptionLabel = wx.StaticText(self.myapp, label=_('Sending from MCS:  '))
 		self.myoption = wx.StaticText(self.myapp, label='')
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
