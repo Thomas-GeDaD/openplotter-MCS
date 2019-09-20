@@ -149,8 +149,8 @@ class MyFrame(wx.Frame):
 		self.readMCS()
 	
 	def pageowire(self):
-		myoptionLabel = wx.StaticText(self.MCS_owire, label=_('Sensoren:  '))
-		self.myoption = wx.StaticText(self.MCS_owire, label='')
+		myoptionLabel = wx.StaticText(self.owire, label=_('Sensoren:  '))
+		self.myoption = wx.StaticText(self.owire, label='')
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.Add(myoptionLabel, 0, wx.LEFT | wx.EXPAND, 5)
