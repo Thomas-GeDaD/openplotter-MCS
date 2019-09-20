@@ -73,10 +73,11 @@ def main():
 	# /boot/config.txt edit
 	print(_('Adding config.txt entries...'))
 	try:
-		fo1 = open('/boot/config.txt', "a")
-        
+		fo1r = open('/boot/config.txt', "r")
 		configcontent = fo1.read()
-        
+		fo1r.close()
+		
+        	fo1 = open('/boot/config.txt', "a")
 		startpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(start)")
 		print(_(startpos))
 		if (startpos == -1):
@@ -90,8 +91,10 @@ def main():
 			fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(end)")
 		fo1.close()
 		
+		print(_("config.txt entries created"))
+		
 	except Exception as e: print(_('FAILED: ')+str(e))
-	print(_("config.txt entries created"))
+	
 
 if __name__ == '__main__':
 
