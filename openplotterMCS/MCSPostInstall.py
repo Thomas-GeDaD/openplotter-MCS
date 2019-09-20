@@ -71,7 +71,7 @@ def main():
 	except Exception as e: print(_('FAILED: ')+str(e))
 	
 	# /boot/config.txt edit
-	print(_('Adding config.txt entries...'))
+	#print(_('Adding config.txt entries...'))
 	try:
 		fo1 = open('/boot/config.txt', "a")
         
@@ -91,7 +91,7 @@ def main():
 		fo1.close()
 		
 	except Exception as e: print(_('FAILED: ')+str(e))
-	print(_("config.txt entries created"))
+	#print(_("config.txt entries created"))
 
 if __name__ == '__main__':
 
