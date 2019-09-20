@@ -48,7 +48,7 @@ def main():
 
 	currentLanguage = conf2.get('GENERAL', 'lang')
 
-	language.Language(currentdir,'openplottermyapp',currentLanguage)
+	language.Language(currentdir,'openplotter-myapp',currentLanguage)
 
 
 
