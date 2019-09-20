@@ -31,7 +31,7 @@ setup (
 	'Operating System :: POSIX :: Linux',
 	'Programming Language :: Python :: 3'],
 	include_package_data=True,
-	entry_points={'console_scripts': ['openplotter-MCS=openplotterMCS.openplotterMCS:main','openplotter-MCS-read=openplotterMCS.openplotterMCSRead:main','myappPostInstall=openplotterMCS.MCSPostInstall:main','MCSPreUninstall=openplotterMCS.MCSPreUninstall:main']},
+	entry_points={'console_scripts': ['openplotter-MCS=openplotterMCS.openplotterMCS:main','openplotter-MCS-read=openplotterMCS.openplotterMCSRead:main','MCSPostInstall=openplotterMCS.MCSPostInstall:main','MCSPreUninstall=openplotterMCS.MCSPreUninstall:main']},
 	# entry_points: creating entry points you will be able to run these python scripts from everywhere.
 		# openplotter-myapp = This is the GUI of your app
 		# openplotter-myapp-read = You will use this file to be ran at startup as a service when needed using "sudo systemctl enable openplotter-myapp-read" in your code. See myappPostInstall file to see how to create services. If your script is a GUI script you need to start it in startup.py and not as a service.
