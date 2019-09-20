@@ -134,7 +134,8 @@ class MyFrame(wx.Frame):
 		self.output.SetSizer(sizer)
 
 	def pageMCS(self):
-		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Sending from MCS:  '))
+		caninfo = self.platform.admin+' ifconfig '
+		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Sending from MCS:  '+caninfo))
 		self.myoption = wx.StaticText(self.MCS_Settings, label='')
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
@@ -303,7 +304,7 @@ class MyFrame(wx.Frame):
 
 	def OnToolOutput(self,e):
 		self.logger.Clear()
-		self.notebook.ChangeSelection(2)
+		self.notebook.ChangeSelection(3)
 		
 		# Available serial Ports
 		self.logger.BeginTextColour((0, 130, 0))
