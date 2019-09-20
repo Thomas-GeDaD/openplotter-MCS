@@ -22,7 +22,7 @@ def main():
 	try:
 		conf2 = conf.Conf()
 		value = conf2.get('MCS', 'sending')
-		port = conf2.get('MCS', 'myappConn1')
+		port = conf2.get('MCS', 'MCSConn1')
 		if value == '1':
 			# this script sends data to Signal K servers by an UDP connection in client mode
 			sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
