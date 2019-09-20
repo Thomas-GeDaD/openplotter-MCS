@@ -155,8 +155,7 @@ def main():
 		fo1r.close()
 		print(_(startpos))
 		
-
-        fo1 = open('/boot/config.txt', "a")
+		fo1 = open('/boot/config.txt', "a")
 
 		if (startpos == -1):
 
