@@ -80,6 +80,7 @@ def main():
 		startpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(start)")
 
 		if (startpos == -1):
+		fo1.write ("/n/n/n")
 		fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(start)")
 		fo1.write ("dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25")
 		fo1.write ("dtoverlay=spi-bcm2835-overlay/n")
@@ -87,6 +88,7 @@ def main():
 		fo1.write ("dtoverlay=sc16is752-i2c,int_pin=12,addr=0x49,xtal=14745600")
 		fo1.write ("dtoverlay=sc16is752-i2c,int_pin=6,addr=0x48,xtal=14745600")
 		fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(end)")
+		fo1.close()
 		
         print (_("config.txt entries created"))
 	except Exception as e: print(_('FAILED: ')+str(e))	
