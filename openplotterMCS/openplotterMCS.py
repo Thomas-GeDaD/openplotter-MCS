@@ -149,19 +149,19 @@ class MyFrame(wx.Frame):
 		self.readMCS()
 	
 	def pageowire(self):
-		owireLabel = wx.StaticText(self.MCS_Settings, label=_('Sensoren:  '))
-		self.owire = wx.StaticText(self.MCS_Settings, label='')
+		myoptionLabel = wx.StaticText(self.MCS_owire, label=_('Sensoren:  '))
+		self.myoption = wx.StaticText(self.MCS_owire, label='')
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
-		hbox.Add(owireLabel, 0, wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(self.owire, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(myoptionLabel, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(self.myoption, 0, wx.LEFT | wx.EXPAND, 5)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 5)
 		vbox.AddStretchSpacer(1)
 		self.owire.SetSizer(vbox)
 
-		#self.readMCS()
+		self.readMCS()
 
 	def readMCS(self):
 		# here get data from conf file to load the surrent settings
