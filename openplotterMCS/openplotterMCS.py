@@ -134,7 +134,9 @@ class MyFrame(wx.Frame):
 		self.output.SetSizer(sizer)
 
 	def pageMCS(self):
-		caninfo = self.platform.admin+' ifconfig '
+	
+		command = self.platform.admin+' ifconfig '
+		caninfo = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
 		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Sending from MCS:  '+caninfo))
 		self.myoption = wx.StaticText(self.MCS_Settings, label='')
 
