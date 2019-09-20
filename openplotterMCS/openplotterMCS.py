@@ -61,19 +61,25 @@ class MyFrame(wx.Frame):
 		self.notebook = wx.Notebook(self)
 		self.notebook.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.onTabChange)
 		self.MCS_Settings = wx.Panel(self.notebook)
+		self.owire = wx.Panel(self.notebook)
 		self.connections = wx.Panel(self.notebook)
 		self.output = wx.Panel(self.notebook)
 		self.notebook.AddPage(self.MCS_Settings, _('MCS Settings'))
+		self.notebook.AddPage(self.owire, _('MCS-1Wire'))
 		self.notebook.AddPage(self.connections, _('Data output'))
 		self.notebook.AddPage(self.output, _('Output'))
+		
 		self.il = wx.ImageList(24, 24)
 		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG))
-		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/connections.png", wx.BITMAP_TYPE_PNG))
-		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/output.png", wx.BITMAP_TYPE_PNG))
+		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG))
+		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/connections.png", wx.BITMAP_TYPE_PNG))
+		img3 = self.il.Add(wx.Bitmap(self.currentdir+"/data/output.png", wx.BITMAP_TYPE_PNG))
+		
 		self.notebook.AssignImageList(self.il)
 		self.notebook.SetPageImage(0, img0)
 		self.notebook.SetPageImage(1, img1)
 		self.notebook.SetPageImage(2, img2)
+		self.notebook.SetPageImage(3, img3)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(self.toolbar1, 0, wx.EXPAND)
@@ -81,6 +87,7 @@ class MyFrame(wx.Frame):
 		self.SetSizer(vbox)
 
 		self.pageMCS()
+		self.pageowire()
 		self.pageConnections()
 		self.pageOutput()
 		
@@ -139,11 +146,26 @@ class MyFrame(wx.Frame):
 		vbox.AddStretchSpacer(1)
 		self.MCS_Settings.SetSizer(vbox)
 
-		self.readMyapp()
+		self.readMCS()
+	
+	def pageowire(self):
+		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Sensoren:  '))
+		self.myoption = wx.StaticText(self.MCS_Settings, label='')
 
-	def readMyapp(self):
+		hbox = wx.BoxSizer(wx.HORIZONTAL)
+		hbox.Add(myoptionLabel, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(self.myoption, 0, wx.LEFT | wx.EXPAND, 5)
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 5)
+		vbox.AddStretchSpacer(1)
+		self.MCS_Settings.SetSizer(vbox)
+
+		self.readMCS()
+
+	def readMCS(self):
 		# here get data from conf file to load the surrent settings
-		value = self.conf.get('MYAPP', 'sending')
+		value = self.conf.get('MCS', 'sending')
 		if not value: value = '0' 
 		self.myoption.SetLabel(value)
 		if value == '1': self.toolbar1.ToggleTool(103,True)
@@ -209,7 +231,7 @@ class MyFrame(wx.Frame):
 		self.toolbar4.EnableTool(402,False)
 
 		self.listConnections.DeleteAllItems()
-		enabled = self.conf.get('MYAPP', 'sending')
+		enabled = self.conf.get('MCS', 'sending')
 		for i in self.ports.connections:
 			if i['editable'] == '1': editable = _('yes')
 			else: editable = _('no')
@@ -258,24 +280,24 @@ class MyFrame(wx.Frame):
 
 	def OnToolApply(self,e):
 		if self.toolbar1.GetToolState(103):
-			self.conf.set('MYAPP', 'sending', '1')
+			self.conf.set('MCS', 'sending', '1')
 			# starts service and enables it at startup. Use self.platform.admin instead of sudo
 			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'enable'])
 			self.ShowStatusBarGREEN(_('Sending dummy data enabled'))
 		else:
-			self.conf.set('MYAPP', 'sending', '0')
+			self.conf.set('MCS', 'sending', '0')
 			# stops service and disables it at startup. Use self.platform.admin instead of sudo
 			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'disable'])
 			self.ShowStatusBarYELLOW(_('Sending dummy data disabled'))
 		for i in self.ports.connections:
-			self.conf.set('MYAPP', i['id'], str(i['port']))
-		self.readMyapp()
+			self.conf.set('MCS', i['id'], str(i['port']))
+		self.readMCS()
 		self.readConnections()
 		self.printConnections()
 		
 	def OnToolCancel(self,e):
 		self.ShowStatusBarRED(_('Changes canceled'))
-		self.readMyapp()
+		self.readMCS()
 		self.readConnections()
 		self.printConnections()
 
