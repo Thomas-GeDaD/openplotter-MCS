@@ -90,8 +90,8 @@ def main():
 			fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(end)")
 		fo1.close()
 		
-        print(_("config.txt entries created"))
-	except Exception as e: print(_('FAILED: ')+str(e))	
+	except Exception as e: print(_('FAILED: ')+str(e))
+	print(_("config.txt entries created"))
 
 if __name__ == '__main__':
 
