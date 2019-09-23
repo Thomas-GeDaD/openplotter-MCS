@@ -86,7 +86,7 @@ class MyFrame(wx.Frame):
 		vbox.Add(self.notebook, 1, wx.EXPAND)
 		self.SetSizer(vbox)
 
-		self.pageMCS()
+		#self.pageMCS()
 		self.pageowire()
 		self.pageConnections()
 		self.pageOutput()
