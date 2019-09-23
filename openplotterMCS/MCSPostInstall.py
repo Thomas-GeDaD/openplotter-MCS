@@ -19,9 +19,6 @@ from openplotterSettings import conf
 from openplotterSettings import language
 
 def main():
-
-
-
 	# This file will be ran as sudo. Do here whatever you need after package installation.
 
 	conf2 = conf.Conf()
@@ -87,10 +84,11 @@ def main():
 		fo3 = open ("/etc/network/interfaces/interfaces.d/can0" "w")
 		fo3.write ("#physical can interfaces\nallow-hotplug can0\niface can0 can static\nbitrate 250000\ndown /sbin/ip link set $IFACE down\nup /sbin/ifconfig $IFACE txqueuelen 10000")
 		fo3.close()
-		print(_("interface.d can0 created")
-		
+		print(_("interface.d can0 created"))
+	
 	except Exception as e: print(_('FAILED: ')+str(e))
-		
+
+	
 if __name__ == '__main__':
 
 
