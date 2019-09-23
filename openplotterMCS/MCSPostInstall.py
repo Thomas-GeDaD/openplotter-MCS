@@ -68,14 +68,14 @@ def main():
 	except Exception as e: print(_('FAILED: ')+str(e))
 	
 	try:
-		modulesr = open("\etc\modules","r")
+		modulesr = open("/etc/modules","r")
 		str=modulesr.read()
 		modulesr.close()
 		i2c_dev = str.find("i2c-dev")
 		ds2482 = str.find("ds2482")
 		wire = str.find("wire")
 		
-		modules = open("\etc\modules","a")
+		modules = open("/etc/modules","a")
 		#######added i2c-dev
 		if (i2c_dev==-1):
 			modules.write ("\ni2c-dev")
