@@ -60,7 +60,7 @@ def main():
 			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=12,addr=0x49,xtal=14745600\n")
 			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=6,addr=0x48,xtal=14745600\n")
 			fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(end)\n")
-		fo1.close()
+			fo1.close()
 
 		print(_("config.txt entries created"))
 
@@ -81,7 +81,7 @@ def main():
 			fo2.close()
 		print(_("interface.d appended"))
 		
-		fo3 = open ("/etc/network/interfaces/interfaces.d/can0" "w")
+		fo3 = open ("/etc/network/interfaces/interfaces.d/can0", "w")
 		fo3.write ("#physical can interfaces\nallow-hotplug can0\niface can0 can static\nbitrate 250000\ndown /sbin/ip link set $IFACE down\nup /sbin/ifconfig $IFACE txqueuelen 10000")
 		fo3.close()
 		print(_("interface.d can0 created"))
