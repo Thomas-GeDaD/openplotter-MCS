@@ -157,10 +157,9 @@ class MyFrame(wx.Frame):
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 			
 		SERstat = wx.StaticText(self.MCS_Settings, label=_('Available Serial Interfaces:\n '+ avser ))
+		#############
 		
-		
-
-		hbox = wx.BoxSizer(wx.HORIZONTAL)
+		hbox = wx.BoxSizer(wx.VERTICAL)
 		hbox.Add(CANstat, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(SERstat, 0, wx.LEFT | wx.EXPAND, 5)
 
