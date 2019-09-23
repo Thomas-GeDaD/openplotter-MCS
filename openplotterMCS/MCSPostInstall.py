@@ -78,7 +78,7 @@ def main():
 		fo2r.close()
 		print (_(intava))
 		
-		if (inava == -1)
+		if (inava == -1):
 			fo2 = open ("/etc/network/interfaces", "a")
 			fo2.write = ("\nsource /etc/network/interfaces.d/")
 			fo2.close()
