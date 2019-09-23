@@ -75,10 +75,10 @@ def main():
 		fo2r.close()
 		print (_(intava))
 
-		if (intava == -1):
-			fo2 = open ("/etc/network/interfaces", "a")
-			fo2.write = ("\nsource /etc/network/interfaces.d/")
-			fo2.close()
+		#if (intava == -1):
+		fo2 = open ("/etc/network/interfaces", "a")
+		fo2.write = ("\nsource /etc/network/interfaces.d/")
+		fo2.close()
 			
 		print(_("interface.d appended"))
 		
