@@ -39,7 +39,7 @@ def main():
 	except Exception as e: print(_('FAILED: ')+str(e))
 
 
-	####### /boot/config.txt edit for SC16is752 and MCP2515
+	####### /boot/config.txt edit for SC16is752 and (MCP2515)
 
 	print(_('Adding config.txt entries...'))
 
@@ -66,6 +66,9 @@ def main():
 			print(_("config.txt entries already exists"))
 
 	except Exception as e: print(_('FAILED: ')+str(e))
+	
+	######added 1-wire modules
+	print(_('Adding modules to /etc/modules...'))
 	
 	try:
 		modulesr = open("/etc/modules","r")
