@@ -138,10 +138,12 @@ class MyFrame(wx.Frame):
 		try: 
 			cansetting = os.popen ("ifconfig can0")
 			cansetting_in = cansetting.read()
+			if "can0" not in cansetting_in:
+				cansetting_in= "no CAN Device found"
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read ifconfig'))
 
-		CANstat = wx.StaticText(self.MCS_Settings, label=_('Available CAN-Interfaces:\n '+ cansetting_in ))
+		CANstat = wx.StaticText(self.MCS_Settings, label=_('Available MCS-CAN Interfaces:\n '+ cansetting_in ))
 		
 		########### read MCS Serial Interfaces
 		try:
@@ -151,12 +153,14 @@ class MyFrame(wx.Frame):
 				if "ttySC" in i:
 					avser=i+" ; "+avser
 		
-			if avser == "ttySC0 ; ttySC1 ; ttySC2 ; ttySC3 ; ttySC4 ; ttySC5 ; ":
-				self.ShowStatusBarGREEN(_('all Serial Interfaces found'))
+			if "ttySC0" not in avser:
+				avser= "no Serial Device found"
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 			
-		SERstat = wx.StaticText(self.MCS_Settings, label=_('Available Serial Interfaces:\n '+ avser ))
+		SERstat = wx.StaticText(self.MCS_Settings, label=_('Available MCS-Serial Interfaces:\n '+ avser ))
+		self.ShowStatusBarGREEN(_('all settings read succesful'))
+		
 		#############
 		
 		hbox = wx.BoxSizer(wx.VERTICAL)
