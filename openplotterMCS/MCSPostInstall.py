@@ -61,8 +61,9 @@ def main():
 			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=6,addr=0x48,xtal=14745600\n")
 			fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(end)\n")
 			fo1.close()
-
-		print(_("config.txt entries created"))
+			print(_("config.txt entries created"))
+		else:
+			print(_("config.txt entries already exists"))
 
 	except Exception as e: print(_('FAILED: ')+str(e))
 	
