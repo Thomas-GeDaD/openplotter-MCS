@@ -141,7 +141,7 @@ class MyFrame(wx.Frame):
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read ifconfig'))
 
-		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Available CAN-Interfaces:\n '+ cansetting_in ))
+		CANstat = wx.StaticText(self.MCS_Settings, label=_('Available CAN-Interfaces:\n '+ cansetting_in ))
 		
 		########### read MCS Serial Interfaces
 		try:
@@ -156,20 +156,20 @@ class MyFrame(wx.Frame):
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 			
-		myoptionLabel1 = wx.StaticText(self.MCS_Settings, label=_('Available Serial Interfaces:\n '+ avser ))
+		SERstat = wx.StaticText(self.MCS_Settings, label=_('Available Serial Interfaces:\n '+ avser ))
 		
 		
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
-		hbox.Add(myoptionLabel, 0, wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(myoptionLabel1, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(CANstat, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(SERstat, 0, wx.LEFT | wx.EXPAND, 5)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 5)
 		vbox.AddStretchSpacer(1)
 		self.MCS_Settings.SetSizer(vbox)
 
-		self.readMCS()
+		#self.readMCS()
 	
 	def pageowire(self):
 		myoptionLabel = wx.StaticText(self.owire, label=_('Sensoren:  '))
