@@ -71,14 +71,15 @@ def main():
 	try:
 		fo2r = open ("/etc/network/interfaces", "r")
 		interfacecontent= fo2r.read()
-		intava = interfacecontent.find ("source /etc/network/interfaces.d/*")
+		intava = interfacecontent.find("source /etc/network/interfaces.d/*")
 		fo2r.close()
 		print (_(intava))
-		
+
 		if (intava == -1):
 			fo2 = open ("/etc/network/interfaces", "a")
 			fo2.write = ("\nsource /etc/network/interfaces.d/")
 			fo2.close()
+			
 		print(_("interface.d appended"))
 		
 		fo3 = open ("/etc/network/interfaces/interfaces.d/can0", "w")
