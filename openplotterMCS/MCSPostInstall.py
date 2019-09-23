@@ -48,7 +48,7 @@ def main():
 		configcontent = fo1r.read()
 		startpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(start)")
 		fo1r.close()
-		print(_(startpos))
+		#print(_(startpos))
 		
 		if (startpos == -1):
 			fo1 = open('/boot/config.txt', "a")
