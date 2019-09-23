@@ -86,7 +86,7 @@ class MyFrame(wx.Frame):
 		vbox.Add(self.notebook, 1, wx.EXPAND)
 		self.SetSizer(vbox)
 
-		#self.pageMCS()
+		self.pageMCS()
 		self.pageowire()
 		self.pageConnections()
 		self.pageOutput()
@@ -134,10 +134,13 @@ class MyFrame(wx.Frame):
 		self.output.SetSizer(sizer)
 
 	def pageMCS(self):
-	
-		command = self.platform.admin+' ifconfig '
-		caninfo = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
-		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Sending from MCS:  '+caninfo))
+		
+		try: 
+			cansetting = os.popen ("ifconfig can0")
+			cansetting_in = cansetting.read()
+		except: cansetting_in = ("no CAN-Interface available")
+
+		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Available CAN-Interfaces:\n '+ cansetting_in ))
 		self.myoption = wx.StaticText(self.MCS_Settings, label='')
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
