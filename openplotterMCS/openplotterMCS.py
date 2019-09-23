@@ -150,8 +150,9 @@ class MyFrame(wx.Frame):
 			for i in ser:
 				if "ttySC" in i:
 					avser=i+" ; "+avser
-		if avser == "ttySC0 ; ttySC1 ; ttySC2 ; ttySC3 ; ttySC4 ; ttySC5 ; ":
-			self.ShowStatusBarGREEN(_('all Serial Interfaces found'))
+		
+			if avser == "ttySC0 ; ttySC1 ; ttySC2 ; ttySC3 ; ttySC4 ; ttySC5 ; ":
+				self.ShowStatusBarGREEN(_('all Serial Interfaces found'))
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 			
