@@ -54,8 +54,8 @@ def main():
 			fo1 = open('/boot/config.txt', "a")
 			fo1.write ("\n\n\n")
 			fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(start)\n")
-			fo1.write ("dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25\n")
-			fo1.write ("dtoverlay=spi-bcm2835-overlay\n")
+			#fo1.write ("dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25\n")
+			#fo1.write ("dtoverlay=spi-bcm2835-overlay\n")
 			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=13,addr=0x4A,xtal=14745600\n")
 			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=12,addr=0x49,xtal=14745600\n")
 			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=6,addr=0x48,xtal=14745600\n")
@@ -67,6 +67,36 @@ def main():
 
 	except Exception as e: print(_('FAILED: ')+str(e))
 	
+	try:
+		modulesr = open("\etc\modules","r")
+		str=modulesr.read()
+		modulesr.close()
+		i2c_dev = str.find("i2c-dev")
+		ds2482 = str.find("ds2482")
+		wire = str.find("wire")
+		
+		modules = open("\etc\modules","a")
+		#######added i2c-dev
+		if (i2c_dev==-1):
+			modules.write ("\ni2c-dev")
+			print(_("i2c-dev added to modules"))
+		else:
+			print(_("i2c-dev already exists"))
+		#######added ds2482
+		if (ds2482==-1):
+			modules.write ("\nds2482")
+			print(_("ds2482 added to modules"))
+		else:
+			print(_("ds2482 already exists"))
+		#######added wire
+		if (wire==-1):
+			modules.write ("\nwire")
+			print(_("wire added to modules"))
+		else:
+			print(_("wire already exists"))
+			
+	except Exception as e: print(_('FAILED: ')+str(e))
+		
 
 	
 if __name__ == '__main__':
