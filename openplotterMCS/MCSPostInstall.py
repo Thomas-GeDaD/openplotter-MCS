@@ -66,28 +66,6 @@ def main():
 
 	except Exception as e: print(_('FAILED: ')+str(e))
 	
-	####### add CAN Interface for MCP2515 CAN0
-	
-	try:
-		fo2r = open ("/etc/network/interfaces", "r")
-		interfacecontent= fo2r.read()
-		intava = interfacecontent.find("source /etc/network/interfaces.d/*")
-		fo2r.close()
-		print (_(intava))
-
-		#if (intava == -1):
-		fo2 = open ("/etc/network/interfaces", "a")
-		fo2.write = ("\nsource /etc/network/interfaces.d/")
-		fo2.close()
-			
-		print(_("interface.d appended"))
-		
-		fo3 = open ("/etc/network/interfaces/interfaces.d/can0", "w")
-		fo3.write ("#physical can interfaces\nallow-hotplug can0\niface can0 can static\nbitrate 250000\ndown /sbin/ip link set $IFACE down\nup /sbin/ifconfig $IFACE txqueuelen 10000")
-		fo3.close()
-		print(_("interface.d can0 created"))
-	
-	except Exception as e: print(_('FAILED: ')+str(e))
 
 	
 if __name__ == '__main__':
