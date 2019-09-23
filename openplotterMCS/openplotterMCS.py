@@ -134,18 +134,34 @@ class MyFrame(wx.Frame):
 		self.output.SetSizer(sizer)
 
 	def pageMCS(self):
-		
+		########### read MCS CAN Interfaces 
 		try: 
 			cansetting = os.popen ("ifconfig can0")
 			cansetting_in = cansetting.read()
-		except: cansetting_in = ("no CAN-Interface available")
+		except:
+			self.ShowStatusBarYELLOW(_('Cannot read ifconfig'))
 
 		myoptionLabel = wx.StaticText(self.MCS_Settings, label=_('Available CAN-Interfaces:\n '+ cansetting_in ))
-		self.myoption = wx.StaticText(self.MCS_Settings, label='')
+		
+		########### read MCS Serial Interfaces
+		try:
+			ser=os.listdir("/dev/")
+			avser=""
+			for i in ser:
+				if "ttySC" in i:
+					avser=i+" ; "+avser
+		if avser == "ttySC0 ; ttySC1 ; ttySC2 ; ttySC3 ; ttySC4 ; ttySC5 ; ":
+			self.ShowStatusBarGREEN(_('all Serial Interfaces found'))
+		except:
+			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
+			
+		myoptionLabel1 = wx.StaticText(self.MCS_Settings, label=_('Available Serial Interfaces:\n '+ avser ))
+		
+		
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.Add(myoptionLabel, 0, wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(self.myoption, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(myoptionLabel1, 0, wx.LEFT | wx.EXPAND, 5)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 5)
