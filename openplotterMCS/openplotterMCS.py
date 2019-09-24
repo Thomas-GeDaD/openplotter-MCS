@@ -206,7 +206,7 @@ class MyFrame(wx.Frame):
 		self.listSensors.Append (["1","Sensor1","SensorID","Value","environment,inside,temp"])
 	
 	def OnAddButton(self,e):
-		lg = addI2c(self)
+		lg = addowire()
 		res = dlg.ShowModal()
 		dlg.Destroy()
 
@@ -431,7 +431,7 @@ class editPort(wx.Dialog):
 
 ################################################################################ New created
 
-class addI2c(wx.Dialog):
+class addowire(wx.Dialog):
 	def __init__(self):
 
 		title = _('Add 1-Wire sensor')
