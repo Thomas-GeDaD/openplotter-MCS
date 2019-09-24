@@ -206,7 +206,9 @@ class MyFrame(wx.Frame):
 		self.listSensors.Append (["1","Sensor1","SensorID","Value","environment,inside,temp"])
 	
 	def OnAddButton(self,e):
-		pass
+		lg = addI2c(self)
+		res = dlg.ShowModal()
+		dlg.Destroy()
 
 	def OnEditButton(self,e):
 		pass
@@ -426,6 +428,59 @@ class editPort(wx.Dialog):
 
 		panel.SetSizer(vbox)
 		self.Centre() 
+
+################################################################################ New created
+
+class addI2c(wx.Dialog):
+	def __init__(self):
+
+		title = _('Add 1-Wire sensor')
+
+		wx.Dialog.__init__(self, None, title=title, size=(450,430))
+		panel = wx.Panel(self)
+		label_detected = wx.StaticText(panel, label=_('detected'))
+
+		self.list_detected = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
+		self.list_detected.InsertColumn(0, _('Name'), width=330)
+		self.list_detected.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelectDetected)
+
+		hline1 = wx.StaticLine(panel)
+
+
+		self.name = wx.TextCtrl(panel)
+
+		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
+		okBtn = wx.Button(panel, wx.ID_OK)
+
+		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox3.Add(self.name, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+
+		hbox = wx.BoxSizer(wx.HORIZONTAL)
+		hbox.AddStretchSpacer(1)
+		hbox.Add(cancelBtn, 0, wx.ALL | wx.EXPAND, 5)
+		hbox.Add(okBtn, 0, wx.ALL | wx.EXPAND, 5)
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.AddSpacer(5)
+		vbox.Add(label_detected, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		vbox.Add(self.list_detected, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		vbox.AddSpacer(10)
+		vbox.Add(hbox3, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.AddStretchSpacer(1)
+		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(hbox, 0, wx.ALL  | wx.EXPAND, 5)
+
+		panel.SetSizer(vbox)
+		self.panel = panel
+
+		self.detection()
+		self.Centre() 
+
+
+	def detection(self):
+		### founded Sensores
+		pass
+		
 
 ################################################################################
 
