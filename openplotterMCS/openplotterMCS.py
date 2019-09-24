@@ -184,8 +184,8 @@ class MyFrame(wx.Frame):
 		self.listSensors.InsertColumn(4, _('Signal K key'), width=220)
 		self.listSensors.InsertColumn(5, _('Rate'), width=50)
 		self.listSensors.InsertColumn(6, _('Offset'), width=50)
-		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
-		self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
+		#self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
+		#self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
 
 		self.toolbar2 = wx.ToolBar(self.owire, style=wx.TB_TEXT | wx.TB_VERTICAL)
 		self.addButton = self.toolbar2.AddTool(201, _('Add'), wx.Bitmap(self.currentdir+"/data/add.png"))
