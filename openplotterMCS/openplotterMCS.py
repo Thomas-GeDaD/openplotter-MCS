@@ -179,13 +179,12 @@ class MyFrame(wx.Frame):
 		self.listSensors = wx.ListCtrl(self.owire, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
 		self.listSensors.InsertColumn(0, ' ', width=16)
 		self.listSensors.InsertColumn(1, _('Name'), width=135)
-		self.listSensors.InsertColumn(2, _('Address'), width=100)
-		self.listSensors.InsertColumn(3, _('Magnitude'), width=120)
+		self.listSensors.InsertColumn(2, _('ID'), width=100)
+		self.listSensors.InsertColumn(3, _('Value'), width=120)
 		self.listSensors.InsertColumn(4, _('Signal K key'), width=220)
-		self.listSensors.InsertColumn(5, _('Rate'), width=50)
-		self.listSensors.InsertColumn(6, _('Offset'), width=50)
-		#self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
-		#self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
+		
+		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
+		self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
 
 		self.toolbar2 = wx.ToolBar(self.owire, style=wx.TB_TEXT | wx.TB_VERTICAL)
 		self.addButton = self.toolbar2.AddTool(201, _('Add'), wx.Bitmap(self.currentdir+"/data/add.png"))
@@ -208,6 +207,18 @@ class MyFrame(wx.Frame):
 	
 	def OnRemoveButton(self,e):
 		pass
+	
+	def onListSensorsSelected(self,e):
+		i = e.GetIndex()
+		valid = e and i >= 0
+		if not valid: return
+		self.toolbar2.EnableTool(202,True)
+		self.toolbar2.EnableTool(203,True)
+
+	def onListSensorsDeselected(self,e=0):
+		self.toolbar2.EnableTool(201,True)
+		self.toolbar2.EnableTool(202,False)
+		self.toolbar2.EnableTool(203,False)
 	
 	def readMCS(self):
 		# here get data from conf file to load the surrent settings
