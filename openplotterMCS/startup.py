@@ -25,7 +25,7 @@ class Start():
 		currentdir = os.path.dirname(__file__)
 		language.Language(currentdir,'openplotter-myapp',currentLanguage)
 		# "self.initialMessage" will be printed at startup if it has content. If not, the function "start" will not be called. Use trasnlatable text: _('Starting My App...')
-		self.initialMessage = ''
+		self.initialMessage = 'Stating MCS-APP'
 
 	# this funtion will be called only if "self.initialMessage" has content.
 	def start(self):
@@ -34,8 +34,6 @@ class Start():
 		red = '' # red messages will be printed in red in a new line
 
 		# start here any GUI program that needs to be started at startup and set the messages.
-		black = _('starting MCS I2C-1Wire Server')
-		
 		green = _("I2C-1Wire Server started")
 		
 		time.sleep(2) # "check" function is called after "start" function, so if we start any program here we should wait some seconds before checking it. 
@@ -62,3 +60,4 @@ class Check():
 		except: black = _('service is not running')
 
 		return {'green': green,'black': black,'red': red}
+
