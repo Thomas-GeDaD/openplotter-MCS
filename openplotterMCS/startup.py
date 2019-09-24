@@ -25,7 +25,7 @@ class Start():
 		currentdir = os.path.dirname(__file__)
 		language.Language(currentdir,'openplotter-myapp',currentLanguage)
 		# "self.initialMessage" will be printed at startup if it has content. If not, the function "start" will not be called. Use trasnlatable text: _('Starting My App...')
-		self.initialMessage = 'Stating MCS-APP'
+		self.initialMessage = 'Starting MCS-APP'
 
 	# this funtion will be called only if "self.initialMessage" has content.
 	def start(self):
@@ -33,8 +33,19 @@ class Start():
 		black = '' # black messages will be printed in black after the green message
 		red = '' # red messages will be printed in red in a new line
 
-		# start here any GUI program that needs to be started at startup and set the messages.
+		###############Start I2C 1-Wire device
+		try:
+			os.system("echo '0x18' | sudo tee /sys/class/i2c-adapter/i2c-1/delete_device")		    
+		except:
+			red=_("cannot delete ds2482 device")
+		try:
+			os.system("echo 'ds2482 0x18' | sudo tee /sys/class/i2c-adapter/i2c-1/new_device")
+		except:
+			red= _("creating 0X18 DS2482 as new_device not possible")
+
 		green = _("I2C-1Wire Server started")
+		########################
+		
 		
 		time.sleep(2) # "check" function is called after "start" function, so if we start any program here we should wait some seconds before checking it. 
 		return {'green': green,'black': black,'red': red}
@@ -58,6 +69,12 @@ class Check():
 			subprocess.check_output(['systemctl', 'is-active', 'openplotter-MCS-read.service']).decode('utf-8')
 			green = _('service is running')
 		except: black = _('service is not running')
+		
+		av = os.listdir("/sys/bus/i2c/drivers/")
+		if "ds2482" not in av:
+			red = _('ds2482_1-Wire device not availible, Please restart System')
+			
+			
 
 		return {'green': green,'black': black,'red': red}
 
