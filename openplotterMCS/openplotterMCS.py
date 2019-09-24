@@ -200,7 +200,15 @@ class MyFrame(wx.Frame):
 		sizer.Add(self.toolbar2, 0)
 		self.owire.SetSizer(sizer)
 	
-		
+	def OnAddButton(self,e):
+		pass
+
+	def OnEditButton(self,e):
+		pass
+	
+	def OnRemoveButton(self,e):
+		pass
+	
 	def readMCS(self):
 		# here get data from conf file to load the surrent settings
 		value = self.conf.get('MCS', 'sending')
