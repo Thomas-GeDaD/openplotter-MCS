@@ -197,7 +197,12 @@ class MyFrame(wx.Frame):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		sizer.Add(self.listSensors, 1, wx.EXPAND, 0)
 		sizer.Add(self.toolbar2, 0)
-		self.owire.SetSizer(sizer)
+		self.owire.SetSizer(sizer)#
+		
+		printSensors()
+		
+	def printSensors(self):
+		self.listSensors.Append ("1","Sensor1","SensorID","Value","environment,inside,temp")
 	
 	def OnAddButton(self,e):
 		pass
