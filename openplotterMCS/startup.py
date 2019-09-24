@@ -34,7 +34,10 @@ class Start():
 		red = '' # red messages will be printed in red in a new line
 
 		# start here any GUI program that needs to be started at startup and set the messages.
-
+		black = _('starting MCS I2C-1Wire Server')
+		
+		green = _("I2C-1Wire Server started")
+		
 		time.sleep(2) # "check" function is called after "start" function, so if we start any program here we should wait some seconds before checking it. 
 		return {'green': green,'black': black,'red': red}
 
@@ -45,7 +48,7 @@ class Check():
 		currentdir = os.path.dirname(__file__)
 		language.Language(currentdir,'openplotter-myapp',currentLanguage)
 		# "self.initialMessage" will be printed when checking the system. If it is empty the function check will not be called. Use trasnlatable text: _('Checking My App...')
-		self.initialMessage = _('Checking My App dummy sensors...')
+		self.initialMessage = _('Checking MCS-App running...')
 
 	def check(self):
 		green = '' # green messages will be printed in green after the "self.initialMessage"
@@ -55,8 +58,8 @@ class Check():
 		# check any feature and set the messages
 		try:
 			subprocess.check_output(['systemctl', 'is-active', 'openplotter-MCS-read.service']).decode('utf-8')
-			green = _('running')
-		except: black = _('not running')
+			green = _('service is running')
+		except: black = _('service is not running')
 
 		return {'green': green,'black': black,'red': red}
 
