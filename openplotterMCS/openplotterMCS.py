@@ -203,7 +203,7 @@ class MyFrame(wx.Frame):
 		
 	def printSensors(self):
 		self.onListSensorsDeselected()
-		self.listSensors.Append ("1","Sensor1","SensorID","Value","environment,inside,temp")
+		self.listSensors.Append (["1","Sensor1","SensorID","Value","environment,inside,temp"])
 	
 	def OnAddButton(self,e):
 		pass
