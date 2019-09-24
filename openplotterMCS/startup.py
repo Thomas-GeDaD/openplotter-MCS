@@ -62,4 +62,3 @@ class Check():
 		except: black = _('service is not running')
 
 		return {'green': green,'black': black,'red': red}
-
