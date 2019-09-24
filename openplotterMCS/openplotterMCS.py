@@ -199,7 +199,7 @@ class MyFrame(wx.Frame):
 		sizer.Add(self.toolbar2, 0)
 		self.owire.SetSizer(sizer)#
 		
-		printSensors()
+		self.printSensors()
 		
 	def printSensors(self):
 		self.onListSensorsDeselected()
