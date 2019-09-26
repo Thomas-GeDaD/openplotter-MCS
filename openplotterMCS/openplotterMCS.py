@@ -478,7 +478,7 @@ class addowire(wx.Dialog):
 		panel.SetSizer(vbox)
 		self.panel = panel
 
-		self.detection()
+		#self.detection()
 		self.Centre() 
 
 
