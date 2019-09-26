@@ -439,13 +439,15 @@ class addowire(wx.Dialog):
 		wx.Dialog.__init__(self, None, title=title, size=(450,430))
 		panel = wx.Panel(self)
 		label_detected = wx.StaticText(panel, label=_('detected'))
+		
+		label_name = wx.staticText(panel, label=_("Sensor name"))
+		label_SK_before = wx.staticText(panel, label=_("SK keys 1"))
+		label_SK_behind = wx.staticText(panel, label=_("SK kexs 2"))
 
 		self.list_detected = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
 		self.list_detected.InsertColumn(0, _('Name'), width=330)
-		self.list_detected.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelectDetected)
-
+		
 		hline1 = wx.StaticLine(panel)
-
 
 		self.name = wx.TextCtrl(panel)
 
@@ -453,7 +455,9 @@ class addowire(wx.Dialog):
 		okBtn = wx.Button(panel, wx.ID_OK)
 
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox3.Add(label_SK_before, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		hbox3.Add(self.name, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		hbox3.Add(label_SK_behind, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.AddStretchSpacer(1)
@@ -475,17 +479,7 @@ class addowire(wx.Dialog):
 
 		self.detection()
 		self.Centre() 
-		
-	def onSelectDetected(self, e):
-		selectedDetected = self.list_detected.GetFirstSelected()
-		name = self.list_detected.GetItem(selectedDetected, 0)
-		self.sensor_select.SetValue(name.GetText())
-		
 
-	def detection(self):
-		### founded Sensores
-		pass
-		
 
 ################################################################################
 
