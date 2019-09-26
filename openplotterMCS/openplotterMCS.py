@@ -206,7 +206,7 @@ class MyFrame(wx.Frame):
 		self.listSensors.Append (["1","Sensor1","SensorID","Value","environment,inside,temp"])
 	
 	def OnAddButton(self,e):
-		lg = addowire()
+		dlg = addowire()
 		res = dlg.ShowModal()
 		dlg.Destroy()
 
