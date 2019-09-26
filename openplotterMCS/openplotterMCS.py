@@ -475,7 +475,12 @@ class addowire(wx.Dialog):
 
 		self.detection()
 		self.Centre() 
-
+		
+	def onSelectDetected(self, e):
+		selectedDetected = self.list_detected.GetFirstSelected()
+		name = self.list_detected.GetItem(selectedDetected, 0)
+		self.sensor_select.SetValue(name.GetText())
+		
 
 	def detection(self):
 		### founded Sensores
