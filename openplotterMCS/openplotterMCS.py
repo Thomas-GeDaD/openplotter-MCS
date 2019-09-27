@@ -488,6 +488,7 @@ class addowire(wx.Dialog):
 		###
 	def refresh (self,e):
 		print ("refresh")
+		print(e)
 
 
 ################################################################################
