@@ -448,9 +448,6 @@ class addowire(wx.Dialog):
 		self.list_detected.InsertColumn(0, _('Name'), width=330)
 		self.list_detected.InsertColumn(1, _('Value'), width=330)
 		
-		#self.listSensors.Append (["1","Sensor1","SensorID","Value","environment,inside,temp"])
-		
-		
 		hline1 = wx.StaticLine(panel)
 
 		self.name = wx.TextCtrl(panel)
@@ -491,6 +488,9 @@ class addowire(wx.Dialog):
 		
 		###
 	def refresh (self,e):
+		self.listSensors.Append (["Name1","20,123"])
+		self.listSensors.Append (["Name2","21,123"])
+		self.listSensors.Append (["Name3","22,123"])
 		print ("list_detected")
 		print (self.list_detected)
 
