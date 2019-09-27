@@ -484,7 +484,7 @@ class addowire(wx.Dialog):
 		self.Centre() 
 		
 		###
-	def refresh (self,e)
+	def refresh (self,e):
 		print ("refresh")
 
 
