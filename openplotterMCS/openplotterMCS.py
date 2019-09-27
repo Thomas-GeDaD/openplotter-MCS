@@ -449,8 +449,7 @@ class addowire(wx.Dialog):
 		self.list_detected.InsertColumn(1, _('Value'), width=330)
 		
 		#self.listSensors.Append (["1","Sensor1","SensorID","Value","environment,inside,temp"])
-		self.list_detected.Append (["Name1","20,323"])
-		self.list_detected.Append (["Name1","25,225"])
+		self.list_detected=(["Name1","20,323"]["Name1","25,225"])
 		
 		hline1 = wx.StaticLine(panel)
 
