@@ -491,7 +491,7 @@ class addowire(wx.Dialog):
 		
 		###
 	def refresh (self,e):
-		print ("refresh")
+		print ("list_detected")
 		print (self.list_detected)
 
 
