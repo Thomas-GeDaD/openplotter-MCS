@@ -453,8 +453,9 @@ class addowire(wx.Dialog):
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK)
-		refreshBtn = wx.Button(panel, self.refresh)
-
+		self.refreshBtn = wx.Button(panel, 501, "refreshBtn")
+		self.Bind(wx.EVT_TOOL, self.refreshBtn, self.refresh)
+		
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox3.Add(label_SK_before, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		hbox3.Add(self.name, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
@@ -462,7 +463,8 @@ class addowire(wx.Dialog):
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.AddStretchSpacer(1)
-		hbox.Add(refreshBtn, 0, wx.ALL | wx.EXPAND, 5)
+		hbox.Add(self.refreshBtn, 0, wx.ALL | wx.EXPAND, 5)
+		
 		hbox.Add(cancelBtn, 0, wx.ALL | wx.EXPAND, 5)
 		hbox.Add(okBtn, 0, wx.LEFT | wx.EXPAND, 5)
 
