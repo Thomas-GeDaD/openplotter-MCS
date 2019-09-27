@@ -488,9 +488,9 @@ class addowire(wx.Dialog):
 		
 		###
 	def refresh (self,e):
-		self.listSensors.Append (["Name1","20,123"])
-		self.listSensors.Append (["Name2","21,123"])
-		self.listSensors.Append (["Name3","22,123"])
+		self.list_detected.Append (["Name1","20,123"])
+		self.list_detected.Append (["Name2","21,123"])
+		self.list_detected.Append (["Name3","22,123"])
 		print ("list_detected")
 		print (self.list_detected)
 
