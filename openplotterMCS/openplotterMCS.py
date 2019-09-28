@@ -487,7 +487,7 @@ class addowire(wx.Dialog):
 		self.Centre() 
 		
 		###
-	def refresh (self,e):
+	def refresh (self):
 		self.list_detected.DeleteAllItems()
 		try:
 			x= os.listdir("/sys/bus/w1/devices")
