@@ -483,15 +483,27 @@ class addowire(wx.Dialog):
 		panel.SetSizer(vbox)
 		self.panel = panel
 
-		#self.detection()
+		refresh()
 		self.Centre() 
 		
 		###
 	def refresh (self,e):
 		self.list_detected.DeleteAllItems()
-		self.list_detected.Append (["Name1","20,123"])
-		self.list_detected.Append (["Name2","21,123"])
-		self.list_detected.Append (["Name3","22,123"])
+		try:
+			x= os.listdir("/sys/bus/w1/devices")
+			x.remove ("w1_bus_master1")
+
+			for i in x:
+				foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
+				data = foo.read ()
+				foo.close()
+				spos=data.find("t=")
+				tempx=(data[spos+2:-1])
+				temp = int(tempx)/1000
+				self.list_detected.Append ([i,temp])
+
+		except: self.list_detected.Append (["no data",""])
+
 		print ("list_detected")
 		print (self.list_detected)
 
