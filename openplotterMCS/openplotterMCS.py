@@ -507,7 +507,7 @@ class addowire(wx.Dialog):
 
 		print ("list_detected")
 		
-		i=self.name.getText()
+		i=self.name.GetText()
 		print (i)
 		###
 	def onSelectDetected(self, e):
