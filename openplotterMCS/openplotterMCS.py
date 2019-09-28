@@ -453,7 +453,7 @@ class addowire(wx.Dialog):
 		self.name = wx.TextCtrl(panel)
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
-		okBtn = wx.Button(panel, wx.ID_OK)
+		okBtn = wx.Button(panel, wx.ID_OK, label="Add")
 		refreshBtn = wx.Button(panel, label="Refresh")
 		
 		
