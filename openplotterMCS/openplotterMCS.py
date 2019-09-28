@@ -208,6 +208,8 @@ class MyFrame(wx.Frame):
 	def OnAddButton(self,e):
 		dlg = addowire()
 		res = dlg.ShowModal()
+		if res == wx.ID_OK:
+			pass
 		dlg.Destroy()
 
 	def OnEditButton(self,e):
@@ -504,11 +506,10 @@ class addowire(wx.Dialog):
 				self.list_detected.Append ([i,temp])
 
 		except: self.list_detected.Append (["no data",""])
-
-		print ("list_detected")
-		
+	
 		i=self.name.GetValue()
 		print (i)
+		
 		###
 	def onSelectDetected(self, e):
 		selectedDetected = self.list_detected.GetFirstSelected()
