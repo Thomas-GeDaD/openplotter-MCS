@@ -447,6 +447,7 @@ class addowire(wx.Dialog):
 		self.list_detected = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
 		self.list_detected.InsertColumn(0, _('Name'), width=330)
 		self.list_detected.InsertColumn(1, _('Value'), width=330)
+		self.list_detected.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelectDetected)
 		
 		hline1 = wx.StaticLine(panel)
 
@@ -507,7 +508,12 @@ class addowire(wx.Dialog):
 		except: self.list_detected.Append (["no data",""])
 
 		print ("list_detected")
-		print (self.list_detected)
+		###
+	def onSelectDetected(self, e):
+		selectedDetected = self.list_detected.GetFirstSelected()
+		name = self.list_detected.GetItem(selectedDetected, 0)
+		print (name)
+		
 
 
 ################################################################################
