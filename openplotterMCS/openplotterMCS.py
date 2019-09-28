@@ -487,7 +487,7 @@ class addowire(wx.Dialog):
 		self.Centre() 
 		
 		###
-	def btnrefresh (self):
+	def btnrefresh (self,e):
 		self.refresh()
 	def refresh (self):
 		self.list_detected.DeleteAllItems()
