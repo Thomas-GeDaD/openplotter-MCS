@@ -512,7 +512,8 @@ class addowire(wx.Dialog):
 		###
 	def onSelectDetected(self, e):
 		selectedDetected = self.list_detected.GetFirstSelected()
-		name = GetText (self.list_detected.GetItem(selectedDetected, 0))
+		i = self.list_detected.GetItem(selectedDetected, 0)
+		name = i.GetText()
 		print (name)
 		
 
