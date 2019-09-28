@@ -488,6 +488,7 @@ class addowire(wx.Dialog):
 		
 		###
 	def refresh (self,e):
+		self.list_detected.DeleteAllItems()
 		self.list_detected.Append (["Name1","20,123"])
 		self.list_detected.Append (["Name2","21,123"])
 		self.list_detected.Append (["Name3","22,123"])
