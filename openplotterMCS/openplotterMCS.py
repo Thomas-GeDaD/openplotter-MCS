@@ -483,7 +483,7 @@ class addowire(wx.Dialog):
 		panel.SetSizer(vbox)
 		self.panel = panel
 
-		refresh()
+		self.refresh()
 		self.Centre() 
 		
 		###
