@@ -465,7 +465,7 @@ class addowire(wx.Dialog):
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.AddStretchSpacer(1)
 		hbox.Add(refreshBtn, 0, wx.ALL | wx.EXPAND, 5)
-		self.Bind(wx.EVT_BUTTON,self.refresh,refreshBtn)
+		self.Bind(wx.EVT_BUTTON,self.btnrefreshrefresh,refreshBtn)
 		hbox.Add(cancelBtn, 0, wx.ALL | wx.EXPAND, 5)
 		hbox.Add(okBtn, 0, wx.ALL | wx.EXPAND, 5)
 
@@ -487,6 +487,8 @@ class addowire(wx.Dialog):
 		self.Centre() 
 		
 		###
+	def btnrefresh (self,e):
+		self.refresh()
 	def refresh (self):
 		self.list_detected.DeleteAllItems()
 		try:
