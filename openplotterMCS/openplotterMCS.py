@@ -218,10 +218,10 @@ class MyFrame(wx.Frame):
 	def printSensors(self):
 		self.onListSensorsDeselected()
 		self.listSensors.DeleteAllItems()
+		count=1
 		for i in self.config_osensors:
-			count=1
 			self.listSensors.Append ([count,i[0],i[1]])
-			count +=1
+			count = count + 1
 #####	
 	def OnAddButton(self,e):
 		dlg = addowire(self.config_osensors)
