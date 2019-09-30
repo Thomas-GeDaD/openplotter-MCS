@@ -224,21 +224,21 @@ class MyFrame(wx.Frame):
 		self.listSensors.DeleteAllItems()
 		count=1
 		for i in self.config_osensors:
-			#try:
-			x= os.listdir("/sys/bus/w1/devices")
-			x.remove ("w1_bus_master1")
+			try:
+				x= os.listdir("/sys/bus/w1/devices")
+				x.remove ("w1_bus_master1")
 
-			for ii in x:
-				if ii ==i[0]:
-					foo = open("/sys/bus/w1/devices/"+ ii +"/w1_slave","r")
-					data = foo.read ()
-					foo.close()
-					spos=data.find("t=")
-					tempx=(data[spos+2:-1])
-					temp = int(tempx)/1000
+				for ii in x:
+					if ii ==i[0]:
+						foo = open("/sys/bus/w1/devices/"+ ii +"/w1_slave","r")
+						data = foo.read ()
+						foo.close()
+						spos=data.find("t=")
+						tempx=(data[spos+2:-1])
+						temp = int(tempx)/1000
 						
-		#except:
-			#print ("cannot read")
+			except:
+				temp="no Sensor"
 			self.listSensors.Append ([count,i[0],i[1],str(temp)+"°C"])
 			count = count + 1
 #####	
@@ -257,11 +257,9 @@ class MyFrame(wx.Frame):
 				dlg.Destroy()
 				return
 			newoSensor=[addID,addname]
-			print (newoSensor)
 			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
 		self.printSensors()
-		print (self.config_osensors)
 		
 		
 	def OnEditButton(self,e):
@@ -275,9 +273,7 @@ class MyFrame(wx.Frame):
 				return
 			for i in self.config_osensors:
 				if i[0]==self.selected_ID:
-					print (i[0])
 					i[1]=editname
-					print (i[1])
 		dlg.Destroy()
 		self.printSensors()
 		
@@ -286,7 +282,6 @@ class MyFrame(wx.Frame):
 		for i in self.config_osensors:
 			if i[0]==self.selected_ID:
 				ii = self.config_osensors.index(i)
-				print (ii)
 				del self.config_osensors[ii]
 		self.printSensors()
 		
@@ -608,7 +603,6 @@ class addowire(wx.Dialog):
 		selectedDetected = self.list_detected.GetFirstSelected()
 		i = self.list_detected.GetItem(selectedDetected, 0)
 		self.ID = i.GetText()
-		print (self.ID)
 		
 		
 ################################################################################ New created owire
