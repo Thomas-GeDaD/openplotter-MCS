@@ -218,6 +218,7 @@ class MyFrame(wx.Frame):
 	
 	def printSensors(self):
 		self.onListSensorsDeselected()
+		self.listSensors.DeleteAllItems()
 		for i in self.config_osensors:
 			count=1
 			self.listSensors.Append ([count,i[0],i[1]])
@@ -237,7 +238,6 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must select a Sensor.'))
 				dlg.Destroy()
 				return
-			newoSensor=""
 			newoSensor=[addID,addname]
 			print (newoSensor)
 			self.config_osensors.append(newoSensor)
