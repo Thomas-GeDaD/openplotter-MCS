@@ -526,26 +526,26 @@ class addowire(wx.Dialog):
 	def refresh (self):
 		self.list_detected.DeleteAllItems()
 		
-		try:
-			x= os.listdir("/sys/bus/w1/devices")
-			x.remove ("w1_bus_master1")
+		
+		x= os.listdir("/sys/bus/w1/devices")
+		x.remove ("w1_bus_master1")
 
-			for i in x:
-				foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
-				data = foo.read ()
-				foo.close()
-				spos=data.find("t=")
-				tempx=(data[spos+2:-1])
-				temp = int(tempx)/1000
-				exist=0
-				if listSensors:
-					for ii in listSensors:
-						if i == ii[0]:
-							exist = 1
-				if exist==0:
-					self.list_detected.Append ([i,temp])
+		for i in x:
+			foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
+			data = foo.read ()
+			foo.close()
+			spos=data.find("t=")
+			tempx=(data[spos+2:-1])
+			temp = int(tempx)/1000
+			exist=0
+			if listSensors:
+				for ii in listSensors:
+					if i == ii[0]:
+						exist = 1
+			if exist==0:
+				self.list_detected.Append ([i,temp])
 
-		except: self.list_detected.Append (["cannot read Sensor",""])
+		 #self.list_detected.Append (["cannot read Sensor",""])
 	
 
 		###
