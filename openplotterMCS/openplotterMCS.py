@@ -235,7 +235,8 @@ class MyFrame(wx.Frame):
 				dlg.Destroy()
 				return
 			newoSensor=[addID,addname]
-			self.config_osensors.append(newoSensor)
+			print (newoSensor)
+			self.config_osensors.append([newoSensor])
 		dlg.Destroy()
 		self.printSensors()
 		print (self.config_osensors)
