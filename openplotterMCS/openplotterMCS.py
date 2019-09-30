@@ -238,7 +238,7 @@ class MyFrame(wx.Frame):
 			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
 		self.printSensors()
-
+		print (self.config_osensors)
 	def OnEditButton(self,e):
 		pass
 	
@@ -540,8 +540,8 @@ class addowire(wx.Dialog):
 	def onSelectDetected(self, e):
 		selectedDetected = self.list_detected.GetFirstSelected()
 		i = self.list_detected.GetItem(selectedDetected, 0)
-		ID = i.GetText()
-		print (i)
+		self.ID = i.GetText()
+		print (self.ID)
 		
 
 
