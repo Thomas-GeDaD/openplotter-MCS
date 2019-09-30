@@ -1,47 +1,52 @@
-openplotter-MCS
+## openplotter-MCS
 
 This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer
 
 At the Moment the App is only for development
-Installing
-For production
 
-Install openplotter-settings.
-For development
+### Installing
 
-    Put here all the info needed to install, edit and propose changes to your app.
+#### For production
+
+Install [openplotter-settings](https://github.com/openplotter/openplotter-settings). 
+
+#### For development
+
+> Put here all the info needed to install, edit and propose changes to your app.
 
 Install OpenPlotter dependencies:
 
-sudo apt install openplotter-settings
+`sudo apt install openplotter-settings`
 
-    Any OpenPlotter app must have openplotter-settings installed
+> Any OpenPlotter app must have openplotter-settings installed
 
 Install other dependencies:
 
-sudo apt install foo bar
+`sudo apt install foo bar`
 
-sudo pip install foo bar
+`sudo pip install foo bar`
 
 Clone the repository:
 
-git clone https://github.com/Thomas-GeDaD/openplotter-MCS
+`git clone https://github.com/Thomas-GeDaD/openplotter-MCS`
 
 Make your changes and test them locally:
 
-sudo python3 setup.py install
+`sudo python3 setup.py install`
 
-################################################################################## P
-Documentation
+##################################################################################
+P
+
+### Documentation
 
 https://openplotter.readthedocs.io
 
-    Please add a chapter to OpenPlotter documentation with the info to use your app: https://github.com/openplotter/docs
+> Please add a chapter to OpenPlotter documentation with the info to use your app: https://github.com/openplotter/docs
 
-Support
+### Support
 
 http://forum.openmarine.net/forumdisplay.php?fid=1
 
-    Feel free to use openmarine.net forum to give support for your app.
+> Feel free to use openmarine.net forum to give support for your app.
 
-    Thanks for contributing!!!
+> Thanks for contributing!!!
