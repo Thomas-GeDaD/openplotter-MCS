@@ -225,7 +225,7 @@ class MyFrame(wx.Frame):
 			count +=1
 	
 	def OnAddButton(self,e):
-		dlg = addowire()
+		dlg = addowire(self.listSensors)
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			addname = dlg.name.GetValue()
@@ -466,7 +466,7 @@ class editPort(wx.Dialog):
 ################################################################################ New created
 
 class addowire(wx.Dialog):
-	def __init__(self):
+	def __init__(self, listSensors):
 
 		title = _('Add 1-Wire sensor')
 
@@ -536,12 +536,16 @@ class addowire(wx.Dialog):
 				spos=data.find("t=")
 				tempx=(data[spos+2:-1])
 				temp = int(tempx)/1000
+				exist=0
+				for ii in listSensors:
+					if i == ii[0]:
+						exist = 1
+				if exist==0:
 				self.list_detected.Append ([i,temp])
 
-		except: self.list_detected.Append (["no data",""])
+		except: self.list_detected.Append (["cannot read Sensor",""])
 	
-		#i=self.name.GetValue()
-		
+
 		###
 	def onSelectDetected(self, e):
 		selectedDetected = self.list_detected.GetFirstSelected()
