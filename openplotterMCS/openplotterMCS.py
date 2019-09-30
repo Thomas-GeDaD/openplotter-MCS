@@ -260,7 +260,7 @@ class MyFrame(wx.Frame):
 		self.toolbar2.EnableTool(203,True)
 		
 		onselectedDetected = self.listSensors.GetFirstSelected()
-		ii = self.listSensors.GetItem(onselectedDetected, 0)
+		ii = self.listSensors.GetItem(onselectedDetected, 1)
 		self.selected_ID = ii.GetText()
 
 	def onListSensorsDeselected(self,e=0):
