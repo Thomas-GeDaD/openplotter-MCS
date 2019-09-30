@@ -276,16 +276,16 @@ class MyFrame(wx.Frame):
 	
 	def readMCS(self):
 		# here get data from conf file to load the surrent settings
-		value = self.conf.get('MCS', 'sending')
-		if not value: value = '0' 
-		self.myoption.SetLabel(value)
-		if value == '1': self.toolbar1.ToggleTool(103,True)
-		else: self.toolbar1.ToggleTool(103,False)
+		#value = self.conf.get('MCS', 'sending')
+		#if not value: value = '0' 
+		#self.myoption.SetLabel(value)
+		#if value == '1': self.toolbar1.ToggleTool(103,True)
+		#else: self.toolbar1.ToggleTool(103,False)
 
 	def OnToolSend(self,e):
-		self.notebook.ChangeSelection(0)
-		if self.toolbar1.GetToolState(103): self.myoption.SetLabel('1')
-		else: self.myoption.SetLabel('0')
+		#self.notebook.ChangeSelection(0)
+		#if self.toolbar1.GetToolState(103): self.myoption.SetLabel('1')
+		#else: self.myoption.SetLabel('0')
 
 	def pageConnections(self):
 		self.toolbar3 = wx.ToolBar(self.connections, style=wx.TB_TEXT)
