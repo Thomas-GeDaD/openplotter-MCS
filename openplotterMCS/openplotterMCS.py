@@ -260,6 +260,7 @@ class MyFrame(wx.Frame):
 					i[1]=editname
 					print (i[1])
 		dlg.Destroy()
+		self.printSensors()
 		
 		
 	
