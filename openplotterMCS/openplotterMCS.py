@@ -204,7 +204,7 @@ class MyFrame(wx.Frame):
 		self.printSensors()
 		
 		
-	def read_sensors (self)
+	def read_sensors (self):
 		config_osensors = self.conf.get('MCS', 'owireoensors')
 		self.printSensors(self)
 	
