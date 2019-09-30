@@ -176,7 +176,6 @@ class MyFrame(wx.Frame):
 		vbox.AddStretchSpacer(1)
 		self.MCS_Settings.SetSizer(vbox)
 
-		#self.readMCS()
 	
 	def pageowire(self):
 		self.listSensors = wx.ListCtrl(self.owire, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
@@ -202,7 +201,7 @@ class MyFrame(wx.Frame):
 		self.owire.SetSizer(sizer)
 		
 		
-		
+######		
 	def read_sensors (self):
 		try:
 			data = self.conf.get('MCS', 'owiresensors')
@@ -223,7 +222,7 @@ class MyFrame(wx.Frame):
 			count=1
 			self.listSensors.Append ([count,i[0],i[1]])
 			count +=1
-	
+#####	
 	def OnAddButton(self,e):
 		dlg = addowire(self.config_osensors)
 		res = dlg.ShowModal()
@@ -255,9 +254,12 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must add a new Sensorname.'))
 				dlg.Destroy()
 				return
-			print (editname)
+		for i in self.config_osensors:
+			if i[0]==self.selected_ID:
+				i[1]=editname
 		dlg.Destroy()
-		print (self.config_osensors)
+		
+		
 	
 	def OnRemoveButton(self,e):
 		#print (self.selected_ID)
