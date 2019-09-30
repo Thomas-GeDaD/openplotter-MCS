@@ -466,9 +466,11 @@ class editPort(wx.Dialog):
 ################################################################################ New created
 
 class addowire(wx.Dialog):
-	def __init__(self, config_osensors):
+	def __init__(self, config_osensors1):
 
 		title = _('Add 1-Wire sensor')
+		
+		self.config_osensors = config_osensors1
 
 		wx.Dialog.__init__(self, None, title=title, size=(450,430))
 		panel = wx.Panel(self)
