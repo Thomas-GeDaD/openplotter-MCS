@@ -244,8 +244,20 @@ class MyFrame(wx.Frame):
 		dlg.Destroy()
 		self.printSensors()
 		print (self.config_osensors)
+		
+		
 	def OnEditButton(self,e):
-		pass
+		dlg = editowire()
+		res = dlg.ShowModal()
+		if res == wx.ID_OK:
+			editname = dlg.name.GetValue()
+			if not editname:
+				self.ShowStatusBarRED(_('Failed. You must add a new Sensorname.'))
+				dlg.Destroy()
+				return
+			print (editname)
+		dlg.Destroy()
+		print (self.config_osensors)
 	
 	def OnRemoveButton(self,e):
 		#print (self.selected_ID)
@@ -480,7 +492,7 @@ class editPort(wx.Dialog):
 		panel.SetSizer(vbox)
 		self.Centre() 
 
-################################################################################ New created
+################################################################################ New created owire
 
 class addowire(wx.Dialog):
 	def __init__(self, config_osensors1):
@@ -574,7 +586,38 @@ class addowire(wx.Dialog):
 		self.ID = i.GetText()
 		print (self.ID)
 		
+		
+################################################################################ New created owire
+class editowire(wx.Dialog):
+	def __init__(self,):
+		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(200,150))
+		panel = wx.Panel(self)
 
+		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID:'))
+		self.name = wx.TextCtrl(panel)
+		Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
+		
+		hline1 = wx.StaticLine(panel)		
+
+		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
+		okBtn = wx.Button(panel, wx.ID_OK)
+		
+		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox1.Add(Text2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		hbox1.Add(self.name, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+
+		hbox = wx.BoxSizer(wx.HORIZONTAL)
+		hbox.Add(cancelBtn, 1, wx.ALL | wx.EXPAND, 10)
+		hbox.Add(okBtn, 1, wx.ALL | wx.EXPAND, 10)
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.Add(Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		vbox.Add(hbox1, 0, wx.EXPAND, 0)
+		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(hbox, 0, wx.EXPAND, 0)
+
+		panel.SetSizer(vbox)
+		self.Centre() 
 
 ################################################################################
 
