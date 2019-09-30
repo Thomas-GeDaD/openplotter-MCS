@@ -258,7 +258,6 @@ class MyFrame(wx.Frame):
 		if not valid: return
 		self.toolbar2.EnableTool(202,True)
 		self.toolbar2.EnableTool(203,True)
-		self.selected_ID = i.GetText()
 		
 		onselectedDetected = self.listSensors.GetFirstSelected()
 		ii = self.list_detected.GetItem(onselectedDetected, 0)
