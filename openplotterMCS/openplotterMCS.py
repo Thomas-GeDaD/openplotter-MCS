@@ -278,7 +278,7 @@ class MyFrame(wx.Frame):
 		self.printSensors()
 		
 	def OnLoadButton(self,e):
-		try:
+		#try:
 			x= os.listdir("/sys/bus/w1/devices")
 			x.remove ("w1_bus_master1")
 
@@ -295,8 +295,8 @@ class MyFrame(wx.Frame):
 						Print (ii)
 
 		
-		except:
-		 self.list_detected.Append (["cannot read Sensor",""])
+		#except:
+			print ("cannot read")
 		
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
