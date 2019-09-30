@@ -254,9 +254,11 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must add a new Sensorname.'))
 				dlg.Destroy()
 				return
-		for i in self.config_osensors:
-			if i[0]==self.selected_ID:
-				i[1]=editname
+			for i in self.config_osensors:
+				if i[0]==self.selected_ID:
+					print (i[0])
+					i[1]=editname
+					print (i[1])
 		dlg.Destroy()
 		
 		
