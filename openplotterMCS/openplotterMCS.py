@@ -389,6 +389,8 @@ class MyFrame(wx.Frame):
 		self.toolbar4.EnableTool(402,False)
 
 	def OnToolApply(self,e):
+	#self.config_osensors = self.conf.get('MCS', 'owiresensors')
+	
 		if self.toolbar1.GetToolState(103):
 			self.conf.set('MCS', 'sending', '1')
 			# starts service and enables it at startup. Use self.platform.admin instead of sudo
@@ -401,6 +403,8 @@ class MyFrame(wx.Frame):
 			self.ShowStatusBarYELLOW(_('Sending dummy data disabled'))
 		for i in self.ports.connections:
 			self.conf.set('MCS', i['id'], str(i['port']))
+			
+		self.conf.set('MCS', 'owiresensors', str(config_osensors))	
 		self.readMCS()
 		self.readConnections()
 		self.printConnections()
