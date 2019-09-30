@@ -212,7 +212,7 @@ class MyFrame(wx.Frame):
 		self.onListSensorsDeselected()
 		for i in config_osensors:
 			count=1
-			self.listSensors.Append ([count,config_osensors[0],config_osensors[1])
+			self.listSensors.Append ([count,config_osensors[0],config_osensors[1]])
 			count +=1
 	
 	def OnAddButton(self,e):
