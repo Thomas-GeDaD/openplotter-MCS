@@ -201,18 +201,23 @@ class MyFrame(wx.Frame):
 		sizer.Add(self.toolbar2, 0)
 		self.owire.SetSizer(sizer)#
 		
-		self.printSensors()
+		self.read_sensors()
 		
 		
 	def read_sensors (self):
-		config_osensors = self.conf.get('MCS', 'owireoensors')
+		try:
+			self.config_osensors = self.conf.get('MCS', 'owireoensors')
+
+		except: 
+			self.config_osensors=[]
+		
 		self.printSensors(self)
 	
 	def printSensors(self):
 		self.onListSensorsDeselected()
-		for i in config_osensors:
+		for i in self.config_osensors:
 			count=1
-			self.listSensors.Append ([count,config_osensors[0],config_osensors[1]])
+			self.listSensors.Append ([count,self.config_osensors[0],self.config_osensors[1]])
 			count +=1
 	
 	def OnAddButton(self,e):
@@ -230,9 +235,9 @@ class MyFrame(wx.Frame):
 				dlg.Destroy()
 				return
 			newoSensor=[addID,addname]
-			config_osensors.append(newoSensor)
+			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
-		printSensors(self)
+		self.printSensors(self)
 
 	def OnEditButton(self,e):
 		pass
