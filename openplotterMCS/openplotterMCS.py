@@ -541,7 +541,7 @@ class addowire(wx.Dialog):
 					if i == ii[0]:
 						exist = 1
 				if exist==0:
-				self.list_detected.Append ([i,temp])
+					self.list_detected.Append ([i,temp])
 
 		except: self.list_detected.Append (["cannot read Sensor",""])
 	
