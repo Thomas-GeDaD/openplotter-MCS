@@ -254,6 +254,7 @@ class MyFrame(wx.Frame):
 				ii = self.config_osensors.index(i)
 				print (ii)
 				del self.config_osensors[ii]
+		self.printSensors()
 			
 		
 	def onListSensorsSelected(self,e):
