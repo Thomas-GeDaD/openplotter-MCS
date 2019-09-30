@@ -237,8 +237,8 @@ class MyFrame(wx.Frame):
 						tempx=(data[spos+2:-1])
 						temp = int(tempx)/1000
 						
-			except: pass
-			temp = "no Sensor"
+			except: temp = "no Sensor"
+			
 			self.listSensors.Append ([count,i[0],i[1],str(temp)+"°C"])
 			count = count + 1
 #####	
