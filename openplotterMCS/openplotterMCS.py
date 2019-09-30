@@ -182,6 +182,7 @@ class MyFrame(wx.Frame):
 		self.listSensors.InsertColumn(0, ' ', width=16)
 		self.listSensors.InsertColumn(1, _('SensorID'), width=200)
 		self.listSensors.InsertColumn(2, _('Name'), width=200)
+		self.listSensors.InsertColumn(3, _('Value'), width=100)
 
 		
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
@@ -194,6 +195,9 @@ class MyFrame(wx.Frame):
 		self.Bind(wx.EVT_TOOL, self.OnEditButton, self.editButton)
 		self.removeButton = self.toolbar2.AddTool(203, _('Remove'), wx.Bitmap(self.currentdir+"/data/remove.png"))
 		self.Bind(wx.EVT_TOOL, self.OnRemoveButton, self.removeButton)
+		self.loadButton = self.toolbar2.AddTool(204, _('Load Value'), wx.Bitmap(self.currentdir+"/data/edit.png"))
+		self.Bind(wx.EVT_TOOL, self.OnLoadButton, self.loadButton)
+
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		sizer.Add(self.listSensors, 1, wx.EXPAND, 0)
@@ -272,7 +276,27 @@ class MyFrame(wx.Frame):
 				print (ii)
 				del self.config_osensors[ii]
 		self.printSensors()
-			
+		
+	def OnLoadButton(self,e):
+		try:
+			x= os.listdir("/sys/bus/w1/devices")
+			x.remove ("w1_bus_master1")
+
+			for i in x:
+				foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
+				data = foo.read ()
+				foo.close()
+				spos=data.find("t=")
+				tempx=(data[spos+2:-1])
+				temp = int(tempx)/1000
+				exist=0
+				if self.listSensors:
+					for ii in self.listSensors:
+						Print (ii)
+
+		
+		except:
+		 self.list_detected.Append (["cannot read Sensor",""])
 		
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
@@ -562,28 +586,28 @@ class addowire(wx.Dialog):
 	def refresh (self):
 		self.list_detected.DeleteAllItems()
 		
+		try:
+			x= os.listdir("/sys/bus/w1/devices")
+			x.remove ("w1_bus_master1")
+
+			for i in x:
+				foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
+				data = foo.read ()
+				foo.close()
+				spos=data.find("t=")
+				tempx=(data[spos+2:-1])
+				temp = int(tempx)/1000
+				exist=0
+				if self.config_osensors:
+					for ii in self.config_osensors:
+						if i == ii[0]:
+							exist = 1
+				if exist==0:
+					self.list_detected.Append ([i,temp])
 		
-		x= os.listdir("/sys/bus/w1/devices")
-		x.remove ("w1_bus_master1")
-
-		for i in x:
-			foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
-			data = foo.read ()
-			foo.close()
-			spos=data.find("t=")
-			tempx=(data[spos+2:-1])
-			temp = int(tempx)/1000
-			exist=0
-			if self.config_osensors:
-				for ii in self.config_osensors:
-					if i == ii[0]:
-						exist = 1
-			if exist==0:
-				self.list_detected.Append ([i,temp])
-
-		 #self.list_detected.Append (["cannot read Sensor",""])
+		except:
+		 self.list_detected.Append (["cannot read Sensor",""])
 	
-
 		###
 	def onSelectDetected(self, e):
 		selectedDetected = self.list_detected.GetFirstSelected()
