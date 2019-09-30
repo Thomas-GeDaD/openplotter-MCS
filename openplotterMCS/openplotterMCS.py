@@ -211,7 +211,7 @@ class MyFrame(wx.Frame):
 		except: 
 			self.config_osensors=[]
 		
-		self.printSensors(self)
+		self.printSensors()
 	
 	def printSensors(self):
 		self.onListSensorsDeselected()
@@ -237,7 +237,7 @@ class MyFrame(wx.Frame):
 			newoSensor=[addID,addname]
 			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
-		self.printSensors(self)
+		self.printSensors()
 
 	def OnEditButton(self,e):
 		pass
