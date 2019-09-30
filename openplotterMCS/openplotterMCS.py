@@ -182,9 +182,8 @@ class MyFrame(wx.Frame):
 		self.listSensors.InsertColumn(0, ' ', width=16)
 		self.listSensors.InsertColumn(1, _('SensorID'), width=200)
 		self.listSensors.InsertColumn(2, _('Name'), width=200)
-		self.listSensors.InsertColumn(3, _('Value'), width=100)
+		self.listSensors.InsertColumn(3, _('Value'), width=200)
 
-		
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
 
@@ -241,7 +240,7 @@ class MyFrame(wx.Frame):
 			if temp:
 				temp=str(temp)+"°C"
 			if not temp:
-				temp= "no Sensor"
+				temp= _("no Sensor found")
 					
 			self.listSensors.Append ([count,i[0],i[1],temp])
 			count = count + 1
