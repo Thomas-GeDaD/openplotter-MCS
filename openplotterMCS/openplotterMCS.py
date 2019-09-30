@@ -225,7 +225,7 @@ class MyFrame(wx.Frame):
 			count +=1
 	
 	def OnAddButton(self,e):
-		dlg = addowire(self.listSensors)
+		dlg = addowire(self.config_osensors)
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			addname = dlg.name.GetValue()
@@ -466,7 +466,7 @@ class editPort(wx.Dialog):
 ################################################################################ New created
 
 class addowire(wx.Dialog):
-	def __init__(self, listSensors):
+	def __init__(self, config_osensors):
 
 		title = _('Add 1-Wire sensor')
 
@@ -538,8 +538,8 @@ class addowire(wx.Dialog):
 			tempx=(data[spos+2:-1])
 			temp = int(tempx)/1000
 			exist=0
-			if listSensors:
-				for ii in listSensors:
+			if config_osensors:
+				for ii in config_osensors:
 					if i == ii[0]:
 						exist = 1
 			if exist==0:
