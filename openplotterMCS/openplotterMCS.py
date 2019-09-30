@@ -538,8 +538,8 @@ class addowire(wx.Dialog):
 			tempx=(data[spos+2:-1])
 			temp = int(tempx)/1000
 			exist=0
-			if config_osensors:
-				for ii in config_osensors:
+			if self.config_osensors:
+				for ii in self.config_osensors:
 					if i == ii[0]:
 						exist = 1
 			if exist==0:
