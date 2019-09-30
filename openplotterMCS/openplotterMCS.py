@@ -206,7 +206,10 @@ class MyFrame(wx.Frame):
 		
 	def read_sensors (self):
 		try:
-			self.config_osensors = self.conf.get('MCS', 'owireoensors')
+			self.config_osensors = self.conf.get('MCS', 'owiresensors')
+			if not self.config_osensors:
+				self.config_osensors = []
+					
 
 		except: 
 			self.config_osensors=[]
@@ -555,3 +558,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
+^
