@@ -239,11 +239,11 @@ class MyFrame(wx.Frame):
 						temp = int(tempx)/1000
 			except: pass #Fehlermeldung
 			if temp:
-				temp=temp+"°C"
+				temp=str(temp)+"°C"
 			if not temp:
 				temp= "no Sensor"
 					
-			self.listSensors.Append ([count,i[0],i[1],str(temp)])
+			self.listSensors.Append ([count,i[0],i[1],temp])
 			count = count + 1
 #####	
 	def OnAddButton(self,e):
