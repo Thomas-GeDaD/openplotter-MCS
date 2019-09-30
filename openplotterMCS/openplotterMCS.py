@@ -206,7 +206,8 @@ class MyFrame(wx.Frame):
 		
 	def read_sensors (self):
 		try:
-			self.config_osensors = self.conf.get('MCS', 'owiresensors')
+			data = self.conf.get('MCS', 'owiresensors')
+			self.config_osensors = eval (data)
 			if not self.config_osensors:
 				self.config_osensors = []
 					
