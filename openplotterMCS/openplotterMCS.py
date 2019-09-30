@@ -590,7 +590,7 @@ class addowire(wx.Dialog):
 ################################################################################ New created owire
 class editowire(wx.Dialog):
 	def __init__(self,):
-		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(400,200))
+		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(400,180))
 		panel = wx.Panel(self)
 
 		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID:'))
@@ -613,8 +613,9 @@ class editowire(wx.Dialog):
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		vbox.Add(hbox1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.AddSpacer(10)
 		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 20)
-		vbox.AddSpacer(5)
+		vbox.AddSpacer(10)
 		vbox.Add(hbox, 0, wx.EXPAND, 0)
 
 		panel.SetSizer(vbox)
