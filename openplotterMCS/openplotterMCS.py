@@ -181,8 +181,8 @@ class MyFrame(wx.Frame):
 	def pageowire(self):
 		self.listSensors = wx.ListCtrl(self.owire, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
 		self.listSensors.InsertColumn(0, ' ', width=16)
-		self.listSensors.InsertColumn(1, _('Name'), width=135)
-		self.listSensors.InsertColumn(2, _('ID'), width=100)
+		self.listSensors.InsertColumn(1, _('SensorID'), width=200)
+		self.listSensors.InsertColumn(2, _('Name'), width=200)
 
 		
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
@@ -199,7 +199,7 @@ class MyFrame(wx.Frame):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		sizer.Add(self.listSensors, 1, wx.EXPAND, 0)
 		sizer.Add(self.toolbar2, 0)
-		self.owire.SetSizer(sizer)#
+		self.owire.SetSizer(sizer)
 		
 		self.read_sensors()
 		
@@ -248,7 +248,9 @@ class MyFrame(wx.Frame):
 		pass
 	
 	def OnRemoveButton(self,e):
-		pass
+		print (self.selected_ID)
+		#####
+		
 	
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
@@ -256,6 +258,11 @@ class MyFrame(wx.Frame):
 		if not valid: return
 		self.toolbar2.EnableTool(202,True)
 		self.toolbar2.EnableTool(203,True)
+		self.selected_ID = i.GetText()
+		
+		onselectedDetected = self.listSensors.GetFirstSelected()
+		ii = self.list_detected.GetItem(onselectedDetected, 0)
+		self.selected_ID = ii.GetText()
 
 	def onListSensorsDeselected(self,e=0):
 		self.toolbar2.EnableTool(201,True)
@@ -469,8 +476,6 @@ class addowire(wx.Dialog):
 	def __init__(self, config_osensors1):
 
 		title = _('Add 1-Wire sensor')
-		
-		self.config_osensors = config_osensors1
 
 		wx.Dialog.__init__(self, None, title=title, size=(450,430))
 		panel = wx.Panel(self)
@@ -517,7 +522,9 @@ class addowire(wx.Dialog):
 
 		panel.SetSizer(vbox)
 		self.panel = panel
-
+		
+		
+		self.config_osensors = config_osensors1
 		self.refresh()
 		self.Centre() 
 		self.ID = ""
