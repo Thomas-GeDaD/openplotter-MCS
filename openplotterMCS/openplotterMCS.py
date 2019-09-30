@@ -614,6 +614,7 @@ class editowire(wx.Dialog):
 		vbox.Add(Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		vbox.Add(hbox1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 20)
+		vbox.AddSpacer(5)
 		vbox.Add(hbox, 0, wx.EXPAND, 0)
 
 		panel.SetSizer(vbox)
