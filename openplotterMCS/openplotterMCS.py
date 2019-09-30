@@ -248,10 +248,14 @@ class MyFrame(wx.Frame):
 		pass
 	
 	def OnRemoveButton(self,e):
-		print (self.selected_ID)
-		#####
+		#print (self.selected_ID)
+		for i in self.config_osensors:
+			if i[0]=self.selected_ID:
+				ii = self.config_osensors.index(i)
+				print (ii)
+				del self.config_osensors[ii]
+			
 		
-	
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
 		valid = e and i >= 0
