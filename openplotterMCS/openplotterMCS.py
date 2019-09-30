@@ -227,6 +227,7 @@ class MyFrame(wx.Frame):
 			try:
 				x= os.listdir("/sys/bus/w1/devices")
 				x.remove ("w1_bus_master1")
+				temp=""
 
 				for ii in x:
 					if ii ==i[0]:
@@ -236,9 +237,11 @@ class MyFrame(wx.Frame):
 						spos=data.find("t=")
 						tempx=(data[spos+2:-1])
 						temp = int(tempx)/1000
-						
-			except: temp = "no Sensor"
+			except: pass #Fehlermeldung
 			
+			if not temp:
+				temp= "no Sensor"
+					
 			self.listSensors.Append ([count,i[0],i[1],str(temp)+"°C"])
 			count = count + 1
 #####	
