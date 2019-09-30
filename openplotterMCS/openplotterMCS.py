@@ -525,6 +525,7 @@ class addowire(wx.Dialog):
 		self.refresh()
 	def refresh (self):
 		self.list_detected.DeleteAllItems()
+		
 		try:
 			x= os.listdir("/sys/bus/w1/devices")
 			x.remove ("w1_bus_master1")
@@ -537,9 +538,10 @@ class addowire(wx.Dialog):
 				tempx=(data[spos+2:-1])
 				temp = int(tempx)/1000
 				exist=0
-				for ii in listSensors:
-					if i == ii[0]:
-						exist = 1
+				if listSensors:
+					for ii in listSensors:
+						if i == ii[0]:
+							exist = 1
 				if exist==0:
 					self.list_detected.Append ([i,temp])
 
