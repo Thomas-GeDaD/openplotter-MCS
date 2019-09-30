@@ -94,7 +94,7 @@ class MyFrame(wx.Frame):
 		self.Centre() 
 		
 		##
-		self.read_sensors
+		self.read_sensors()
 
 	def ShowStatusBar(self, w_msg, colour):
 		self.GetStatusBar().SetForegroundColour(colour)
@@ -201,7 +201,6 @@ class MyFrame(wx.Frame):
 		sizer.Add(self.toolbar2, 0)
 		self.owire.SetSizer(sizer)
 		
-		self.read_sensors()
 		
 		
 	def read_sensors (self):
@@ -416,6 +415,7 @@ class MyFrame(wx.Frame):
 		self.readMCS()
 		self.readConnections()
 		self.printConnections()
+		self.read_sensors()
 
 	def OnToolOutput(self,e):
 		self.logger.Clear()
