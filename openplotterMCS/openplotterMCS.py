@@ -195,7 +195,7 @@ class MyFrame(wx.Frame):
 		self.Bind(wx.EVT_TOOL, self.OnEditButton, self.editButton)
 		self.removeButton = self.toolbar2.AddTool(203, _('Remove'), wx.Bitmap(self.currentdir+"/data/remove.png"))
 		self.Bind(wx.EVT_TOOL, self.OnRemoveButton, self.removeButton)
-		self.loadButton = self.toolbar2.AddTool(204, _('Load Value'), wx.Bitmap(self.currentdir+"/data/edit.png"))
+		self.loadButton = self.toolbar2.AddTool(204, _('Refresh Value'), wx.Bitmap(self.currentdir+"/data/edit.png"))
 		self.Bind(wx.EVT_TOOL, self.OnLoadButton, self.loadButton)
 
 
@@ -541,12 +541,12 @@ class addowire(wx.Dialog):
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK, label="Add")
-		refreshBtn = wx.Button(panel, label="Refresh")
+		refreshBtn = wx.Button(panel, label="Refresh Value")
 		
 		
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox3.Add(label_Sensorname, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-		hbox3.Add(self.name, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		hbox3.Add(self.name, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
