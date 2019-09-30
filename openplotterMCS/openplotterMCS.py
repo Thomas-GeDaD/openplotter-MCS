@@ -224,7 +224,22 @@ class MyFrame(wx.Frame):
 		self.listSensors.DeleteAllItems()
 		count=1
 		for i in self.config_osensors:
-			self.listSensors.Append ([count,i[0],i[1]])
+			#try:
+			x= os.listdir("/sys/bus/w1/devices")
+			x.remove ("w1_bus_master1")
+
+			for ii in x:
+				if ii ==i[0]:
+					foo = open("/sys/bus/w1/devices/"+ ii +"/w1_slave","r")
+					data = foo.read ()
+					foo.close()
+					spos=data.find("t=")
+					tempx=(data[spos+2:-1])
+					temp = int(tempx)/1000
+						
+		#except:
+			#print ("cannot read")
+			self.listSensors.Append ([count,i[0],i[1],ii+"°C"])
 			count = count + 1
 #####	
 	def OnAddButton(self,e):
@@ -267,9 +282,7 @@ class MyFrame(wx.Frame):
 		self.printSensors()
 		
 		
-	
 	def OnRemoveButton(self,e):
-		#print (self.selected_ID)
 		for i in self.config_osensors:
 			if i[0]==self.selected_ID:
 				ii = self.config_osensors.index(i)
@@ -278,25 +291,7 @@ class MyFrame(wx.Frame):
 		self.printSensors()
 		
 	def OnLoadButton(self,e):
-		#try:
-			x= os.listdir("/sys/bus/w1/devices")
-			x.remove ("w1_bus_master1")
-
-			for i in x:
-				foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
-				data = foo.read ()
-				foo.close()
-				spos=data.find("t=")
-				tempx=(data[spos+2:-1])
-				temp = int(tempx)/1000
-				exist=0
-				if self.listSensors:
-					for ii in self.listSensors:
-						Print (ii)
-
-		
-		#except:
-			print ("cannot read")
+		self.printSensors()
 		
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
