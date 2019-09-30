@@ -275,6 +275,7 @@ class MyFrame(wx.Frame):
 		self.toolbar2.EnableTool(203,False)
 	
 	def readMCS(self):
+		pass
 		# here get data from conf file to load the surrent settings
 		#value = self.conf.get('MCS', 'sending')
 		#if not value: value = '0' 
@@ -283,6 +284,7 @@ class MyFrame(wx.Frame):
 		#else: self.toolbar1.ToggleTool(103,False)
 
 	def OnToolSend(self,e):
+		pass
 		#self.notebook.ChangeSelection(0)
 		#if self.toolbar1.GetToolState(103): self.myoption.SetLabel('1')
 		#else: self.myoption.SetLabel('0')
