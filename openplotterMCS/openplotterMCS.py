@@ -389,7 +389,6 @@ class MyFrame(wx.Frame):
 		self.toolbar4.EnableTool(402,False)
 
 	def OnToolApply(self,e):
-	#self.config_osensors = self.conf.get('MCS', 'owiresensors')
 	
 		if self.toolbar1.GetToolState(103):
 			self.conf.set('MCS', 'sending', '1')
@@ -404,7 +403,7 @@ class MyFrame(wx.Frame):
 		for i in self.ports.connections:
 			self.conf.set('MCS', i['id'], str(i['port']))
 			
-		self.conf.set('MCS', 'owiresensors', str(config_osensors))	
+		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))	
 		self.readMCS()
 		self.readConnections()
 		self.printConnections()
