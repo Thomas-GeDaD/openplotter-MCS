@@ -92,6 +92,9 @@ class MyFrame(wx.Frame):
 		self.pageOutput()
 		
 		self.Centre() 
+		
+		##
+		self.read_sensors
 
 	def ShowStatusBar(self, w_msg, colour):
 		self.GetStatusBar().SetForegroundColour(colour)
@@ -180,8 +183,7 @@ class MyFrame(wx.Frame):
 		self.listSensors.InsertColumn(0, ' ', width=16)
 		self.listSensors.InsertColumn(1, _('Name'), width=135)
 		self.listSensors.InsertColumn(2, _('ID'), width=100)
-		self.listSensors.InsertColumn(3, _('Value'), width=120)
-		self.listSensors.InsertColumn(4, _('Signal K key'), width=220)
+
 		
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
@@ -201,16 +203,36 @@ class MyFrame(wx.Frame):
 		
 		self.printSensors()
 		
+		
+	def read_sensors (self)
+		config_osensors = self.conf.get('MCS', 'owireoensors')
+		self.printSensors(self)
+	
 	def printSensors(self):
 		self.onListSensorsDeselected()
-		self.listSensors.Append (["1","Sensor1","SensorID","Value","environment,inside,temp"])
+		for i in config_osensors:
+			count=1
+			self.listSensors.Append ([count,config_osensors[0],config_osensors[1])
+			count +=1
 	
 	def OnAddButton(self,e):
 		dlg = addowire()
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
-			pass
+			addname = dlg.name.GetValue()
+			if not addname:
+				self.ShowStatusBarRED(_('Failed. You must add a Sensorname.'))
+				dlg.Destroy()
+				return
+			addID = dlg.ID
+			if not addID:
+				self.ShowStatusBarRED(_('Failed. You must select a Sensor.'))
+				dlg.Destroy()
+				return
+			newoSensor=[addID,addname]
+			config_osensors.append(newoSensor)
 		dlg.Destroy()
+		printSensors(self)
 
 	def OnEditButton(self,e):
 		pass
@@ -446,7 +468,7 @@ class addowire(wx.Dialog):
 		
 
 		self.list_detected = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
-		self.list_detected.InsertColumn(0, _('Name'), width=330)
+		self.list_detected.InsertColumn(0, _('Sensor ID'), width=330)
 		self.list_detected.InsertColumn(1, _('Value'), width=330)
 		self.list_detected.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelectDetected)
 		
@@ -507,15 +529,14 @@ class addowire(wx.Dialog):
 
 		except: self.list_detected.Append (["no data",""])
 	
-		i=self.name.GetValue()
-		print (i)
+		#i=self.name.GetValue()
 		
 		###
 	def onSelectDetected(self, e):
 		selectedDetected = self.list_detected.GetFirstSelected()
 		i = self.list_detected.GetItem(selectedDetected, 0)
-		name = i.GetText()
-		print (name)
+		ID = i.GetText()
+		print (i)
 		
 
 
