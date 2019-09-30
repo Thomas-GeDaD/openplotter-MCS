@@ -239,7 +239,7 @@ class MyFrame(wx.Frame):
 						
 		#except:
 			#print ("cannot read")
-			self.listSensors.Append ([count,i[0],i[1],ii+"°C"])
+			self.listSensors.Append ([count,i[0],i[1],temp+"°C"])
 			count = count + 1
 #####	
 	def OnAddButton(self,e):
