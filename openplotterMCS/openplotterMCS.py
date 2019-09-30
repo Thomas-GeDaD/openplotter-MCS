@@ -237,9 +237,9 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must select a Sensor.'))
 				dlg.Destroy()
 				return
-			newoSensor=[addID,addname]
+			newoSensor=[[addID,addname]]
 			print (newoSensor)
-			self.config_osensors.append([newoSensor])
+			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
 		self.printSensors()
 		print (self.config_osensors)
@@ -517,6 +517,7 @@ class addowire(wx.Dialog):
 
 		self.refresh()
 		self.Centre() 
+		self.ID = ""
 		
 		###
 	def btnrefresh (self,e):
