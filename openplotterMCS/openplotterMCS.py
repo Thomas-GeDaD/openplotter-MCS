@@ -604,7 +604,7 @@ class editowire(wx.Dialog):
 		
 		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox1.Add(Text2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
-		hbox1.Add(self.name, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		hbox1.Add(self.name, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.Add(cancelBtn, 1, wx.ALL | wx.EXPAND, 10)
@@ -612,8 +612,8 @@ class editowire(wx.Dialog):
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
-		vbox.Add(hbox1, 0, wx.EXPAND, 0)
-		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(hbox1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 20)
 		vbox.Add(hbox, 0, wx.EXPAND, 0)
 
 		panel.SetSizer(vbox)
