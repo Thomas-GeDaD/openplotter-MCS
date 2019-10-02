@@ -215,14 +215,17 @@ class MyFrame(wx.Frame):
 
 		except: 
 			self.config_osensors=[]
+		
 		### read signalk_keys
 		foo = open(self.currentdir+"/data/speckeys","r")
 		while True:
 			line = foo.readlines()
-			print (line)
 			if not line:
 				break
+			print (line)
+			self.avspeckeys.append(line)
 		foo.close()
+		#####
 		
 		self.printSensors()
 	
@@ -287,6 +290,9 @@ class MyFrame(wx.Frame):
 					i[1]=editname
 		dlg.Destroy()
 		self.printSensors()
+		
+		###test
+		print (self.avspeckeys)
 		
 		
 	def OnRemoveButton(self,e):
