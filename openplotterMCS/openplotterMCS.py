@@ -216,7 +216,7 @@ class MyFrame(wx.Frame):
 		except: 
 			self.config_osensors=[]
 		### read signalk_keys
-		foo = open(self.currentdir+"/speckeys","r")
+		foo = open(self.currentdir+"/data/speckeys","r")
 		while True:
 			line = foo.readlines()
 			print (line)
