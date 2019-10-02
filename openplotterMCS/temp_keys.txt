@@ -12,7 +12,6 @@ environment.outside.theoreticalWindChillTemperature
 environment.water.baitWell.temperature
 environment.water.liveWell.temperature
 environment.water.temperature
-
 propulsion.*.coolantTemperature
 propulsion.*.exhaustTemperature
 propulsion.*.oilTemperature
