@@ -290,11 +290,7 @@ class MyFrame(wx.Frame):
 				if i[0]==self.selected_ID:
 					i[1]=editname
 		dlg.Destroy()
-		self.printSensors()
-		
-		###test
-		print (self.avspeckeys)
-		
+		self.printSensors()		
 		
 	def OnRemoveButton(self,e):
 		for i in self.config_osensors:
@@ -305,6 +301,11 @@ class MyFrame(wx.Frame):
 		
 	def OnLoadButton(self,e):
 		self.printSensors()
+		
+		###test
+		print (self.avspeckeys)
+		for i in self.avspeckeys:
+			print (i)
 		
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
