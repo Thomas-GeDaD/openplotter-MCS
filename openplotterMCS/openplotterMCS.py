@@ -215,6 +215,17 @@ class MyFrame(wx.Frame):
 
 		except: 
 			self.config_osensors=[]
+		### read signalk_keys
+		try:
+			foo = open(self.currentdir+"/speckeys","r")
+			while True:
+				line = foo.readlines()
+				print (line)
+				if not line:
+					break
+			foo.close()
+		
+		except: pass
 		
 		self.printSensors()
 	
