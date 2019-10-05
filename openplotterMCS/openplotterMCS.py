@@ -235,10 +235,10 @@ class MyFrame(wx.Frame):
 		self.listSensors.DeleteAllItems()
 		count=1
 		for i in self.config_osensors:
+			temp=""
 			try:
 				x= os.listdir("/sys/bus/w1/devices")
 				x.remove ("w1_bus_master1")
-				temp=""
 
 				for ii in x:
 					if ii ==i[0]:
