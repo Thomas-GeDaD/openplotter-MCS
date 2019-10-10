@@ -220,12 +220,13 @@ class MyFrame(wx.Frame):
 		### read signalk_keys
 		foo = open(self.currentdir+"/data/speckeys","r")
 		self.avspeckeys = []
-		while True:
-			line = foo.readlines()
-			if not line:
-				break
-			print (line)
-			self.avspeckeys.append(line)
+		self.avspeckeys = foo.read()
+		#while True:
+		#	line = foo.readlines()
+		#	if not line:
+		#		break
+		#	print (line)
+		#	self.avspeckeys.append(line)
 		foo.close()
 		#####
 		
