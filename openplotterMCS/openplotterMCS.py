@@ -228,6 +228,7 @@ class MyFrame(wx.Frame):
 		#	print (line)
 		#	self.avspeckeys.append(line)
 		foo.close()
+		self.avspeckeys = list(self.avspeckeys.split(","))
 		#####
 		
 		self.printSensors()
