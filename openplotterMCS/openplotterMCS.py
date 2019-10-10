@@ -279,7 +279,7 @@ class MyFrame(wx.Frame):
 		
 		
 	def OnEditButton(self,e):
-		dlg = editowire(self.avspeckeys,self.selected_ID)
+		dlg = editowire(self.avspeckeys, self.selected_ID)
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			editname = dlg.name.GetValue()
@@ -307,11 +307,6 @@ class MyFrame(wx.Frame):
 		
 	def OnLoadButton(self,e):
 		self.printSensors()
-		
-		###test
-		print (self.avspeckeys)
-		for i in self.avspeckeys:
-			print (i)
 		
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
