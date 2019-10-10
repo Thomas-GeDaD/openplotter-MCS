@@ -182,8 +182,8 @@ class MyFrame(wx.Frame):
 		self.listSensors.InsertColumn(0, ' ', width=16)
 		self.listSensors.InsertColumn(1, _('SensorID'), width=200)
 		self.listSensors.InsertColumn(2, _('Name'), width=200)
-		self.listSensors.InsertColumn(3, _('Value'), width=200)
-		self.listSensors.InsertColumn(2, _('SignalK Key'), width=200)
+		self.listSensors.InsertColumn(3, _('Value'), width=100)
+		self.listSensors.InsertColumn(4, _('SignalK Key'), width=250)
 
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
