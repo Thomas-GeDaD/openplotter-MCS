@@ -219,14 +219,7 @@ class MyFrame(wx.Frame):
 		
 		### read signalk_keys
 		foo = open(self.currentdir+"/data/speckeys","r")
-		self.avspeckeys = []
 		self.avspeckeys = foo.read()
-		#while True:
-		#	line = foo.readlines()
-		#	if not line:
-		#		break
-		#	print (line)
-		#	self.avspeckeys.append(line)
 		foo.close()
 		self.avspeckeys = list(self.avspeckeys.split(","))
 		#####
@@ -274,8 +267,12 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must select a Sensor.'))
 				dlg.Destroy()
 				return
-			#addsignalkkey=  ### add signalkkey
-			newoSensor=[addID,addname]
+			addsignalkkey= dlg.signalkkey.GetStringSelection() 
+			if not addsignalkkey:
+				self.ShowStatusBarRED(_('Failed. You must select a Signalk Key.'))
+				dlg.Destroy()
+				return
+			newoSensor=[addID,addname,addsignalkkey]
 			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
 		self.printSensors()
