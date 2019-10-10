@@ -279,17 +279,22 @@ class MyFrame(wx.Frame):
 		
 		
 	def OnEditButton(self,e):
-		dlg = editowire()
+		dlg = editowire(self.avspeckeys)
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			editname = dlg.name.GetValue()
-			if not editname:
-				self.ShowStatusBarRED(_('Failed. You must add a new Sensorname.'))
+			editsignalkkey = dlg.signalkkey.GetStringSelection()
+			if not editname and not editsignalkkey :
+				self.ShowStatusBarRED(_('Failed. You must enter a Sensorname or a Signalk Key.'))
 				dlg.Destroy()
 				return
 			for i in self.config_osensors:
 				if i[0]==self.selected_ID:
-					i[1]=editname
+					if editname:
+						i[1]=editname
+					if editsignalkkey:
+						i[2]=editsignalkkey
+
 		dlg.Destroy()
 		self.printSensors()		
 		
@@ -633,13 +638,14 @@ class addowire(wx.Dialog):
 		
 ################################################################################ New created owire
 class editowire(wx.Dialog):
-	def __init__(self,):
+	def __init__(self,signalkkeys):
 		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(400,180))
 		panel = wx.Panel(self)
 
 		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID:'))
 		self.name = wx.TextCtrl(panel)
 		Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
+		Text3=wx.StaticText(panel, label=_('New Sensor SignalkKey:'))
 		
 		hline1 = wx.StaticLine(panel)		
 
@@ -649,6 +655,12 @@ class editowire(wx.Dialog):
 		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox1.Add(Text2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		hbox1.Add(self.name, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		
+		self.signalkkey = wx.ComboBox(panel, choices = signalkkeys)
+		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox2.Add(Text3, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		hbox2.Add(self.signalkkey, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.Add(cancelBtn, 1, wx.ALL | wx.EXPAND, 10)
@@ -657,6 +669,8 @@ class editowire(wx.Dialog):
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		vbox.Add(hbox1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.AddSpacer(10)
+		vbox.Add(hbox2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.AddSpacer(10)
 		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 20)
 		vbox.AddSpacer(10)
