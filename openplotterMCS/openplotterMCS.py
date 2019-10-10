@@ -279,7 +279,7 @@ class MyFrame(wx.Frame):
 		
 		
 	def OnEditButton(self,e):
-		dlg = editowire(self.avspeckeys,self.selectedID)
+		dlg = editowire(self.avspeckeys,self.selected_ID)
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			editname = dlg.name.GetValue()
@@ -314,8 +314,8 @@ class MyFrame(wx.Frame):
 			print (i)
 		
 	def onListSensorsSelected(self,e):
-		self.selectedID = e.GetIndex()
-		valid = e and self.selectedID >= 0
+		i = e.GetIndex()
+		valid = e and i >= 0
 		if not valid: return
 		self.toolbar2.EnableTool(202,True)
 		self.toolbar2.EnableTool(203,True)
