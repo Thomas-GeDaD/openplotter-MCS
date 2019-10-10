@@ -565,7 +565,7 @@ class addowire(wx.Dialog):
 		
 		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox2.Add(label_Signalkkey, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-		hbox3.Add(self.signalkkey, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		hbox2.Add(self.signalkkey, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox3.Add(label_Sensorname, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
