@@ -272,7 +272,7 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must select a Sensor.'))
 				dlg.Destroy()
 				return
-			addsignalkkey=  ### add signalkkey
+			#addsignalkkey=  ### add signalkkey
 			newoSensor=[addID,addname]
 			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
