@@ -180,10 +180,10 @@ class MyFrame(wx.Frame):
 	def pageowire(self):
 		self.listSensors = wx.ListCtrl(self.owire, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
 		self.listSensors.InsertColumn(0, ' ', width=16)
-		self.listSensors.InsertColumn(1, _('SensorID'), width=200)
-		self.listSensors.InsertColumn(2, _('Name'), width=200)
+		self.listSensors.InsertColumn(1, _('SensorID'), width=180)
+		self.listSensors.InsertColumn(2, _('Name'), width=150)
 		self.listSensors.InsertColumn(3, _('Value'), width=100)
-		self.listSensors.InsertColumn(4, _('SignalK Key'), width=250)
+		self.listSensors.InsertColumn(4, _('SignalK Key'), width=300)
 
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
