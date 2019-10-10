@@ -555,7 +555,7 @@ class addowire(wx.Dialog):
 		hline1 = wx.StaticLine(panel)
 
 		self.name = wx.TextCtrl(panel)
-		self.signalkkey = wx.ComboBox(panel, choises = signalkkeys)
+		self.signalkkey = wx.ComboBox(panel, choices = signalkkeys)
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK, label="Add")
