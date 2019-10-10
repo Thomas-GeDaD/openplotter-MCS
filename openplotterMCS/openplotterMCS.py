@@ -183,6 +183,7 @@ class MyFrame(wx.Frame):
 		self.listSensors.InsertColumn(1, _('SensorID'), width=200)
 		self.listSensors.InsertColumn(2, _('Name'), width=200)
 		self.listSensors.InsertColumn(3, _('Value'), width=200)
+		self.listSensors.InsertColumn(2, _('SignalK Key'), width=200)
 
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onListSensorsSelected)
 		self.listSensors.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onListSensorsDeselected)
@@ -254,11 +255,11 @@ class MyFrame(wx.Frame):
 			if not temp:
 				temp= _("no Sensor found")
 					
-			self.listSensors.Append ([count,i[0],i[1],temp])
+			self.listSensors.Append ([count,i[0],i[1],temp,i[2]])
 			count = count + 1
 #####	
 	def OnAddButton(self,e):
-		dlg = addowire(self.config_osensors)
+		dlg = addowire(self.config_osensors, self.avspeckeys)
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			addname = dlg.name.GetValue()
@@ -271,6 +272,7 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must select a Sensor.'))
 				dlg.Destroy()
 				return
+			addsignalkkey=  ### add signalkkey
 			newoSensor=[addID,addname]
 			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
@@ -533,7 +535,7 @@ class editPort(wx.Dialog):
 ################################################################################ New created owire
 
 class addowire(wx.Dialog):
-	def __init__(self, config_osensors1):
+	def __init__(self, config_osensors1, signalkkeys):
 
 		title = _('Add 1-Wire sensor')
 
@@ -542,6 +544,7 @@ class addowire(wx.Dialog):
 		label_detected = wx.StaticText(panel, label=_('detected'))
 		
 		label_Sensorname = wx.StaticText(panel, label=_("Sensor name:"))
+		label_Signalkkey = wx.StaticText(panel, label=_("Signalk Key:"))
 		
 
 		self.list_detected = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
@@ -552,17 +555,21 @@ class addowire(wx.Dialog):
 		hline1 = wx.StaticLine(panel)
 
 		self.name = wx.TextCtrl(panel)
+		self.signalkkey = wx.ComboBox(panel, choises = signalkkeys)
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK, label="Add")
 		refreshBtn = wx.Button(panel, label="Refresh Value")
 		
+		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox2.Add(label_Signalkkey, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		hbox3.Add(self.signalkkey, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox3.Add(label_Sensorname, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		hbox3.Add(self.name, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		
-
+		
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.AddStretchSpacer(1)
 		hbox.Add(refreshBtn, 0, wx.ALL | wx.EXPAND, 5)
@@ -576,6 +583,7 @@ class addowire(wx.Dialog):
 		vbox.Add(self.list_detected, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		vbox.AddSpacer(10)
 		vbox.Add(hbox3, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(hbox2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.AddStretchSpacer(1)
 		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.Add(hbox, 0, wx.ALL  | wx.EXPAND, 5)
