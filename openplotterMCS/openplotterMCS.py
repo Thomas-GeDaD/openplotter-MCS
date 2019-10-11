@@ -279,7 +279,7 @@ class MyFrame(wx.Frame):
 		
 		
 	def OnEditButton(self,e):
-		dlg = editowire(self.avspeckeys, self.selected_ID)
+		dlg = editowire(self.avspeckeys, str(self.selected_ID))
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			editname = dlg.name.GetValue()
@@ -633,11 +633,11 @@ class addowire(wx.Dialog):
 		
 ################################################################################ New created owire
 class editowire(wx.Dialog):
-	def __init__(self,signalkkeys,self.ID):
+	def __init__(self,signalkkeys,ID):
 		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(400,220))
 		panel = wx.Panel(self)
 
-		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID: ')+str(self.ID))
+		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID: ')+ID)
 		self.name = wx.TextCtrl(panel)
 		Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
 		Text3=wx.StaticText(panel, label=_('New Sensor SignalkKey:'))
