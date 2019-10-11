@@ -636,7 +636,9 @@ class editowire(wx.Dialog):
 	def __init__(self,signalkkeys,ID):
 		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(400,220))
 		panel = wx.Panel(self)
-
+		
+		print (ID)
+		
 		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID: ')+ID)
 		self.name = wx.TextCtrl(panel)
 		Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
