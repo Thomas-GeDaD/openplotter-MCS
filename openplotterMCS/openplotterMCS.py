@@ -639,7 +639,7 @@ class editowire(wx.Dialog):
 		
 		print (ID)
 		
-		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID: ')+ID)
+		Text1=wx.StaticText(panel, label=ID)
 		self.name = wx.TextCtrl(panel)
 		Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
 		Text3=wx.StaticText(panel, label=_('New Sensor SignalkKey:'))
