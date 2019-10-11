@@ -541,6 +541,7 @@ class addowire(wx.Dialog):
 		wx.Dialog.__init__(self, None, title=title, size=(450,430))
 		panel = wx.Panel(self)
 		label_detected = wx.StaticText(panel, label=_('detected'))
+		label_info = wx.StaticText(panel, label=_('Select a senser and enter a Name and a Signalk Key'))
 		
 		label_Sensorname = wx.StaticText(panel, label=_("Sensor name:"))
 		label_Signalkkey = wx.StaticText(panel, label=_("Signalk Key:"))
@@ -577,6 +578,9 @@ class addowire(wx.Dialog):
 		hbox.Add(okBtn, 0, wx.ALL | wx.EXPAND, 5)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.AddSpacer(5)
+		vbox.Add(label_detected, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.AddSpacer(5)
 		vbox.Add(label_detected, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		vbox.Add(self.list_detected, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
@@ -634,13 +638,13 @@ class addowire(wx.Dialog):
 ################################################################################ New created owire
 class editowire(wx.Dialog):
 	def __init__(self,signalkkeys,ID):
-		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(400,220))
+		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(500,220))
 		panel = wx.Panel(self)
 		
-		Text1=wx.StaticText(panel, label=_("New data for Sensor ID: "+ID))
+		label_Text1=wx.StaticText(panel, label=_("New data for Sensor ID: "+ID))
 		self.name = wx.TextCtrl(panel)
-		Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
-		Text3=wx.StaticText(panel, label=_('New Sensor SignalkKey:'))
+		label_Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
+		label_Text3=wx.StaticText(panel, label=_('New Sensor SignalkKey:'))
 		
 		hline1 = wx.StaticLine(panel)		
 
@@ -648,12 +652,12 @@ class editowire(wx.Dialog):
 		okBtn = wx.Button(panel, wx.ID_OK)
 		
 		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
-		hbox1.Add(Text2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		hbox1.Add(label_Text2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		hbox1.Add(self.name, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		
 		self.signalkkey = wx.ComboBox(panel, choices = signalkkeys)
 		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
-		hbox2.Add(Text3, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		hbox2.Add(label_Text3, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		hbox2.Add(self.signalkkey, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		
 
@@ -663,7 +667,7 @@ class editowire(wx.Dialog):
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.AddSpacer(10)
-		vbox.Add(Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		vbox.Add(label_Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		vbox.AddSpacer(10)
 		vbox.Add(hbox1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.AddSpacer(10)
