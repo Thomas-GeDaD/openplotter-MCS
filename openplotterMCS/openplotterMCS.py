@@ -267,7 +267,7 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must select a Sensor.'))
 				dlg.Destroy()
 				return
-			addsignalkkey= dlg.signalkkey.GetStringSelection() 
+			addsignalkkey= dlg.signalkkey.GetValue() 
 			if not addsignalkkey:
 				self.ShowStatusBarRED(_('Failed. You must select a Signalk Key.'))
 				dlg.Destroy()
@@ -633,11 +633,11 @@ class addowire(wx.Dialog):
 		
 ################################################################################ New created owire
 class editowire(wx.Dialog):
-	def __init__(self,signalkkeys,ID):
+	def __init__(self,signalkkeys,self.ID):
 		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(400,220))
 		panel = wx.Panel(self)
 
-		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID: ')+str(ID))
+		Text1=wx.StaticText(panel, label=_('Enter new name for selected Sensor ID: ')+str(self.ID))
 		self.name = wx.TextCtrl(panel)
 		Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
 		Text3=wx.StaticText(panel, label=_('New Sensor SignalkKey:'))
