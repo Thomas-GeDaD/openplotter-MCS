@@ -283,7 +283,7 @@ class MyFrame(wx.Frame):
 		res = dlg.ShowModal()
 		if res == wx.ID_OK:
 			editname = dlg.name.GetValue()
-			editsignalkkey = dlg.signalkkey.GetStringSelection()
+			editsignalkkey = dlg.signalkkey.GetValue()
 			if not editname and not editsignalkkey :
 				self.ShowStatusBarRED(_('Failed. You must enter a Sensorname or a Signalk Key.'))
 				dlg.Destroy()
