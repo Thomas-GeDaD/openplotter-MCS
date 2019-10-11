@@ -637,8 +637,6 @@ class editowire(wx.Dialog):
 		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(400,220))
 		panel = wx.Panel(self)
 		
-		print (ID)
-		
 		Text1=wx.StaticText(panel, label=_("New data for Sensor ID: "+ID))
 		self.name = wx.TextCtrl(panel)
 		Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
@@ -664,6 +662,7 @@ class editowire(wx.Dialog):
 		hbox.Add(okBtn, 1, wx.ALL | wx.EXPAND, 10)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.AddSpacer(10)
 		vbox.Add(Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		vbox.AddSpacer(10)
 		vbox.Add(hbox1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
