@@ -46,6 +46,7 @@ def main():
 								spos=data.find("t=")
 								tempx=(data[spos+2:-1])
 								temp = int(tempx)/1000
+								temp = temp + 273,15
 					except Exception as e: print (str(e))
 								
 					values += '{"path":"'+ str(i[2]) +'","value":' +str(temp)+ '},'
