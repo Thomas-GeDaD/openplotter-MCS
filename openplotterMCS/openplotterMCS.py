@@ -138,7 +138,7 @@ class MyFrame(wx.Frame):
 
 	def pageMCS(self):
 	
-		Info_Label = wx.StaticText(self.MCS_Settings, label=_("Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO Input must done in Action App"\n)
+		Info_Label = wx.StaticText(self.MCS_Settings, label=_("Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO Input must done in Action App\n")
 		Info_Label.SetForegroundColour((139,37,0))
 		
 		########### read MCS CAN Interfaces 
