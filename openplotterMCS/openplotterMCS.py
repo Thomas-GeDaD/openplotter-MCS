@@ -146,10 +146,10 @@ class MyFrame(wx.Frame):
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read ifconfig'))
 
-		CANstat = wx.StaticText(self.MCS_Settings, label=_('Available MCS-CAN Interfaces:\n '+ cansetting_in ))
-		CANstat.SetForegroundColour((64,224,208))
-		
-		
+		CANstat_Label = wx.StaticText(self.MCS_Settings, label=_('Available MCS-CAN Interfaces:\n '))
+		CANstat_Label.SetForegroundColour((64,224,208))
+		CANstat = wx.StaticText(self.MCS_Settings, label = cansetting_in)
+				
 		########### read MCS Serial Interfaces
 		try:
 			ser=os.listdir("/dev/")
@@ -163,15 +163,18 @@ class MyFrame(wx.Frame):
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 			
-		SERstat = wx.StaticText(self.MCS_Settings, label=_('\nAvailable MCS-Serial Interfaces:\n '+ avser ))
-		SERstat.SetForegroundColour((64,224,208))
+		SERstat_Label = wx.StaticText(self.MCS_Settings, label=_('\nAvailable MCS-Serial Interfaces:\n '))
+		SERstat_Label.SetForegroundColour((64,224,208))
+		SERstat = wx.StaticText(self.MCS_Settings, label = avser )
 		
 		self.ShowStatusBarGREEN(_('all settings read succesful'))
 		
 		#############
 		
 		hbox = wx.BoxSizer(wx.VERTICAL)
+		hbox.Add(CANstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(CANstat, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(SERstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(SERstat, 0, wx.LEFT | wx.EXPAND, 5)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
