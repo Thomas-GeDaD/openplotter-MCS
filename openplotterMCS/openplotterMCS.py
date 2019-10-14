@@ -68,13 +68,13 @@ class MyFrame(wx.Frame):
 		self.notebook.AddPage(self.owire, _('MCS-1Wire'))
 		self.notebook.AddPage(self.connections, _('Data output'))
 		self.notebook.AddPage(self.output, _('Output'))
-		
+
 		self.il = wx.ImageList(24, 24)
 		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG))
 		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG))
 		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/connections.png", wx.BITMAP_TYPE_PNG))
 		img3 = self.il.Add(wx.Bitmap(self.currentdir+"/data/output.png", wx.BITMAP_TYPE_PNG))
-		
+
 		self.notebook.AssignImageList(self.il)
 		self.notebook.SetPageImage(0, img0)
 		self.notebook.SetPageImage(1, img1)
@@ -90,9 +90,9 @@ class MyFrame(wx.Frame):
 		self.pageowire()
 		self.pageConnections()
 		self.pageOutput()
-		
-		self.Centre() 
-		
+
+		self.Centre()
+
 		##
 		self.read_sensors()
 
@@ -110,21 +110,21 @@ class MyFrame(wx.Frame):
 
 	# black for informative messages
 	def ShowStatusBarBLACK(self, w_msg):
-		self.ShowStatusBar(w_msg, wx.BLACK) 
+		self.ShowStatusBar(w_msg, wx.BLACK)
 
 	# yellow for attention messages
 	def ShowStatusBarYELLOW(self, w_msg):
-		self.ShowStatusBar(w_msg,(255,140,0)) 
+		self.ShowStatusBar(w_msg,(255,140,0))
 
 	def onTabChange(self, event):
 		self.SetStatusText('')
 
 	# create your page in the manuals and add the link here
-	def OnToolHelp(self, event): 
+	def OnToolHelp(self, event):
 		url = "/usr/share/openplotter-doc/template/MCS_app.html"
 		webbrowser.open(url, new=2)
 
-	def OnToolSettings(self, event): 
+	def OnToolSettings(self, event):
 		subprocess.call(['pkill', '-f', 'openplotter-settings'])
 		subprocess.Popen('openplotter-settings')
 
@@ -137,12 +137,12 @@ class MyFrame(wx.Frame):
 		self.output.SetSizer(sizer)
 
 	def pageMCS(self):
-	
-		Info_Label = wx.StaticText(self.MCS_Settings, label=_("Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO Input must done in Action App\n")
+
+		Info_Label = wx.StaticText(self.MCS_Settings, label=_("Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO Input must done in Action App\n"))
 		Info_Label.SetForegroundColour((139,37,0))
-		
-		########### read MCS CAN Interfaces 
-		try: 
+
+		########### read MCS CAN Interfaces
+		try:
 			cansetting = os.popen ("ifconfig can0")
 			cansetting_in = cansetting.read()
 			if "can0" not in cansetting_in:
@@ -153,7 +153,7 @@ class MyFrame(wx.Frame):
 		CANstat_Label = wx.StaticText(self.MCS_Settings, label=_('Available MCS-CAN Interfaces:\n '))
 		CANstat_Label.SetForegroundColour((0,0,139))
 		CANstat = wx.StaticText(self.MCS_Settings, label = cansetting_in)
-				
+
 		########### read MCS Serial Interfaces
 		try:
 			ser=os.listdir("/dev/")
@@ -161,20 +161,20 @@ class MyFrame(wx.Frame):
 			for i in ser:
 				if "ttySC" in i:
 					avser=i+" ; "+avser
-		
+
 			if "ttySC0" not in avser:
 				avser= "no Serial Device found"
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
-			
+
 		SERstat_Label = wx.StaticText(self.MCS_Settings, label=_('\nAvailable MCS-Serial Interfaces:\n '))
 		SERstat_Label.SetForegroundColour((0,0,139))
 		SERstat = wx.StaticText(self.MCS_Settings, label = avser )
-		
+
 		self.ShowStatusBarGREEN(_('all settings read succesful'))
-		
+
 		#############
-		
+
 		hbox = wx.BoxSizer(wx.VERTICAL)
 		hbox.Add(Info_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(CANstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
@@ -187,7 +187,7 @@ class MyFrame(wx.Frame):
 		vbox.AddStretchSpacer(1)
 		self.MCS_Settings.SetSizer(vbox)
 
-	
+
 	def pageowire(self):
 		self.listSensors = wx.ListCtrl(self.owire, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
 		self.listSensors.InsertColumn(0, ' ', width=16)
@@ -214,29 +214,29 @@ class MyFrame(wx.Frame):
 		sizer.Add(self.listSensors, 1, wx.EXPAND, 0)
 		sizer.Add(self.toolbar2, 0)
 		self.owire.SetSizer(sizer)
-		
-		
-######		
+
+
+######
 	def read_sensors (self):
 		try:
 			data = self.conf.get('MCS', 'owiresensors')
 			self.config_osensors = eval (data)
 			if not self.config_osensors:
 				self.config_osensors = []
-					
 
-		except: 
+
+		except:
 			self.config_osensors=[]
-		
+
 		### read signalk_keys
 		foo = open(self.currentdir+"/data/speckeys","r")
 		self.avspeckeys = foo.read()
 		foo.close()
 		self.avspeckeys = list(self.avspeckeys.split(","))
 		#####
-		
+
 		self.printSensors()
-	
+
 	def printSensors(self):
 		self.onListSensorsDeselected()
 		self.listSensors.DeleteAllItems()
@@ -260,10 +260,10 @@ class MyFrame(wx.Frame):
 				temp=str(temp)+"°C"
 			if not temp:
 				temp= _("no Sensor found")
-					
+
 			self.listSensors.Append ([count,i[0],i[1],temp,i[2]])
 			count = count + 1
-#####	
+#####
 	def OnAddButton(self,e):
 		dlg = addowire(self.config_osensors, self.avspeckeys)
 		res = dlg.ShowModal()
@@ -278,7 +278,7 @@ class MyFrame(wx.Frame):
 				self.ShowStatusBarRED(_('Failed. You must select a Sensor.'))
 				dlg.Destroy()
 				return
-			addsignalkkey= dlg.signalkkey.GetValue() 
+			addsignalkkey= dlg.signalkkey.GetValue()
 			if not addsignalkkey:
 				self.ShowStatusBarRED(_('Failed. You must select a Signalk Key.'))
 				dlg.Destroy()
@@ -287,8 +287,8 @@ class MyFrame(wx.Frame):
 			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
 		self.printSensors()
-		
-		
+
+
 	def OnEditButton(self,e):
 		dlg = editowire(self.avspeckeys, str(self.selected_ID))
 		res = dlg.ShowModal()
@@ -307,25 +307,25 @@ class MyFrame(wx.Frame):
 						i[2]=editsignalkkey
 
 		dlg.Destroy()
-		self.printSensors()		
-		
+		self.printSensors()
+
 	def OnRemoveButton(self,e):
 		for i in self.config_osensors:
 			if i[0]==self.selected_ID:
 				ii = self.config_osensors.index(i)
 				del self.config_osensors[ii]
 		self.printSensors()
-		
+
 	def OnLoadButton(self,e):
 		self.printSensors()
-		
+
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
 		valid = e and i >= 0
 		if not valid: return
 		self.toolbar2.EnableTool(202,True)
 		self.toolbar2.EnableTool(203,True)
-		
+
 		onselectedDetected = self.listSensors.GetFirstSelected()
 		ii = self.listSensors.GetItem(onselectedDetected, 1)
 		self.selected_ID = ii.GetText()
@@ -334,12 +334,12 @@ class MyFrame(wx.Frame):
 		self.toolbar2.EnableTool(201,True)
 		self.toolbar2.EnableTool(202,False)
 		self.toolbar2.EnableTool(203,False)
-	
+
 	def readMCS(self):
 		pass
 		# here get data from conf file to load the surrent settings
 		#value = self.conf.get('MCS', 'sending')
-		#if not value: value = '0' 
+		#if not value: value = '0'
 		#self.myoption.SetLabel(value)
 		#if value == '1': self.toolbar1.ToggleTool(103,True)
 		#else: self.toolbar1.ToggleTool(103,False)
@@ -392,7 +392,7 @@ class MyFrame(wx.Frame):
 
 	def printConnections(self):
 		# Check if Signal K and some plugins are installed
-		if self.platform.skPort: 
+		if self.platform.skPort:
 			self.toolbar3.EnableTool(302,True)
 			self.toolbar3.EnableTool(303,True)
 			if self.platform.isSKpluginInstalled('signalk-to-nmea2000'):
@@ -453,7 +453,7 @@ class MyFrame(wx.Frame):
 		self.toolbar4.EnableTool(402,False)
 
 	def OnToolApply(self,e):
-	
+
 		if self.toolbar1.GetToolState(103):
 			self.conf.set('MCS', 'sending', '1')
 			# starts service and enables it at startup. Use self.platform.admin instead of sudo
@@ -466,12 +466,12 @@ class MyFrame(wx.Frame):
 			self.ShowStatusBarYELLOW(_('Sending dummy data disabled'))
 		for i in self.ports.connections:
 			self.conf.set('MCS', i['id'], str(i['port']))
-			
-		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))	
+
+		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))
 		self.readMCS()
 		self.readConnections()
 		self.printConnections()
-		
+
 	def OnToolCancel(self,e):
 		self.ShowStatusBarRED(_('Changes canceled'))
 		self.readMCS()
@@ -482,7 +482,7 @@ class MyFrame(wx.Frame):
 	def OnToolOutput(self,e):
 		self.logger.Clear()
 		self.notebook.ChangeSelection(3)
-		
+
 		# Available serial Ports
 		self.logger.BeginTextColour((0, 130, 0))
 		self.logger.BeginBold()
@@ -500,7 +500,7 @@ class MyFrame(wx.Frame):
 				#self.ShowStatusBarYELLOW(_('Updating packages data, please wait... ')+line)
 				self.logger.ShowPosition(self.logger.GetLastPosition())
 		self.logger.EndTextColour()
-		
+
 		# Read CAN (ifconfig) Interfaces
 		self.logger.BeginTextColour((0, 130, 0))
 		self.logger.BeginBold()
@@ -540,7 +540,7 @@ class editPort(wx.Dialog):
 		vbox.Add(hbox, 0, wx.EXPAND, 0)
 
 		panel.SetSizer(vbox)
-		self.Centre() 
+		self.Centre()
 
 ################################################################################ New created owire
 
@@ -553,16 +553,16 @@ class addowire(wx.Dialog):
 		panel = wx.Panel(self)
 		label_detected = wx.StaticText(panel, label=_('detected'))
 		label_info = wx.StaticText(panel, label=_('Select a senser, enter a Name and a Signalk Key'))
-		
+
 		label_Sensorname = wx.StaticText(panel, label=_("Sensor name:"))
 		label_Signalkkey = wx.StaticText(panel, label=_("Signalk Key:"))
-		
+
 
 		self.list_detected = wx.ListCtrl(panel, -1, style=wx.LC_REPORT | wx.SUNKEN_BORDER)
 		self.list_detected.InsertColumn(0, _('Sensor ID'), width=330)
 		self.list_detected.InsertColumn(1, _('Value'), width=330)
 		self.list_detected.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelectDetected)
-		
+
 		hline1 = wx.StaticLine(panel)
 
 		self.name = wx.TextCtrl(panel)
@@ -571,16 +571,16 @@ class addowire(wx.Dialog):
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK, label="Add")
 		refreshBtn = wx.Button(panel, label="Refresh Value")
-		
+
 		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox2.Add(label_Signalkkey, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		hbox2.Add(self.signalkkey, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-		
+
 		hbox3 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox3.Add(label_Sensorname, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		hbox3.Add(self.name, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-		
-		
+
+
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.AddStretchSpacer(1)
 		hbox.Add(refreshBtn, 0, wx.ALL | wx.EXPAND, 5)
@@ -603,19 +603,19 @@ class addowire(wx.Dialog):
 
 		panel.SetSizer(vbox)
 		self.panel = panel
-		
-		
+
+
 		self.config_osensors = config_osensors1
 		self.refresh()
-		self.Centre() 
+		self.Centre()
 		self.ID = ""
-		
+
 		###
 	def btnrefresh (self,e):
 		self.refresh()
 	def refresh (self):
 		self.list_detected.DeleteAllItems()
-		
+
 		try:
 			x= os.listdir("/sys/bus/w1/devices")
 			x.remove ("w1_bus_master1")
@@ -634,42 +634,42 @@ class addowire(wx.Dialog):
 							exist = 1
 				if exist==0:
 					self.list_detected.Append ([i,temp])
-		
+
 		except:
 			self.list_detected.Append (["cannot read Sensor",""])
-	
+
 		###
 	def onSelectDetected(self, e):
 		selectedDetected = self.list_detected.GetFirstSelected()
 		i = self.list_detected.GetItem(selectedDetected, 0)
 		self.ID = i.GetText()
-		
-		
+
+
 ################################################################################ New created owire
 class editowire(wx.Dialog):
 	def __init__(self,signalkkeys,ID):
 		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(500,220))
 		panel = wx.Panel(self)
-		
+
 		label_Text1=wx.StaticText(panel, label=_("New data for Sensor ID: "+ID))
 		self.name = wx.TextCtrl(panel)
 		label_Text2=wx.StaticText(panel, label=_('New Sensor Name:'))
 		label_Text3=wx.StaticText(panel, label=_('New Sensor SignalkKey:'))
-		
-		hline1 = wx.StaticLine(panel)		
+
+		hline1 = wx.StaticLine(panel)
 
 		cancelBtn = wx.Button(panel, wx.ID_CANCEL)
 		okBtn = wx.Button(panel, wx.ID_OK)
-		
+
 		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox1.Add(label_Text2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		hbox1.Add(self.name, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-		
+
 		self.signalkkey = wx.ComboBox(panel, choices = signalkkeys)
 		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
 		hbox2.Add(label_Text3, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		hbox2.Add(self.signalkkey, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-		
+
 
 		hbox = wx.BoxSizer(wx.HORIZONTAL)
 		hbox.Add(cancelBtn, 1, wx.ALL | wx.EXPAND, 10)
@@ -688,7 +688,7 @@ class editowire(wx.Dialog):
 		vbox.Add(hbox, 0, wx.EXPAND, 0)
 
 		panel.SetSizer(vbox)
-		self.Centre() 
+		self.Centre()
 
 ################################################################################
 
