@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
-import socket, time, random
+import socket, time, random, os
 from openplotterSettings import conf
 
 # this file runs as a service in the background
