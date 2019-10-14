@@ -23,17 +23,45 @@ def main():
 		conf2 = conf.Conf()
 		value = conf2.get('MCS', 'sending')
 		port = conf2.get('MCS', 'MCSConn1')
+		Sensor = conf2.get('MCS', 'owiresensors')
+		
 		if value == '1':
 			# this script sends data to Signal K servers by an UDP connection in client mode
 			sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 			while True:
-				random1 = random.randint(1,101)
-				random2 = random.randint(1,101)
-				values = '{"path": "Random.Number1","value":'+str(random1)+'},'
-				values += '{"path": "Random.Number2","value":'+str(random2)+'}'	
-				SignalK = '{"updates":[{"$source":"OpenPlotter.Dummy","values":['+values+']}]}\n'		
+				values=""
+			
+				###########
+				try:
+					data = self.conf.get('MCS', 'owiresensors')
+					self.config_osensors = eval (data)
+					if not self.config_osensors:
+						self.config_osensors = []
+				except Exception as e: print (str(e))
+			
+				for i in self.config_osensors:
+					try:
+						x= os.listdir("/sys/bus/w1/devices")
+						x.remove ("w1_bus_master1")
+
+						for ii in x:
+							if ii ==i[0]:
+								foo = open("/sys/bus/w1/devices/"+ ii +"/w1_slave","r")
+								data = foo.read ()
+								foo.close()
+								spos=data.find("t=")
+								tempx=(data[spos+2:-1])
+								temp = int(tempx)/1000
+					except Exception as e: print (str(e))
+								
+					values += '{"path":"'+ str(i[2]) +'","value":' +str(temp)+ '},'
+			
+			
+			############
+	
+				SignalK = '{"updates":[{"$source":"OpenPlotter.MCS","values":['+values+']}]}\n'		
 				sock.sendto(SignalK.encode('utf-8'), ('127.0.0.1', int(port)))
-				time.sleep(1)
+				time.sleep(2)
 	except Exception as e: print (str(e))
 
 if __name__ == '__main__':
