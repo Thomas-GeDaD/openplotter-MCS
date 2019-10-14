@@ -24,6 +24,7 @@ def main():
 		value = conf2.get('MCS', 'sending')
 		port = conf2.get('MCS', 'MCSConn1')
 		Sensor = conf2.get('MCS', 'owiresensors')
+		config_osensors = eval (Sensor)
 		
 		if value == '1':
 			# this script sends data to Signal K servers by an UDP connection in client mode
@@ -31,14 +32,7 @@ def main():
 			while True:
 				values=""
 			
-				###########
-				try:
-					data = conf.get('MCS', 'owiresensors')
-					config_osensors = eval (data)
-					if not config_osensors:
-						config_osensors = []
-				except Exception as e: print (str(e))
-			
+				###########			
 				for i in config_osensors:
 					try:
 						x= os.listdir("/sys/bus/w1/devices")
