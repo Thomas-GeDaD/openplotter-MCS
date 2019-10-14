@@ -147,7 +147,7 @@ class MyFrame(wx.Frame):
 			self.ShowStatusBarYELLOW(_('Cannot read ifconfig'))
 
 		CANstat = wx.StaticText(self.MCS_Settings, label=_('Available MCS-CAN Interfaces:\n '+ cansetting_in ))
-		CANstat.SetForegroundColour((064,224,208))
+		CANstat.SetForegroundColour((64,224,208))
 		
 		
 		########### read MCS Serial Interfaces
@@ -164,7 +164,7 @@ class MyFrame(wx.Frame):
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 			
 		SERstat = wx.StaticText(self.MCS_Settings, label=_('\nAvailable MCS-Serial Interfaces:\n '+ avser ))
-		SERstat.SetForegroundColour((064,224,208))
+		SERstat.SetForegroundColour((64,224,208))
 		
 		self.ShowStatusBarGREEN(_('all settings read succesful'))
 		
