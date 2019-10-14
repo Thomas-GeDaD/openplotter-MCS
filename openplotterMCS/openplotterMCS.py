@@ -137,6 +137,10 @@ class MyFrame(wx.Frame):
 		self.output.SetSizer(sizer)
 
 	def pageMCS(self):
+	
+		Info_Label = wx.StaticText(self.MCS_Settings, label=_("Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO Input must done in Action App"\n)
+		Info_Label.SetForegroundColour((139,37,0))
+		
 		########### read MCS CAN Interfaces 
 		try: 
 			cansetting = os.popen ("ifconfig can0")
@@ -147,7 +151,7 @@ class MyFrame(wx.Frame):
 			self.ShowStatusBarYELLOW(_('Cannot read ifconfig'))
 
 		CANstat_Label = wx.StaticText(self.MCS_Settings, label=_('Available MCS-CAN Interfaces:\n '))
-		CANstat_Label.SetForegroundColour((64,224,208))
+		CANstat_Label.SetForegroundColour((0,0,139))
 		CANstat = wx.StaticText(self.MCS_Settings, label = cansetting_in)
 				
 		########### read MCS Serial Interfaces
@@ -164,7 +168,7 @@ class MyFrame(wx.Frame):
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 			
 		SERstat_Label = wx.StaticText(self.MCS_Settings, label=_('\nAvailable MCS-Serial Interfaces:\n '))
-		SERstat_Label.SetForegroundColour((64,224,208))
+		SERstat_Label.SetForegroundColour((0,0,139))
 		SERstat = wx.StaticText(self.MCS_Settings, label = avser )
 		
 		self.ShowStatusBarGREEN(_('all settings read succesful'))
@@ -172,6 +176,7 @@ class MyFrame(wx.Frame):
 		#############
 		
 		hbox = wx.BoxSizer(wx.VERTICAL)
+		hbox.Add(Info_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(CANstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(CANstat, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(SERstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
