@@ -33,13 +33,13 @@ def main():
 			
 				###########
 				try:
-					data = self.conf.get('MCS', 'owiresensors')
-					self.config_osensors = eval (data)
-					if not self.config_osensors:
-						self.config_osensors = []
+					data = conf.get('MCS', 'owiresensors')
+					config_osensors = eval (data)
+					if not config_osensors:
+						config_osensors = []
 				except Exception as e: print (str(e))
 			
-				for i in self.config_osensors:
+				for i in config_osensors:
 					try:
 						x= os.listdir("/sys/bus/w1/devices")
 						x.remove ("w1_bus_master1")
