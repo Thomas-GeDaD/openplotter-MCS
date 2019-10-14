@@ -541,7 +541,7 @@ class addowire(wx.Dialog):
 		wx.Dialog.__init__(self, None, title=title, size=(450,430))
 		panel = wx.Panel(self)
 		label_detected = wx.StaticText(panel, label=_('detected'))
-		label_info = wx.StaticText(panel, label=_('Select a senser and enter a Name and a Signalk Key'))
+		label_info = wx.StaticText(panel, label=_('Select a senser, enter a Name and a Signalk Key'))
 		
 		label_Sensorname = wx.StaticText(panel, label=_("Sensor name:"))
 		label_Signalkkey = wx.StaticText(panel, label=_("Signalk Key:"))
@@ -579,7 +579,8 @@ class addowire(wx.Dialog):
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.AddSpacer(5)
-		vbox.Add(label_detected, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		vbox.Add(label_info, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		vbox.Add(label_detected, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10
 		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.AddSpacer(5)
 		vbox.Add(self.list_detected, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
