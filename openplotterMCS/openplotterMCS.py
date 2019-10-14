@@ -580,7 +580,7 @@ class addowire(wx.Dialog):
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.AddSpacer(5)
 		vbox.Add(label_info, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
-		vbox.Add(label_detected, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10
+		vbox.Add(label_detected, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
 		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.AddSpacer(5)
 		vbox.Add(self.list_detected, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
