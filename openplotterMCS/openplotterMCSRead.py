@@ -48,7 +48,7 @@ def main():
 								temp = int(tempx)/1000
 					except Exception as e: print (str(e))
 								
-					values += '{"path":"'+ str(i[2]) +'","value":' +str(temp)+ '},'
+					values += '{"path":"'+ str(i[2]) +'","value":' +str(temp+273,15)+ '},'
 			
 			
 			############
