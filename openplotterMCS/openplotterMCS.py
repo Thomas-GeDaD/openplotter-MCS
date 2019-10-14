@@ -587,7 +587,6 @@ class addowire(wx.Dialog):
 		vbox.Add(hbox3, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.Add(hbox2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.AddStretchSpacer(1)
-		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.Add(hbox, 0, wx.ALL  | wx.EXPAND, 5)
 
 		panel.SetSizer(vbox)
@@ -688,4 +687,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
