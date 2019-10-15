@@ -47,9 +47,6 @@ def main():
 		behind=""
 		before = configcontent[:startpos]
 		behind = configcontent[endpos:]
-		print (before)
-		print ("---------------------------------------------------")
-		print (behind)
 		newconfigcontent = before+behind
 		
 		print(startpos)
@@ -57,7 +54,7 @@ def main():
 		
 		if (startpos != -1):
 			fo1 = open('/boot/config.txt', "w")		
-			fo1.write (configcontent)
+			fo1.write (newconfigcontent)
 			fo1.close()
 			print(_("config.txt entries deleted"))
 		else:
