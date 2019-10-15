@@ -49,7 +49,7 @@ def main():
 		
 		if (startpos != -1):
 			fo1 = open('/boot/config.txt', "w")		
-			fo1.write (newconfigcontent)
+			fo1.write (configcontent)
 			fo1.close()
 			print(_("config.txt entries deleted"))
 		else:
