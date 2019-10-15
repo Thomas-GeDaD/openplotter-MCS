@@ -1,0 +1,361 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: openplotter-MCS\n"
+"POT-Creation-Date: 2019-10-15 13:32+0200\n"
+"PO-Revision-Date: 2019-10-15 13:47+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"X-Poedit-Basepath: ../../../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: openplotterMCS/MCSPostInstall.py:31
+msgid "Adding openplotter-read-MCS service..."
+msgstr "Openplotter-read-MCS-Dienst wird hinzugefügt..."
+
+#: openplotterMCS/MCSPostInstall.py:38 openplotterMCS/MCSPreUninstall.py:35
+msgid "DONE"
+msgstr "Erledigt."
+
+#: openplotterMCS/MCSPostInstall.py:39 openplotterMCS/MCSPostInstall.py:68
+#: openplotterMCS/MCSPostInstall.py:101 openplotterMCS/MCSPreUninstall.py:36
+#: openplotterMCS/MCSPreUninstall.py:59
+msgid "FAILED: "
+msgstr "fehlgeschlagen"
+
+#: openplotterMCS/MCSPostInstall.py:44
+msgid "Adding config.txt entries..."
+msgstr "Config.txt-Einträge werden hinzugefügt..."
+
+#: openplotterMCS/MCSPostInstall.py:64
+msgid "config.txt entries created"
+msgstr "config.txt-Einträge erstellt"
+
+#: openplotterMCS/MCSPostInstall.py:66
+msgid "config.txt entries already exists"
+msgstr "config.txt-Einträge sind bereits vorhanden"
+
+#: openplotterMCS/MCSPostInstall.py:71
+msgid "Adding modules to /etc/modules..."
+msgstr "Module zu /etc/modules hinzugefügen..."
+
+#: openplotterMCS/MCSPostInstall.py:85
+msgid "i2c-dev added to modules"
+msgstr "i2c-dev zu Modulen hinzugefügt"
+
+#: openplotterMCS/MCSPostInstall.py:87
+msgid "i2c-dev already exists"
+msgstr "i2c-dev ist bereits vorhanden"
+
+#: openplotterMCS/MCSPostInstall.py:91
+msgid "ds2482 added to modules"
+msgstr "ds2482 zu Modulen hinzugefügt"
+
+#: openplotterMCS/MCSPostInstall.py:93
+msgid "ds2482 already exists"
+msgstr "ds2482 existiert bereits"
+
+#: openplotterMCS/MCSPostInstall.py:97
+msgid "wire added to modules"
+msgstr "wire Module zu /etc/modules hinzugefügen..."
+
+#: openplotterMCS/MCSPostInstall.py:99
+msgid "wire already exists"
+msgstr "wire existiert bereits"
+
+#: openplotterMCS/MCSPreUninstall.py:29
+msgid "Removing openplotter-read-MCS service..."
+msgstr "entfernen des openplotter-read-MCS service...."
+
+#: openplotterMCS/MCSPreUninstall.py:55
+msgid "config.txt entries deleted"
+msgstr "config.txt Einträge entfernen"
+
+#: openplotterMCS/MCSPreUninstall.py:57
+msgid "config.txt entries not exists"
+msgstr "config.txt Einträge nicht vorhanden"
+
+#: openplotterMCS/data/openplotter-MCS.desktop:3
+#: openplotterMCS/openplotterMCS.py:34
+msgid "OpenPlotter MCS"
+msgstr "OpenPlotter MCS"
+
+#: openplotterMCS/data/openplotter-MCS.desktop:5
+msgid "openplotter-MCS"
+msgstr "openplotter-MCS"
+
+#: openplotterMCS/openplotterMCS.py:44
+msgid "Help"
+msgstr "Hilfe"
+
+#: openplotterMCS/openplotterMCS.py:47
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: openplotterMCS/openplotterMCS.py:50
+msgid "Dummy Data"
+msgstr "Dummy Data"
+
+#: openplotterMCS/openplotterMCS.py:53
+msgid "Read Configuration"
+msgstr "konfiguration lesen"
+
+#: openplotterMCS/openplotterMCS.py:56
+msgid "Apply Changes"
+msgstr "Übernehmen"
+
+#: openplotterMCS/openplotterMCS.py:58
+msgid "Cancel Changes"
+msgstr "Abbrechen"
+
+#: openplotterMCS/openplotterMCS.py:67
+msgid "MCS Settings"
+msgstr "Einstellungen"
+
+#: openplotterMCS/openplotterMCS.py:68
+msgid "MCS-1Wire"
+msgstr "MCS-1Wire"
+
+#: openplotterMCS/openplotterMCS.py:69
+msgid "Data output"
+msgstr "Daten senden"
+
+#: openplotterMCS/openplotterMCS.py:70
+msgid "Output"
+msgstr "Ausgang"
+
+#: openplotterMCS/openplotterMCS.py:141
+msgid ""
+"Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO "
+"Input must done in Action App\n"
+msgstr ""
+"Einstellungen für den MCP2515 (CAN/NMEA2000) müssen in der CAN APP "
+"vorgenommen werden. Einstellungen für die GPIO Eingänge in der Action App\n"
+
+#: openplotterMCS/openplotterMCS.py:151
+msgid "Cannot read ifconfig"
+msgstr "ifconfig kann nicht gelesen werden"
+
+#: openplotterMCS/openplotterMCS.py:153
+msgid ""
+"Available MCS-CAN Interfaces:\n"
+" "
+msgstr "Verfügbare MCS-CAN Interfaces"
+
+#: openplotterMCS/openplotterMCS.py:168
+msgid "Cannot read /dev/"
+msgstr "/dev/ kann nicht gelesen werden"
+
+#: openplotterMCS/openplotterMCS.py:170
+msgid ""
+"\n"
+"Available MCS-Serial Interfaces:\n"
+" "
+msgstr ""
+"\n"
+"Verfügbare, serielle MCS-Geräte:"
+
+#: openplotterMCS/openplotterMCS.py:174
+msgid "all settings read succesful"
+msgstr "alle Einstellungen erfolgreich gelesen"
+
+#: openplotterMCS/openplotterMCS.py:194
+msgid "SensorID"
+msgstr "SensorID"
+
+#: openplotterMCS/openplotterMCS.py:195
+msgid "Name"
+msgstr "Name"
+
+#: openplotterMCS/openplotterMCS.py:196 openplotterMCS/openplotterMCS.py:563
+msgid "Value"
+msgstr "Wert"
+
+#: openplotterMCS/openplotterMCS.py:197
+msgid "SignalK Key"
+msgstr "SignalK Key"
+
+#: openplotterMCS/openplotterMCS.py:203
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: openplotterMCS/openplotterMCS.py:205 openplotterMCS/openplotterMCS.py:374
+msgid "Edit"
+msgstr "Editieren"
+
+#: openplotterMCS/openplotterMCS.py:207
+msgid "Remove"
+msgstr "Entfernen"
+
+#: openplotterMCS/openplotterMCS.py:209
+msgid "Refresh Value"
+msgstr "Aktualisieren"
+
+#: openplotterMCS/openplotterMCS.py:262
+msgid "no Sensor found"
+msgstr "keinen Sensor gefunden"
+
+#: openplotterMCS/openplotterMCS.py:273
+msgid "Failed. You must add a Sensorname."
+msgstr "Fehlgeschlagen, bitte Sensorname eingeben"
+
+#: openplotterMCS/openplotterMCS.py:278
+msgid "Failed. You must select a Sensor."
+msgstr "Fehlgeschlagen, bitte Sensor auswählen"
+
+#: openplotterMCS/openplotterMCS.py:283
+msgid "Failed. You must select a Signalk Key."
+msgstr "Fehlgeschlagen, bitte Signalk Key vergeben"
+
+#: openplotterMCS/openplotterMCS.py:299
+msgid "Failed. You must enter a Sensorname or a Signalk Key."
+msgstr "Fehlgeschlagen, bitte Sensorname oder Signalk Key eingeben"
+
+#: openplotterMCS/openplotterMCS.py:355
+msgid "SK Connection"
+msgstr "SK Verbindung"
+
+#: openplotterMCS/openplotterMCS.py:364
+msgid "Type"
+msgstr "Typ"
+
+#: openplotterMCS/openplotterMCS.py:365
+msgid "Mode"
+msgstr "Modus"
+
+#: openplotterMCS/openplotterMCS.py:366
+msgid "Data"
+msgstr "Daten"
+
+#: openplotterMCS/openplotterMCS.py:367
+msgid "Direction"
+msgstr "Richtung"
+
+#: openplotterMCS/openplotterMCS.py:368 openplotterMCS/openplotterMCS.py:526
+msgid "Port"
+msgstr "Port"
+
+#: openplotterMCS/openplotterMCS.py:369
+msgid "Editable"
+msgstr "Editierbar"
+
+#: openplotterMCS/openplotterMCS.py:410
+msgid "yes"
+msgstr "JA"
+
+#: openplotterMCS/openplotterMCS.py:411
+msgid "no"
+msgstr "Nein"
+
+#: openplotterMCS/openplotterMCS.py:413
+msgid "input"
+msgstr "Eingang"
+
+#: openplotterMCS/openplotterMCS.py:414
+msgid "output"
+msgstr "Ausgang"
+
+#: openplotterMCS/openplotterMCS.py:415
+msgid "both"
+msgstr "beide"
+
+#: openplotterMCS/openplotterMCS.py:461
+msgid "Sending dummy data enabled"
+msgstr "Senden der Daten eingeschaltet"
+
+#: openplotterMCS/openplotterMCS.py:466
+msgid "Sending dummy data disabled"
+msgstr "Senden der Daten ausgeschaltet"
+
+#: openplotterMCS/openplotterMCS.py:476
+msgid "Changes canceled"
+msgstr "Änderungen verworfen"
+
+#: openplotterMCS/openplotterMCS.py:489
+msgid "Available serial ports on MCS:"
+msgstr "Verfügbare Serielle Prots"
+
+#: openplotterMCS/openplotterMCS.py:507
+msgid "Available CAN Interface on MCS:"
+msgstr "Verfügbare Can Geräte"
+
+#: openplotterMCS/openplotterMCS.py:550
+msgid "Add 1-Wire sensor"
+msgstr "1-Wire Sensor hinzufügen"
+
+#: openplotterMCS/openplotterMCS.py:554
+msgid "detected"
+msgstr "Angeschlossen"
+
+#: openplotterMCS/openplotterMCS.py:555
+msgid "Select a senser, enter a Name and a Signalk Key"
+msgstr "Sensor auswählen, Namen und Signalk Key vergeben"
+
+#: openplotterMCS/openplotterMCS.py:557
+msgid "Sensor name:"
+msgstr "Sensorname:"
+
+#: openplotterMCS/openplotterMCS.py:558
+msgid "Signalk Key:"
+msgstr "Signalk Key:"
+
+#: openplotterMCS/openplotterMCS.py:562
+msgid "Sensor ID"
+msgstr "Sensor ID"
+
+#: openplotterMCS/openplotterMCS.py:651
+msgid "Edit 1-Wire Name"
+msgstr "1-Wire Name editieren"
+
+#: openplotterMCS/openplotterMCS.py:654
+msgid "New data for Sensor ID: "
+msgstr "Neue Daten für Sensor:"
+
+#: openplotterMCS/openplotterMCS.py:656
+msgid "New Sensor Name:"
+msgstr "Neuer Sensor Name"
+
+#: openplotterMCS/openplotterMCS.py:657
+msgid "New Sensor SignalkKey:"
+msgstr "Neuer Sensor Signalk Key"
+
+#: openplotterMCS/ports.py:45
+msgid "MCS"
+msgstr "MCS"
+
+#: openplotterMCS/ports.py:45
+msgid "Signal K keys: "
+msgstr "Signal K keys: "
+
+#: openplotterMCS/startup.py:40
+msgid "cannot delete ds2482 device"
+msgstr "ds2482 Gerät kann nicht entfernt werden"
+
+#: openplotterMCS/startup.py:44
+msgid "creating 0X18 DS2482 as new_device not possible"
+msgstr "0x18 DS2482 Gerät erstellen nicht möglich"
+
+#: openplotterMCS/startup.py:46
+msgid "I2C-1Wire Server started"
+msgstr "I2C-1Wire Server gestartet"
+
+#: openplotterMCS/startup.py:60
+msgid "Checking MCS-App running..."
+msgstr "Prüfen op MCS-App läuft"
+
+#: openplotterMCS/startup.py:70
+msgid "service is running"
+msgstr "Service läuft"
+
+#: openplotterMCS/startup.py:71
+msgid "service is not running"
+msgstr "Service läuft nicht"
+
+#: openplotterMCS/startup.py:75
+msgid "ds2482_1-Wire device not availible, Please restart System"
+msgstr "ds2482_1-Wire Gerät nicht verfügbar. Bitte System neu starten"
