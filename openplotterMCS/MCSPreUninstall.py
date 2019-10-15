@@ -40,11 +40,9 @@ def main():
 		fo1r = open('/boot/config.txt', "r")
 		configcontent = fo1r.read()
 		startpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(start)")
-		endpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(end)")+62
+		endpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(end)")
 		fo1r.close()
 		print (configcontent)
-		newconfigcontent = str(fo1r[:startpos]+""+fo1r[endpos:])
-		print (newconfigcontent)
 		
 		print(startpos)
 		print(endpos)
