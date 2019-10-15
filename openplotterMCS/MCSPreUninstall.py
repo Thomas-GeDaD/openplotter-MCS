@@ -42,14 +42,14 @@ def main():
 		startpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(start)")
 		endpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(end)")+62
 		fo1r.close()
-		del fo1r(startpos:endpos)
+		newconfigcontent = fo1r[0:startpos]+fo1r[endpos:0]
 		
 		print(startpos)
 		print(endpos)
 		
 		if (startpos != -1):
 			fo1 = open('/boot/config.txt', "w")		
-			fo1.write (fo1r)
+			fo1.write (newconfigcontent)
 			fo1.close()
 			print(_("config.txt entries deleted"))
 		else:
