@@ -23,7 +23,7 @@ def main():
 	conf2 = conf.Conf()
 	currentdir = os.path.dirname(__file__)
 	currentLanguage = conf2.get('GENERAL', 'lang')
-	language.Language(currentdir,'openplotter-myapp',currentLanguage)
+	language.Language(currentdir,'openplotter-MCS',currentLanguage)
 
 	# here we remove the services
 	print(_('Removing openplotter-read-MCS service...'))
