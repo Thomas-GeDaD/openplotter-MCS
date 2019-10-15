@@ -1,14 +1,13 @@
 ## openplotter-MCS
 
-This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer
-
-At the Moment the App is only for development
+This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer Hardware
 
 ### Installing
 
 #### For production
 
 Install [openplotter-settings](https://github.com/openplotter/openplotter-settings). 
+Then you can Install via Openplotter Settings APP
 
 #### For development
 
