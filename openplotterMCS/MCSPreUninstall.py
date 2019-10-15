@@ -43,6 +43,8 @@ def main():
 		endpos = configcontent.rfind("#MCS-Openplotter config (Do not delete or edit this part)(end)")
 		fo1r.close()
 		print (configcontent)
+		before=""
+		behind=""
 		before = configcontent[:startpos]
 		behind = configcontent[behind:]
 		print (before)
