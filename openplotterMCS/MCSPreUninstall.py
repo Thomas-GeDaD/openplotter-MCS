@@ -45,8 +45,8 @@ def main():
 		print (configcontent)
 		before=""
 		behind=""
-		before = configcontent[:int(startpos)]
-		behind = configcontent[int(behind):]
+		before = configcontent[:startpos]
+		behind = configcontent[endpos:]
 		print (before)
 		print ("---------------------------------------------------")
 		print (behind)
