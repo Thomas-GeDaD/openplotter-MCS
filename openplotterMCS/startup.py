@@ -23,7 +23,7 @@ class Start():
 	def __init__(self, conf, currentLanguage):
 		self.conf = conf
 		currentdir = os.path.dirname(__file__)
-		language.Language(currentdir,'openplotter-myapp',currentLanguage)
+		language.Language(currentdir,'openplotter-MCS',currentLanguage)
 		# "self.initialMessage" will be printed at startup if it has content. If not, the function "start" will not be called. Use trasnlatable text: _('Starting My App...')
 		self.initialMessage = 'Starting MCS-APP'
 
