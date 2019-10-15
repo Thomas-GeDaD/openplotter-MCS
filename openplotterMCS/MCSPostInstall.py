@@ -52,7 +52,7 @@ def main():
 		
 		if (startpos == -1):
 			fo1 = open('/boot/config.txt', "a")
-			fo1.write ("\n\n\n")
+			fo1.write ("\n")
 			fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(start)\n")
 			#fo1.write ("dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25\n")
 			#fo1.write ("dtoverlay=spi-bcm2835-overlay\n")
