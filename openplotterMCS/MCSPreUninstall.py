@@ -46,7 +46,7 @@ def main():
 		before = configcontent[:startpos]
 		behind = configcontent[behind:]
 		print (before)
-		print (---------------------------------------------------)
+		print ("---------------------------------------------------")
 		print (behind)
 		newconfigcontent = before+behind
 		
