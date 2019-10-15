@@ -40,7 +40,7 @@ def main():
 		fo1r = open('/boot/config.txt', "r")
 		configcontent = fo1r.read()
 		startpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(start)")
-		endpos = configcontent.rfind("#MCS-Openplotter config (Do not delete or edit this part)(end)")
+		endpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(end)")+63
 		fo1r.close()
 		print (configcontent)
 		before=""
