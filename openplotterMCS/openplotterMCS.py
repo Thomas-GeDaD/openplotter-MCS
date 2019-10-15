@@ -29,7 +29,7 @@ class MyFrame(wx.Frame):
 		self.platform = platform.Platform()
 		self.currentdir = os.path.dirname(__file__)
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
-		self.language = language.Language(self.currentdir,'openplotter-myapp',self.currentLanguage)
+		self.language = language.Language(self.currentdir,'openplotter-MCS',self.currentLanguage)
 
 		wx.Frame.__init__(self, None, title=_('OpenPlotter MCS'), size=(800,444))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
