@@ -42,7 +42,7 @@ def main():
 		startpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(start)")
 		endpos = configcontent.find("#MCS-Openplotter config (Do not delete or edit this part)(end)")+62
 		fo1r.close()
-		del (fo1r(startpos:endpos))
+		del fo1r(startpos:endpos)
 		
 		print(startpos)
 		print(endpos)
