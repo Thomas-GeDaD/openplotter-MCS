@@ -29,7 +29,7 @@ class MyFrame(wx.Frame):
 		self.platform = platform.Platform()
 		self.currentdir = os.path.dirname(__file__)
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
-		self.language = language.Language(self.currentdir,'openplotter-MCS',self.currentLanguage)
+		self.language = language.Language(self.currentdir,'openplotter-myapp',self.currentLanguage)
 
 		wx.Frame.__init__(self, None, title=_('OpenPlotter MCS'), size=(800,444))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
@@ -47,7 +47,7 @@ class MyFrame(wx.Frame):
 		toolSettings = self.toolbar1.AddTool(102, _('Settings'), wx.Bitmap(self.currentdir+"/data/settings.png"))
 		self.Bind(wx.EVT_TOOL, self.OnToolSettings, toolSettings)
 		self.toolbar1.AddSeparator()
-		toolSend = self.toolbar1.AddCheckTool(103, _('Dummy Data'), wx.Bitmap(self.currentdir+"/data/send.png"))
+		toolSend = self.toolbar1.AddCheckTool(103, _('Sending Data'), wx.Bitmap(self.currentdir+"/data/send.png"))
 		self.Bind(wx.EVT_TOOL, self.OnToolSend, toolSend)
 		self.toolbar1.AddSeparator()
 		toolOutput = self.toolbar1.AddTool(106, _('Read Configuration'), wx.Bitmap(self.currentdir+"/data/check.png"))
