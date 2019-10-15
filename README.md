@@ -6,12 +6,11 @@ This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlSe
 
 #### For production
 
-Install [openplotter-settings](https://github.com/openplotter/openplotter-settings). 
+Install [openplotter-settings](https://github.com/openplotter/openplotter-settings).
 Then you can Install via Openplotter Settings APP
 
-#### For development
 
-> Put here all the info needed to install, edit and propose changes to your app.
+#### For development
 
 Install OpenPlotter dependencies:
 
