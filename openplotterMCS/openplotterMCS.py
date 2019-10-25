@@ -90,6 +90,7 @@ class MyFrame(wx.Frame):
 		self.pageowire()
 		self.pageConnections()
 		self.pageOutput()
+		self.readMCS()
 
 		self.Centre()
 
@@ -335,6 +336,12 @@ class MyFrame(wx.Frame):
 		self.toolbar2.EnableTool(202,False)
 		self.toolbar2.EnableTool(203,False)
 
+	def readMCS(self):
+		value = self.conf.get('MCS', 'sending')
+		if not value: value = '0'
+		if value == '1': self.toolbar1.ToggleTool(103,True)
+		else: self.toolbar1.ToggleTool(103,False)
+
 	def OnToolSend(self,e):
 		pass
 		#self.notebook.ChangeSelection(0)
@@ -459,11 +466,13 @@ class MyFrame(wx.Frame):
 			self.conf.set('MCS', i['id'], str(i['port']))
 
 		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))
+		self.readMCS()
 		self.readConnections()
 		self.printConnections()
 
 	def OnToolCancel(self,e):
 		self.ShowStatusBarRED(_('Changes canceled'))
+		self.readMCS()
 		self.readConnections()
 		self.printConnections()
 		self.read_sensors()
