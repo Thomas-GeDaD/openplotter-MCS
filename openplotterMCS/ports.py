@@ -42,7 +42,7 @@ class Ports:
 		connectionId = 'MCSConn1'
 		try: port = int(self.conf.get('MCS', connectionId))
 		except: port = 50000 #default port
-		self.connections.append({'id':connectionId, 'description':_('1-Wire Sensors'), 'data':_('Signal K keys: '), 'direction':'2', 'type':'UDP', 'mode':'client', 'address':'localhost', 'port':port, 'editable':'1'})
+		self.connections.append({'id':connectionId, 'description':_('1-Wire Sensors'), 'data':_('Signal K keys: as defined '), 'direction':'2', 'type':'UDP', 'mode':'client', 'address':'localhost', 'port':port, 'editable':'1'})
 
 	def usedPorts(self):
 		# here you have to define what connections are enabled when this function is called to check servers conflicts or provide a list of the enabled connections in your system.
