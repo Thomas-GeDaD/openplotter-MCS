@@ -335,15 +335,6 @@ class MyFrame(wx.Frame):
 		self.toolbar2.EnableTool(202,False)
 		self.toolbar2.EnableTool(203,False)
 
-	def readMCS(self):
-		pass
-		# here get data from conf file to load the surrent settings
-		#value = self.conf.get('MCS', 'sending')
-		#if not value: value = '0'
-		#self.myoption.SetLabel(value)
-		#if value == '1': self.toolbar1.ToggleTool(103,True)
-		#else: self.toolbar1.ToggleTool(103,False)
-
 	def OnToolSend(self,e):
 		pass
 		#self.notebook.ChangeSelection(0)
@@ -458,23 +449,21 @@ class MyFrame(wx.Frame):
 			self.conf.set('MCS', 'sending', '1')
 			# starts service and enables it at startup. Use self.platform.admin instead of sudo
 			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'enable'])
-			self.ShowStatusBarGREEN(_('Sending dummy data enabled'))
+			self.ShowStatusBarGREEN(_('Sending data enabled'))
 		else:
 			self.conf.set('MCS', 'sending', '0')
 			# stops service and disables it at startup. Use self.platform.admin instead of sudo
 			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'disable'])
-			self.ShowStatusBarYELLOW(_('Sending dummy data disabled'))
+			self.ShowStatusBarYELLOW(_('Sending data disabled'))
 		for i in self.ports.connections:
 			self.conf.set('MCS', i['id'], str(i['port']))
 
 		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))
-		self.readMCS()
 		self.readConnections()
 		self.printConnections()
 
 	def OnToolCancel(self,e):
 		self.ShowStatusBarRED(_('Changes canceled'))
-		self.readMCS()
 		self.readConnections()
 		self.printConnections()
 		self.read_sensors()
