@@ -97,6 +97,8 @@ def main():
 			print(_("wire added to modules"))
 		else:
 			print(_("wire already exists"))
+		
+		modules.close()
 			
 	except Exception as e: print(_('FAILED: ')+str(e))
 		
