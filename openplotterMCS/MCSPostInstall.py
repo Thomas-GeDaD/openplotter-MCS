@@ -72,11 +72,11 @@ def main():
 	
 	try:
 		modulesr = open("/etc/modules","r")
-		str=modulesr.read()
+		strg=modulesr.read()
 		modulesr.close()
-		i2c_dev = str.find("i2c-dev")
-		ds2482 = str.find("ds2482")
-		wire = str.find("wire")
+		i2c_dev = strg.find("i2c-dev")
+		ds2482 = strg.find("ds2482")
+		wire = strg.find("wire")
 		
 		modules = open("/etc/modules","a")
 		#######added i2c-dev
