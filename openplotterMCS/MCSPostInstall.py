@@ -56,7 +56,7 @@ def main():
 			fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(start)\n")
 			#fo1.write ("dtoverlay=mcp2515-can1,oscillator=16000000,interrupt=25\n")
 			#fo1.write ("dtoverlay=spi-bcm2835-overlay\n")
-			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=13,addr=0x4A,xtal=14745600\n")
+			fo1.write ("#dtoverlay=sc16is752-i2c,int_pin=13,addr=0x4A,xtal=14745600\n")
 			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=12,addr=0x49,xtal=14745600\n")
 			fo1.write ("dtoverlay=sc16is752-i2c,int_pin=6,addr=0x48,xtal=14745600\n")
 			fo1.write ("#MCS-Openplotter config (Do not delete or edit this part)(end)\n")
