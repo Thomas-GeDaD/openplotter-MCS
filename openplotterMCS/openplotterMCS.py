@@ -93,6 +93,10 @@ class MyFrame(wx.Frame):
 		self.readMCS()
 
 		self.Centre()
+		
+		maxi = self.conf.get('GENERAL', 'maximize')
+		if maxi == '1': self.Maximize()
+
 
 		##
 		self.read_sensors()
