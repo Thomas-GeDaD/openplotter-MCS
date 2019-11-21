@@ -55,7 +55,7 @@ def main():
 			
 			############
 				values=values[0:-1]
-				SignalK = '{"updates":[{"source":"OpenPlotter-MCS-OWire","values":['+values+']}]}\n'	
+				SignalK = '{"updates":[{"$source":"OpenPlotter.MCS.OWire","values":['+values+']}]}\n'	
 				print (SignalK)
 				sock.sendto(SignalK.encode('utf-8'), ('127.0.0.1', int(port)))
 				time.sleep(2)
