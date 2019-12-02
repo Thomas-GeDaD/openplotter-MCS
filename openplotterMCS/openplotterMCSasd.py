@@ -34,12 +34,12 @@ def main():
 		
 		if start ==1 and enable==True:
 			while True:
-				if GPIO.input(5) == "0" :
+				if GPIO.input(5) == 0:
 					print ("shutdown in 2s")
 					time.sleep(2)
-					if GPIO.input(5) == "0":
-						#os.system("sudo shutdown -h now")
-						os.system("sudo reboot")
+					if GPIO.input(5) == 0:
+						os.system("sudo shutdown -h now")
+						#os.system("sudo reboot")
 				time.sleep(2)
 	except Exception as e: print (str(e))
 
