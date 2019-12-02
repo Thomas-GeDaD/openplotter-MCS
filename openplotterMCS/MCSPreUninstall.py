@@ -34,7 +34,16 @@ def main():
 		subprocess.call(['systemctl', 'daemon-reload'])
 		print(_('DONE'))
 	except Exception as e: print(_('FAILED: ')+str(e))
-
+	
+	### Remove autoshutdown Service
+	print(_('Removing openplotter-autoshutdown Service...'))
+	try:
+		subprocess.call(['systemctl', 'disable', 'openplotter-MCS-asd'])
+		subprocess.call(['systemctl', 'stop', 'openplotter-MCS-asd'])
+		subprocess.call(['rm', '-f', '/etc/systemd/system/openplotter-MCS-asd.service'])
+		subprocess.call(['systemctl', 'daemon-reload'])
+		print(_('DONE'))
+	except Exception as e: print(_('FAILED: ')+str(e))	
 	
 	try:
 		fo1r = open('/boot/config.txt', "r")
