@@ -37,6 +37,17 @@ def main():
 		subprocess.call(['systemctl', 'daemon-reload'])
 		print(_('DONE'))
 	except Exception as e: print(_('FAILED: ')+str(e))
+	
+	###### add Openplotter autoshutdown service
+	print(_('Adding openplotter-autoshutdown Service...'))
+	
+	try:
+		fo = open('/etc/systemd/system/openplotter-MCS-asd.service', "w")
+		fo.write( '[Service]\nExecStart=openplotter-MCS-asd\nStandardOutput=syslog\nStandardError=syslog\nUser='+conf2.user+'\n[Install]\nWantedBy=multi-user.target')
+		fo.close()
+		subprocess.call(['systemctl', 'daemon-reload'])
+		print(_('DONE'))
+	except Exception as e: print(_('FAILED: ')+str(e))
 
 
 	####### /boot/config.txt edit for SC16is752 and (MCP2515)
@@ -106,6 +117,6 @@ def main():
 	
 if __name__ == '__main__':
 
-
-
 	main()
+
+
