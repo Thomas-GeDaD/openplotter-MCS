@@ -172,18 +172,31 @@ class MyFrame(wx.Frame):
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 
-		SERstat_Label = wx.StaticText(self.MCS_Settings, label=_('\nAvailable MCS-Serial Interfaces:\n '))
+		SERstat_Label = wx.StaticText(self.MCS_Settings, label=_('Available MCS-Serial Interfaces:\n '))
 		SERstat_Label.SetForegroundColour((0,0,139))
 		SERstat = wx.StaticText(self.MCS_Settings, label = avser )
 
 		self.ShowStatusBarGREEN(_('all settings read succesful'))
 
-		#############
+		############# Checkbox for Autoshutdown
+		autoshutd_Label = wx.StaticText(self.MCS_Settings, label=_('Enable Auto-Shutdown by Digital Input:'))
+		autoshutd_Label.SetForegroundColour((0,0,139))
+		
+		self.cbasd = wx.CheckBox(self.MCS_Settings, label=_('Enable Autoshutdown'))
+	
+		############
+
 
 		hbox = wx.BoxSizer(wx.VERTICAL)
 		hbox.Add(Info_Label, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(wx.StaticLine(self.MCS_Settings), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(autoshutd_Label, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(self.cbasd, flag=wx.TOP|wx.LEFT, border=10)
+		hbox.AddSpacer(5)	
+		hbox.Add(wx.StaticLine(self.MCS_Settings), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(CANstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(CANstat, 0, wx.LEFT | wx.EXPAND, 5)
+		hbox.Add(wx.StaticLine(self.MCS_Settings), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(SERstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(SERstat, 0, wx.LEFT | wx.EXPAND, 5)
 
@@ -191,7 +204,19 @@ class MyFrame(wx.Frame):
 		vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 5)
 		vbox.AddStretchSpacer(1)
 		self.MCS_Settings.SetSizer(vbox)
+		
+		self.read_asd()
+		
+		
 
+	def read_asd (self) :
+		stat_asd = self.conf.get('MCS', 'asd_state')
+		if not stat_asd: stat_asd= False
+		self.cbasd.SetValue(eval(stat_asd))
+		
+		
+		
+			
 
 	def pageowire(self):
 		self.listSensors = wx.ListCtrl(self.owire, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
@@ -238,7 +263,6 @@ class MyFrame(wx.Frame):
 		self.avspeckeys = foo.read()
 		foo.close()
 		self.avspeckeys = list(self.avspeckeys.split(","))
-		#####
 
 		self.printSensors()
 
@@ -345,6 +369,7 @@ class MyFrame(wx.Frame):
 		if not value: value = '0'
 		if value == '1': self.toolbar1.ToggleTool(103,True)
 		else: self.toolbar1.ToggleTool(103,False)
+		
 
 	def OnToolSend(self,e):
 		pass
@@ -456,6 +481,7 @@ class MyFrame(wx.Frame):
 
 	def OnToolApply(self,e):
 
+		### Sending
 		if self.toolbar1.GetToolState(103):
 			self.conf.set('MCS', 'sending', '1')
 			# starts service and enables it at startup. Use self.platform.admin instead of sudo
@@ -470,6 +496,16 @@ class MyFrame(wx.Frame):
 			self.conf.set('MCS', i['id'], str(i['port']))
 
 		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))
+		
+		####### Autoshutdown
+		if self.cbasd.IsChecked():
+			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'asdenable'])
+			self.ShowStatusBarYELLOW(_('Autoshutdown enable'))
+		else:
+			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'asddisable'])
+			self.ShowStatusBarYELLOW(_('Autoshutdown disable'))
+		
+		self.conf.set('MCS', 'asd_state', str(self.cbasd.IsChecked()))
 		self.readMCS()
 		self.readConnections()
 		self.printConnections()
@@ -480,6 +516,7 @@ class MyFrame(wx.Frame):
 		self.readConnections()
 		self.printConnections()
 		self.read_sensors()
+		self.read_asd()
 
 	def OnToolOutput(self,e):
 		self.logger.Clear()
