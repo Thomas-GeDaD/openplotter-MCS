@@ -26,3 +26,11 @@ if sys.argv[1]=='enable':
 if sys.argv[1]=='disable':
 	subprocess.call(['systemctl', 'disable', 'openplotter-MCS-read'])
 	subprocess.call(['systemctl', 'stop', 'openplotter-MCS-read'])
+
+if sys.argv[1]=='asdenable':
+	subprocess.call(['systemctl', 'enable', 'openplotter-MCS-asd'])
+	subprocess.call(['systemctl', 'restart', 'openplotter-MCS-asd'])
+
+if sys.argv[1]=='asddisable':
+	subprocess.call(['systemctl', 'disable', 'openplotter-MCS-asd'])
+	subprocess.call(['systemctl', 'stop', 'openplotter-MCS-asd'])
