@@ -31,7 +31,7 @@ class MyFrame(wx.Frame):
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
 		self.language = language.Language(self.currentdir,'openplotter-MCS',self.currentLanguage)
 
-		wx.Frame.__init__(self, None, title=_('OpenPlotter MCS'), size=(800,444))
+		wx.Frame.__init__(self, None, title=_('OpenPlotter MCS'), size=(800,520))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		icon = wx.Icon(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
@@ -211,7 +211,7 @@ class MyFrame(wx.Frame):
 
 	def read_asd (self) :
 		stat_asd = self.conf.get('MCS', 'asd_state')
-		if not stat_asd: stat_asd= False
+		if not stat_asd: stat_asd= "False"
 		self.cbasd.SetValue(eval(stat_asd))
 		
 		
