@@ -23,7 +23,7 @@ def main():
 	try:
 		conf2 = conf.Conf()
 		value = conf2.get('MCS', 'asd_state')
-		if not value : Value = "False"
+		if not value : value = "False"
 		enable = eval (value)
 		
 		#### GPIO Config
