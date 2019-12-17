@@ -39,12 +39,13 @@ P
 
 https://openplotter.readthedocs.io
 
-> Please add a chapter to OpenPlotter documentation with the info to use your app: https://github.com/openplotter/docs
+https://github.com/Thomas-GeDaD/openplotter-MCS/blob/master/QuickGuide_MCS.pdf
 
 ### Support
 
 http://forum.openmarine.net/forumdisplay.php?fid=1
 
-> Feel free to use openmarine.net forum to give support for your app.
 
-> Thanks for contributing!!!
+### Where to buy
+http://gedad.de
+
