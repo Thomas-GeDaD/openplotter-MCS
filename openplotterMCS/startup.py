@@ -55,7 +55,7 @@ class Check():
 	def __init__(self, conf, currentLanguage):
 		self.conf = conf
 		currentdir = os.path.dirname(__file__)
-		language.Language(currentdir,'openplotter-myapp',currentLanguage)
+		language.Language(currentdir,'openplotter-MCS',currentLanguage)
 		# "self.initialMessage" will be printed when checking the system. If it is empty the function check will not be called. Use trasnlatable text: _('Checking My App...')
 		self.initialMessage = _('Checking MCS-App running...')
 
