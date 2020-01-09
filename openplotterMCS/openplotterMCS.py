@@ -509,6 +509,8 @@ class MyFrame(wx.Frame):
 		self.readMCS()
 		self.readConnections()
 		self.printConnections()
+		
+		self.ShowStatusBarGREEN(_('Saved'))
 
 	def OnToolCancel(self,e):
 		self.ShowStatusBarRED(_('Changes canceled'))
