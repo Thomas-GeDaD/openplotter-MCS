@@ -32,10 +32,5 @@ setup (
 	'Programming Language :: Python :: 3'],
 	include_package_data=True,
 	entry_points={'console_scripts': ['openplotter-MCS=openplotterMCS.openplotterMCS:main','openplotter-MCS-read=openplotterMCS.openplotterMCSRead:main','openplotter-MCS-asd=openplotterMCS.openplotterMCSasd:main','MCSPostInstall=openplotterMCS.MCSPostInstall:main','MCSPreUninstall=openplotterMCS.MCSPreUninstall:main']},
-	
-	
-	scripts=['bin/myScript'],
-	
 	data_files=[('share/applications', ['openplotterMCS/data/openplotter-MCS.desktop']),('share/pixmaps', ['openplotterMCS/data/openplotter-MCS.png']),],
-	# data_files = Add files to the host system. This will work only when installed as debian package, not as a python package.
 	)

@@ -6,44 +6,39 @@ This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlSe
 
 #### For production
 
-Install [openplotter-settings](https://github.com/openplotter/openplotter-settings).
-Then you can Install via Openplotter Settings APP
-
+Install [openplotter-settings](https://github.com/openplotter/openplotter-settings) for **production** and just install this app from *OpenPlotter Apps* tab.
 
 #### For development
 
-Install OpenPlotter dependencies:
-
-`sudo apt install openplotter-settings`
-
-> Any OpenPlotter app must have openplotter-settings installed
-
-Install other dependencies:
-
-`sudo apt install foo bar`
-
-`sudo pip install foo bar`
+Install [openplotter-settings](https://github.com/openplotter/openplotter-settings) for **development**.
 
 Clone the repository:
 
 `git clone https://github.com/Thomas-GeDaD/openplotter-MCS`
 
-Make your changes and test them locally:
+Install:
 
-`sudo python3 setup.py install`
+```
+cd openplotter-MCS
+sudo python3 setup.py install
+```
+Run post-installation script:
 
-##################################################################################
-P
+`sudo MCSPostInstall`
+
+Run:
+
+`openplotter-MCS`
+
+Make your changes and repeat installation and post-installation steps to test. Pull request your changes to github and we will check and add them to the next version of the [Debian package](https://launchpad.net/~openplotter/+archive/ubuntu/openplotter/).
 
 ### Documentation
 
-https://openplotter.readthedocs.io
-
-https://github.com/Thomas-GeDaD/openplotter-MCS/blob/master/QuickGuide_MCS.pdf
+xxx
 
 ### Support
 
-http://forum.openmarine.net/forumdisplay.php?fid=1
+xxx
 
 
 ### Where to buy
