@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=OpenPlotter MCS
+Name=MCS
 Exec=openplotter-MCS
 Icon=openplotter-MCS
 StartupNotify=true
