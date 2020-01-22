@@ -19,6 +19,7 @@ from openplotterSettings import conf
 
 # this file runs as a service in the background
 def main():
+	time.sleep(60)
 	try:
 		conf2 = conf.Conf()
 		value = conf2.get('MCS', 'sending')
