@@ -62,24 +62,28 @@ class MyFrame(wx.Frame):
 		self.notebook.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED, self.onTabChange)
 		self.MCS_Settings = wx.Panel(self.notebook)
 		self.owire = wx.Panel(self.notebook)
+		self.support = wx.Panel(self.notebook)
 		self.connections = wx.Panel(self.notebook)
 		self.output = wx.Panel(self.notebook)
 		self.notebook.AddPage(self.MCS_Settings, _('MCS Settings'))
 		self.notebook.AddPage(self.owire, _('MCS-1Wire'))
+		self.notebook.AddPage(self.support, _('Support'))
 		self.notebook.AddPage(self.connections, _('Data output'))
 		self.notebook.AddPage(self.output, _('Output'))
 
 		self.il = wx.ImageList(24, 24)
-		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG))
-		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG))
-		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/connections.png", wx.BITMAP_TYPE_PNG))
-		img3 = self.il.Add(wx.Bitmap(self.currentdir+"/data/output.png", wx.BITMAP_TYPE_PNG))
+		img0 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-settings.png", wx.BITMAP_TYPE_PNG))
+		img1 = self.il.Add(wx.Bitmap(self.currentdir+"/data/1-w.png", wx.BITMAP_TYPE_PNG))
+		img2 = self.il.Add(wx.Bitmap(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG))
+		img3 = self.il.Add(wx.Bitmap(self.currentdir+"/data/connections.png", wx.BITMAP_TYPE_PNG))
+		img4 = self.il.Add(wx.Bitmap(self.currentdir+"/data/output.png", wx.BITMAP_TYPE_PNG))
 
 		self.notebook.AssignImageList(self.il)
 		self.notebook.SetPageImage(0, img0)
 		self.notebook.SetPageImage(1, img1)
 		self.notebook.SetPageImage(2, img2)
 		self.notebook.SetPageImage(3, img3)
+		self.notebook.SetPageImage(4, img4)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(self.toolbar1, 0, wx.EXPAND)
@@ -88,6 +92,7 @@ class MyFrame(wx.Frame):
 
 		self.pageMCS()
 		self.pageowire()
+		self.pagesupport()
 		self.pageConnections()
 		self.pageOutput()
 		self.readMCS()
@@ -143,40 +148,6 @@ class MyFrame(wx.Frame):
 
 	def pageMCS(self):
 
-		Info_Label = wx.StaticText(self.MCS_Settings, label=_("Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO Input must done in Action App\n"))
-		Info_Label.SetForegroundColour((139,37,0))
-
-		########### read MCS CAN Interfaces
-		try:
-			cansetting = os.popen ("ifconfig can0")
-			cansetting_in = cansetting.read()
-			if "can0" not in cansetting_in:
-				cansetting_in= "no CAN Device found"
-		except:
-			self.ShowStatusBarYELLOW(_('Cannot read ifconfig'))
-
-		CANstat_Label = wx.StaticText(self.MCS_Settings, label=_('Available MCS-CAN Interfaces:\n '))
-		CANstat_Label.SetForegroundColour((0,0,139))
-		CANstat = wx.StaticText(self.MCS_Settings, label = cansetting_in)
-
-		########### read MCS Serial Interfaces
-		try:
-			ser=os.listdir("/dev/")
-			avser=""
-			for i in ser:
-				if "ttySC" in i:
-					avser=i+" ; "+avser
-
-			if "ttySC0" not in avser:
-				avser= "no Serial Device found"
-		except:
-			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
-
-		SERstat_Label = wx.StaticText(self.MCS_Settings, label=_('Available MCS-Serial Interfaces:\n '))
-		SERstat_Label.SetForegroundColour((0,0,139))
-		SERstat = wx.StaticText(self.MCS_Settings, label = avser )
-
-		self.ShowStatusBarGREEN(_('all settings read succesful'))
 
 		############# Checkbox for Autoshutdown
 		autoshutd_Label = wx.StaticText(self.MCS_Settings, label=_('Enable Auto-Shutdown by Digital Input:'))
@@ -188,17 +159,9 @@ class MyFrame(wx.Frame):
 
 
 		hbox = wx.BoxSizer(wx.VERTICAL)
-		hbox.Add(Info_Label, 0, wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(wx.StaticLine(self.MCS_Settings), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(autoshutd_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		hbox.Add(self.cbasd, flag=wx.TOP|wx.LEFT, border=10)
-		hbox.AddSpacer(5)	
 		hbox.Add(wx.StaticLine(self.MCS_Settings), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(CANstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(CANstat, 0, wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(wx.StaticLine(self.MCS_Settings), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(SERstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(SERstat, 0, wx.LEFT | wx.EXPAND, 5)
 
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 5)
@@ -247,6 +210,114 @@ class MyFrame(wx.Frame):
 
 
 ######
+	def pagesupport(self):
+		Info_Label = wx.StaticText(self.support, label=_("Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO Input must done in Action App\n"))
+		Info_Label.SetForegroundColour((0,0,139))
+
+		########### read MCS CAN Interfaces
+		try:
+			cansetting = os.popen ("ifconfig can0 | sed -n 1,1p")
+			cansetting_in = cansetting.read()
+			if "can0" not in cansetting_in:
+				cansetting_in= "no CAN Device found"
+		except:
+			self.ShowStatusBarYELLOW(_('Cannot read ifconfig'))
+
+		CANstat_Label = wx.StaticText(self.support, label=_('Available MCS-CAN Interfaces: '))
+		CANstat_Label.SetForegroundColour((0,0,139))
+		CANstat = wx.StaticText(self.support, label = cansetting_in)
+
+		########### read MCS Serial Interfaces
+		try:
+			ser=os.listdir("/dev/")
+			avser=""
+			for i in ser:
+				if "ttySC" in i:
+					avser=i+" ; "+avser
+
+			if "ttySC0" not in avser:
+				avser= "no Serial Device found, MCP2515 in OP CAN App set?"
+		except:
+			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
+
+		SERstat_Label = wx.StaticText(self.support, label=_('Available MCS-Serial Interfaces: '))
+		SERstat_Label.SetForegroundColour((0,0,139))
+		SERstat = wx.StaticText(self.support, label = avser )
+		
+		########### install anydesk
+		AD_Label = wx.StaticText(self.support, label=_("For further assistance and for remote use you can install Anydesk. For non commercial use it´s free Software:"))
+		AD_Label.SetForegroundColour((0,0,139))
+		
+
+		
+		self.btnai=wx.Button(self.support, id=401, label="Install Anydesk")
+		self.Bind(wx.EVT_BUTTON, self.onBtnai, self.btnai)
+		self.btnas=wx.Button(self.support, id=402, label="Start Anydesk")
+		self.Bind(wx.EVT_BUTTON, self.onBtnas, self.btnas)
+		self.btnap=wx.Button(self.support, id=403, label="Deinstall Anydesk")
+		self.Bind(wx.EVT_BUTTON, self.onBtnap, self.btnap)
+		
+		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox1.Add(self.btnai,0,wx.ALIGN_RIGHT)
+		hbox1.Add(self.btnas,0,wx.ALIGN_LEFT)
+		hbox1.Add(self.btnap,0,wx.ALIGN_RIGHT)
+		
+		
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.Add(Info_Label, 0, wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(CANstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(CANstat, 0, wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(wx.StaticLine(self.support), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(SERstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(SERstat, 0, wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(wx.StaticLine(self.support), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+
+		vbox.Add(AD_Label, 0, wx.LEFT | wx.EXPAND, 5)
+		vbox.Add(hbox1, 0, wx.ALL | wx.EXPAND, 5)
+
+		self.support.SetSizer(vbox)
+		
+		self.readAD()
+		
+		
+	def onBtnai (self,e): #install anydesk
+		self.logger.Clear()
+		self.notebook.ChangeSelection(4)
+		
+		ADversion= "anydesk_5.5.4-1_armhf.deb" #anydesk version
+		command = self.platform.admin+' wget https://download.anydesk.com/rpi/'+ADversion+' -P '+self.currentdir+'&& '+self.platform.admin+' apt install '+self.currentdir+'/'+ADversion+' -y && '+self.platform.admin+' rm '+self.currentdir+'/'+ADversion
+		popen = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, shell=True)
+		for line in popen.stdout:
+			self.logger.WriteText(line)
+			self.ShowStatusBarYELLOW(_('Installing, please wait... ')+line)
+			self.logger.ShowPosition(self.logger.GetLastPosition())
+		self.conf.set('MCS', 'anydesk', '1')
+		self.ShowStatusBarGREEN(_('Anydesk installed'))
+		self.readAD()
+		self.notebook.ChangeSelection(2)
+		
+	def onBtnap (self,e): #deinstall anydesk
+		self.logger.Clear()
+		self.notebook.ChangeSelection(4)
+		
+		command = self.platform.admin+' apt purge anydesk -y'
+		popen = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, shell=True)
+		for line in popen.stdout:
+			self.logger.WriteText(line)
+			self.ShowStatusBarYELLOW(_('Deinstall, please wait... ')+line)
+			self.logger.ShowPosition(self.logger.GetLastPosition())
+		self.conf.set('MCS', 'anydesk', '0')
+		self.ShowStatusBarGREEN(_('Anydesk uninstalled'))
+		self.readAD()
+		self.notebook.ChangeSelection(2)
+		
+	
+	def onBtnas(self,e): #Anydesk starten
+		subprocess.call(['pkill', '-f', 'anydesk'])
+		subprocess.Popen('anydesk')
+			
+		
 	def read_sensors (self):
 		try:
 			data = self.conf.get('MCS', 'owiresensors')
@@ -369,8 +440,19 @@ class MyFrame(wx.Frame):
 		if not value: value = '0'
 		if value == '1': self.toolbar1.ToggleTool(103,True)
 		else: self.toolbar1.ToggleTool(103,False)
-		
-
+	
+	def readAD (self): # Anydesk Buttons
+		value = self.conf.get('MCS', 'anydesk')
+		if not value: value = '0'
+		if value == "1": 
+			self.btnai.Disable()
+			self.btnap.Enable()
+			self.btnas.Enable()
+		else:
+			self.btnai.Enable()
+			self.btnap.Disable()
+			self.btnas.Disable()
+			
 	def OnToolSend(self,e):
 		pass
 		#self.notebook.ChangeSelection(0)
@@ -522,7 +604,7 @@ class MyFrame(wx.Frame):
 
 	def OnToolOutput(self,e):
 		self.logger.Clear()
-		self.notebook.ChangeSelection(3)
+		self.notebook.ChangeSelection(4)
 
 		# Available serial Ports
 		self.logger.BeginTextColour((0, 130, 0))
@@ -740,4 +822,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-# new Edit
