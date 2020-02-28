@@ -89,22 +89,21 @@ class MyFrame(wx.Frame):
 		vbox.Add(self.toolbar1, 0, wx.EXPAND)
 		vbox.Add(self.notebook, 1, wx.EXPAND)
 		self.SetSizer(vbox)
-
+		
 		self.pageMCS()
 		self.pageowire()
 		self.pagesupport()
 		self.pageConnections()
 		self.pageOutput()
 		self.readMCS()
+		self.read_sensors()
+		self.readwic()
 
 		self.Centre()
 		
 		maxi = self.conf.get('GENERAL', 'maximize')
 		if maxi == '1': self.Maximize()
-
-
-		##
-		self.read_sensors()
+		
 
 	def ShowStatusBar(self, w_msg, colour):
 		self.GetStatusBar().SetForegroundColour(colour)
@@ -138,6 +137,7 @@ class MyFrame(wx.Frame):
 		subprocess.call(['pkill', '-f', 'openplotter-settings'])
 		subprocess.Popen('openplotter-settings')
 
+		#----------------------------------Pages-------------------------------------#
 	def pageOutput(self):
 		self.logger = rt.RichTextCtrl(self.output, style=wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_DONTWRAP|wx.LC_SORT_ASCENDING)
 		self.logger.SetMargins((10,10))
@@ -145,41 +145,85 @@ class MyFrame(wx.Frame):
 		sizer = wx.BoxSizer(wx.VERTICAL)
 		sizer.Add(self.logger, 1, wx.EXPAND, 0)
 		self.output.SetSizer(sizer)
-
 	def pageMCS(self):
-
-
-		############# Checkbox for Autoshutdown
+		# Checkbox for Autoshutdown
 		autoshutd_Label = wx.StaticText(self.MCS_Settings, label=_('Enable Auto-Shutdown by Digital Input:'))
 		autoshutd_Label.SetForegroundColour((0,0,139))
 		
 		self.cbasd = wx.CheckBox(self.MCS_Settings, label=_('Enable Autoshutdown'))
-	
-		############
-
-
-		hbox = wx.BoxSizer(wx.VERTICAL)
-		hbox.Add(autoshutd_Label, 0, wx.LEFT | wx.EXPAND, 5)
-		hbox.Add(self.cbasd, flag=wx.TOP|wx.LEFT, border=10)
-		hbox.Add(wx.StaticLine(self.MCS_Settings), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
-
+		
+		## Widget Input conf:
+		self.choices_digin= ["","key1","key2"]
+		self.choices_type= ["disable","Freq.","State",]
+		widget_input_label = wx.StaticText(self.MCS_Settings, label=_('Widget to configure digital inputs based on MCS (IN1-IN4) :'))
+		widget_input_label.SetForegroundColour((0,0,139))
+		self.widget_input_state = wx.CheckBox(self.MCS_Settings, label=_('Enable Input Widget'))
+		#
+		widget_input1_label = wx.StaticText(self.MCS_Settings, label=_('In1:'))
+		self.widget_func1 = wx.ComboBox(self.MCS_Settings, choices = self.choices_type)
+		self.widget_signalkkey1 = wx.ComboBox(self.MCS_Settings, choices = self.choices_digin)
+		widget_input_label_end1 = wx.StaticText(self.MCS_Settings, label=_('Factor:'))
+		self.widget_factor1 = wx.TextCtrl(self.MCS_Settings, value="1")
+		
+		widget_input2_label = wx.StaticText(self.MCS_Settings, label=_('In2:'))
+		self.widget_func2 = wx.ComboBox(self.MCS_Settings, choices = self.choices_type)
+		self.widget_signalkkey2 = wx.ComboBox(self.MCS_Settings, choices = self.choices_digin)
+		widget_input_label_end2 = wx.StaticText(self.MCS_Settings, label=_('Factor:'))
+		self.widget_factor2 = wx.TextCtrl(self.MCS_Settings, value="1")
+		
+		widget_input3_label = wx.StaticText(self.MCS_Settings, label=_('In3:'))
+		self.widget_func3 = wx.ComboBox(self.MCS_Settings, choices = self.choices_type)
+		self.widget_signalkkey3 = wx.ComboBox(self.MCS_Settings, choices = self.choices_digin)
+		widget_input_label_end3 = wx.StaticText(self.MCS_Settings, label=_('Factor:'))
+		self.widget_factor3 = wx.TextCtrl(self.MCS_Settings, value="1")
+		
+		widget_input4_label = wx.StaticText(self.MCS_Settings, label=_('In4:'))
+		self.widget_func4 = wx.ComboBox(self.MCS_Settings, choices = self.choices_type)
+		self.widget_signalkkey4 = wx.ComboBox(self.MCS_Settings, choices = self.choices_digin)
+		widget_input_label_end4 = wx.StaticText(self.MCS_Settings, label=_('Factor:'))
+		self.widget_factor4 = wx.TextCtrl(self.MCS_Settings, value="1")
+		#	
+		hbox1 = wx.GridBagSizer(3, 4)
+		hbox1.Add(widget_input1_label, pos=(0,0), flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_func1, pos=(0,1),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_signalkkey1, pos=(0,2),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(widget_input_label_end1, pos=(0,3),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_factor1, pos=(0,4),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		
+		hbox1.Add(widget_input2_label, pos=(1,0), flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_func2, pos=(1,1),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_signalkkey2, pos=(1,2),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(widget_input_label_end2, pos=(1,3),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_factor2, pos=(1,4),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		
+		hbox1.Add(widget_input3_label, pos=(2,0), flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_func3, pos=(2,1),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_signalkkey3, pos=(2,2),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(widget_input_label_end3, pos=(2,3),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_factor3, pos=(2,4),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		
+		hbox1.Add(widget_input4_label, pos=(3,0), flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_func4, pos=(3,1),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_signalkkey4, pos=(3,2),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(widget_input_label_end4, pos=(3,3),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		hbox1.Add(self.widget_factor4, pos=(3,4),flag=wx.ALL|wx.ALIGN_CENTER_VERTICAL,border=5)
+		#
 		vbox = wx.BoxSizer(wx.VERTICAL)
-		vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 5)
-		vbox.AddStretchSpacer(1)
+		vbox.AddSpacer(5)
+		vbox.Add(autoshutd_Label, 0, wx.LEFT | wx.EXPAND, 0)
+		vbox.Add(self.cbasd, flag=wx.TOP|wx.LEFT, border=10)
+		vbox.AddSpacer(5)
+		vbox.Add(wx.StaticLine(self.MCS_Settings), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 0)
+		vbox.AddSpacer(5)
+		vbox.Add(widget_input_label, 0, wx.LEFT | wx.EXPAND, 0)
+		vbox.AddSpacer(5)
+		vbox.Add(self.widget_input_state, 0, wx.LEFT | wx.EXPAND, 10)
+		vbox.Add(hbox1, 0, wx.ALL | wx.EXPAND, 5)
+		
 		self.MCS_Settings.SetSizer(vbox)
 		
 		self.read_asd()
 		
-		
-
-	def read_asd (self) :
-		stat_asd = self.conf.get('MCS', 'asd_state')
-		if not stat_asd: stat_asd= "False"
-		self.cbasd.SetValue(eval(stat_asd))
-		
-		
-		
-			
 
 	def pageowire(self):
 		self.listSensors = wx.ListCtrl(self.owire, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
@@ -208,13 +252,11 @@ class MyFrame(wx.Frame):
 		sizer.Add(self.toolbar2, 0)
 		self.owire.SetSizer(sizer)
 
-
-######
 	def pagesupport(self):
 		Info_Label = wx.StaticText(self.support, label=_("Settings for MCP2515 (CAN/NMEA2000) must done in CAN App. Settings for GPIO Input must done in Action App\n"))
 		Info_Label.SetForegroundColour((0,0,139))
 
-		########### read MCS CAN Interfaces
+		# read MCS CAN Interfaces
 		try:
 			cansetting = os.popen ("ifconfig can0 | sed -n 1,1p")
 			cansetting_in = cansetting.read()
@@ -280,7 +322,43 @@ class MyFrame(wx.Frame):
 		
 		self.readAD()
 		
+	def pageConnections(self):
+		self.toolbar3 = wx.ToolBar(self.connections, style=wx.TB_TEXT)
+		skConnections = self.toolbar3.AddTool(302, _('SK Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.Bind(wx.EVT_TOOL, self.OnSkConnections, skConnections)
+		self.toolbar3.AddSeparator()
+		skTo0183 = self.toolbar3.AddTool(303, 'SK → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.Bind(wx.EVT_TOOL, self.OnSkTo0183, skTo0183)
+		skTo2000 = self.toolbar3.AddTool(304, 'SK → NMEA 2000', wx.Bitmap(self.currentdir+"/data/sk.png"))
+		self.Bind(wx.EVT_TOOL, self.OnSkTo2000, skTo2000)
+
+		self.listConnections = wx.ListCtrl(self.connections, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
+		self.listConnections.InsertColumn(0, _('Type'), width=80)
+		self.listConnections.InsertColumn(1, _('Mode'), width=80)
+		self.listConnections.InsertColumn(2, _('Data'), width=315)
+		self.listConnections.InsertColumn(3, _('Direction'), width=80)
+		self.listConnections.InsertColumn(4, _('Port'), width=80)
+		self.listConnections.InsertColumn(5, _('Editable'), width=80)
+		self.listConnections.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onlistConnectionsSelected)
+		self.listConnections.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onlistConnectionsDeselected)
+
+		self.toolbar4 = wx.ToolBar(self.connections, style=wx.TB_TEXT | wx.TB_VERTICAL)
+		self.editConnButton = self.toolbar4.AddTool(402, _('Edit'), wx.Bitmap(self.currentdir+"/data/edit.png"))
+		self.Bind(wx.EVT_TOOL, self.OnEditConnButton, self.editConnButton)
+
+		hbox = wx.BoxSizer(wx.HORIZONTAL)
+		hbox.Add(self.listConnections, 1, wx.EXPAND, 0)
+		hbox.Add(self.toolbar4, 0)
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.Add(self.toolbar3, 0, wx.LEFT | wx.EXPAND, 0)
+		vbox.Add(hbox, 0, wx.LEFT | wx.EXPAND, 0)
+		vbox.AddStretchSpacer(1)
+		self.connections.SetSizer(vbox)
+		self.readConnections()
+		self.printConnections()
 		
+		#----------------------------------button actions-------------------------------------#
 	def onBtnai (self,e): #install anydesk
 		self.logger.Clear()
 		self.notebook.ChangeSelection(4)
@@ -316,54 +394,7 @@ class MyFrame(wx.Frame):
 	def onBtnas(self,e): #Anydesk starten
 		subprocess.call(['pkill', '-f', 'anydesk'])
 		subprocess.Popen('anydesk')
-			
-		
-	def read_sensors (self):
-		try:
-			data = self.conf.get('MCS', 'owiresensors')
-			self.config_osensors = eval (data)
-			if not self.config_osensors:
-				self.config_osensors = []
-
-
-		except:
-			self.config_osensors=[]
-
-		### read signalk_keys
-		foo = open(self.currentdir+"/data/speckeys","r")
-		self.avspeckeys = foo.read()
-		foo.close()
-		self.avspeckeys = list(self.avspeckeys.split(","))
-
-		self.printSensors()
-
-	def printSensors(self):
-		self.onListSensorsDeselected()
-		self.listSensors.DeleteAllItems()
-		count=1
-		for i in self.config_osensors:
-			temp=""
-			try:
-				x= os.listdir("/sys/bus/w1/devices")
-				x.remove ("w1_bus_master1")
-
-				for ii in x:
-					if ii ==i[0]:
-						foo = open("/sys/bus/w1/devices/"+ ii +"/w1_slave","r")
-						data = foo.read ()
-						foo.close()
-						spos=data.find("t=")
-						tempx=(data[spos+2:-1])
-						temp = int(tempx)/1000
-			except: pass #Fehlermeldung
-			if temp:
-				temp=str(temp)+"°C"
-			if not temp:
-				temp= _("no Sensor found")
-
-			self.listSensors.Append ([count,i[0],i[1],temp,i[2]])
-			count = count + 1
-#####
+	
 	def OnAddButton(self,e):
 		dlg = addowire(self.config_osensors, self.avspeckeys)
 		res = dlg.ShowModal()
@@ -418,6 +449,61 @@ class MyFrame(wx.Frame):
 
 	def OnLoadButton(self,e):
 		self.printSensors()
+		
+		
+		#--------------------------------------------- functions-------------------------#
+	def read_sensors (self):
+		try:
+			data = self.conf.get('MCS', 'owiresensors')
+			self.config_osensors = eval (data)
+			if not self.config_osensors:
+				self.config_osensors = []
+
+
+		except:
+			self.config_osensors=[]
+
+		### read signalk_keys
+		foo = open(self.currentdir+"/data/speckeys","r")
+		self.avspeckeys = foo.read()
+		foo.close()
+		self.avspeckeys = list(self.avspeckeys.split(","))
+
+		self.printSensors()
+		
+	def read_asd (self) :
+		stat_asd = self.conf.get('MCS', 'asd_state')
+		if not stat_asd: stat_asd= "False"
+		self.cbasd.SetValue(eval(stat_asd))
+
+	def printSensors(self):
+		self.onListSensorsDeselected()
+		self.listSensors.DeleteAllItems()
+		count=1
+		for i in self.config_osensors:
+			temp=""
+			try:
+				x= os.listdir("/sys/bus/w1/devices")
+				x.remove ("w1_bus_master1")
+
+				for ii in x:
+					if ii ==i[0]:
+						foo = open("/sys/bus/w1/devices/"+ ii +"/w1_slave","r")
+						data = foo.read ()
+						foo.close()
+						spos=data.find("t=")
+						tempx=(data[spos+2:-1])
+						temp = int(tempx)/1000
+			except: pass #Fehlermeldung
+			if temp:
+				temp=str(temp)+"°C"
+			if not temp:
+				temp= _("no Sensor found")
+
+			self.listSensors.Append ([count,i[0],i[1],temp,i[2]])
+			count = count + 1
+#####
+	
 
 	def onListSensorsSelected(self,e):
 		i = e.GetIndex()
@@ -452,48 +538,43 @@ class MyFrame(wx.Frame):
 			self.btnai.Enable()
 			self.btnap.Disable()
 			self.btnas.Disable()
-			
+	
+	def readwic (self): #read wic settings
+		wic_state = self.conf.get('MCS', 'wic_state')
+		if wic_state == 'True': self.widget_input_state.SetValue(True)
+		
+		wic1 = self.conf.get('MCS', 'wic1')
+		if wic1:
+			wic1 = list(wic1.split(","))
+			self.widget_func1.SetValue(wic1[0])
+			self.widget_signalkkey1.SetValue(wic1[1])
+			self.widget_factor1.SetValue(wic1[2])
+		
+		wic2 = self.conf.get('MCS', 'wic2')
+		if wic2 :
+			wic2 = list(wic2.split(","))
+			self.widget_func2.SetValue(wic2[0])
+			self.widget_signalkkey2.SetValue(wic2[1])
+			self.widget_factor2.SetValue(wic2[2])
+		
+		wic3 = self.conf.get('MCS', 'wic3')
+		if wic3:
+			wic3 = list(wic3.split(","))
+			self.widget_func3.SetValue(wic3[0])
+			self.widget_signalkkey3.SetValue(wic3[1])
+			self.widget_factor3.SetValue(wic3[2])
+		
+		wic4 = self.conf.get('MCS', 'wic4')
+		if wic3:
+			wic4 = list(wic4.split(","))
+			self.widget_func4.SetValue(wic4[0])
+			self.widget_signalkkey4.SetValue(wic4[1])
+			self.widget_factor4.SetValue(wic4[2])
+				
+		
+	
 	def OnToolSend(self,e):
 		pass
-		#self.notebook.ChangeSelection(0)
-		#if self.toolbar1.GetToolState(103): self.myoption.SetLabel('1')
-		#else: self.myoption.SetLabel('0')
-
-	def pageConnections(self):
-		self.toolbar3 = wx.ToolBar(self.connections, style=wx.TB_TEXT)
-		skConnections = self.toolbar3.AddTool(302, _('SK Connection'), wx.Bitmap(self.currentdir+"/data/sk.png"))
-		self.Bind(wx.EVT_TOOL, self.OnSkConnections, skConnections)
-		self.toolbar3.AddSeparator()
-		skTo0183 = self.toolbar3.AddTool(303, 'SK → NMEA 0183', wx.Bitmap(self.currentdir+"/data/sk.png"))
-		self.Bind(wx.EVT_TOOL, self.OnSkTo0183, skTo0183)
-		skTo2000 = self.toolbar3.AddTool(304, 'SK → NMEA 2000', wx.Bitmap(self.currentdir+"/data/sk.png"))
-		self.Bind(wx.EVT_TOOL, self.OnSkTo2000, skTo2000)
-
-		self.listConnections = wx.ListCtrl(self.connections, -1, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_HRULES, size=(-1,200))
-		self.listConnections.InsertColumn(0, _('Type'), width=80)
-		self.listConnections.InsertColumn(1, _('Mode'), width=80)
-		self.listConnections.InsertColumn(2, _('Data'), width=315)
-		self.listConnections.InsertColumn(3, _('Direction'), width=80)
-		self.listConnections.InsertColumn(4, _('Port'), width=80)
-		self.listConnections.InsertColumn(5, _('Editable'), width=80)
-		self.listConnections.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onlistConnectionsSelected)
-		self.listConnections.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onlistConnectionsDeselected)
-
-		self.toolbar4 = wx.ToolBar(self.connections, style=wx.TB_TEXT | wx.TB_VERTICAL)
-		self.editConnButton = self.toolbar4.AddTool(402, _('Edit'), wx.Bitmap(self.currentdir+"/data/edit.png"))
-		self.Bind(wx.EVT_TOOL, self.OnEditConnButton, self.editConnButton)
-
-		hbox = wx.BoxSizer(wx.HORIZONTAL)
-		hbox.Add(self.listConnections, 1, wx.EXPAND, 0)
-		hbox.Add(self.toolbar4, 0)
-
-		vbox = wx.BoxSizer(wx.VERTICAL)
-		vbox.Add(self.toolbar3, 0, wx.LEFT | wx.EXPAND, 0)
-		vbox.Add(hbox, 0, wx.LEFT | wx.EXPAND, 0)
-		vbox.AddStretchSpacer(1)
-		self.connections.SetSizer(vbox)
-		self.readConnections()
-		self.printConnections()
 
 	def readConnections(self):
 		from .ports import Ports
@@ -562,16 +643,13 @@ class MyFrame(wx.Frame):
 		self.toolbar4.EnableTool(402,False)
 
 	def OnToolApply(self,e):
-
-		### Sending
+		# sending data
 		if self.toolbar1.GetToolState(103):
 			self.conf.set('MCS', 'sending', '1')
-			# starts service and enables it at startup. Use self.platform.admin instead of sudo
 			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'enable'])
 			self.ShowStatusBarGREEN(_('Sending data enabled'))
 		else:
 			self.conf.set('MCS', 'sending', '0')
-			# stops service and disables it at startup. Use self.platform.admin instead of sudo
 			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'disable'])
 			self.ShowStatusBarYELLOW(_('Sending data disabled'))
 		for i in self.ports.connections:
@@ -579,7 +657,7 @@ class MyFrame(wx.Frame):
 
 		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))
 		
-		####### Autoshutdown
+		# Autoshutdown
 		if self.cbasd.IsChecked():
 			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'asdenable'])
 			self.ShowStatusBarYELLOW(_('Autoshutdown enable'))
@@ -588,11 +666,18 @@ class MyFrame(wx.Frame):
 			self.ShowStatusBarYELLOW(_('Autoshutdown disable'))
 		
 		self.conf.set('MCS', 'asd_state', str(self.cbasd.IsChecked()))
+		
 		self.readMCS()
 		self.readConnections()
 		self.printConnections()
 		
 		self.ShowStatusBarGREEN(_('Saved'))
+		# Widget Input Config
+		self.conf.set('MCS', 'wic_state', str(self.widget_input_state.IsChecked()))
+		self.conf.set('MCS', 'wic1', str(self.widget_func1.GetValue()+","+self.widget_signalkkey1.GetValue()+","+self.widget_factor1.GetValue()))
+		self.conf.set('MCS', 'wic2', str(self.widget_func2.GetValue()+","+self.widget_signalkkey2.GetValue()+","+self.widget_factor2.GetValue()))
+		self.conf.set('MCS', 'wic3', str(self.widget_func3.GetValue()+","+self.widget_signalkkey3.GetValue()+","+self.widget_factor3.GetValue()))
+		self.conf.set('MCS', 'wic4', str(self.widget_func4.GetValue()+","+self.widget_signalkkey4.GetValue()+","+self.widget_factor4.GetValue()))
 
 	def OnToolCancel(self,e):
 		self.ShowStatusBarRED(_('Changes canceled'))
@@ -601,7 +686,7 @@ class MyFrame(wx.Frame):
 		self.printConnections()
 		self.read_sensors()
 		self.read_asd()
-
+		self.readwic()
 	def OnToolOutput(self,e):
 		self.logger.Clear()
 		self.notebook.ChangeSelection(4)
@@ -642,7 +727,7 @@ class MyFrame(wx.Frame):
 				self.logger.ShowPosition(self.logger.GetLastPosition())
 		self.logger.EndTextColour()
 
-################################################################################
+################################################################################ edit Port
 
 class editPort(wx.Dialog):
 	def __init__(self, port):
@@ -665,8 +750,7 @@ class editPort(wx.Dialog):
 		panel.SetSizer(vbox)
 		self.Centre()
 
-################################################################################ New created owire
-
+################################################################################ Add owire
 class addowire(wx.Dialog):
 	def __init__(self, config_osensors1, signalkkeys):
 
@@ -768,7 +852,7 @@ class addowire(wx.Dialog):
 		self.ID = i.GetText()
 
 
-################################################################################ New created owire
+################################################################################ Edit owire
 class editowire(wx.Dialog):
 	def __init__(self,signalkkeys,ID):
 		wx.Dialog.__init__(self, None, title=_('Edit 1-Wire Name'), size=(500,220))
@@ -813,7 +897,7 @@ class editowire(wx.Dialog):
 		panel.SetSizer(vbox)
 		self.Centre()
 
-################################################################################
+################################################################################ Main
 
 def main():
 	app = wx.App()
