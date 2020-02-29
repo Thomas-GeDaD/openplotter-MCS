@@ -21,6 +21,7 @@ from openplotterSettings import conf
 from openplotterSettings import language
 # use the class "platform" to get info about the host system. See: https://github.com/openplotter/openplotter-settings/blob/master/openplotterSettings/platform.py
 from openplotterSettings import platform
+from .version import version
 
 class MyFrame(wx.Frame):
 	def __init__(self):
@@ -31,7 +32,7 @@ class MyFrame(wx.Frame):
 		self.currentLanguage = self.conf.get('GENERAL', 'lang')
 		self.language = language.Language(self.currentdir,'openplotter-MCS',self.currentLanguage)
 
-		wx.Frame.__init__(self, None, title=_('OpenPlotter MCS'), size=(800,520))
+		wx.Frame.__init__(self, None, title='MCS '+version, size=(800,520))
 		self.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		icon = wx.Icon(self.currentdir+"/data/openplotter-MCS.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
@@ -900,6 +901,13 @@ class editowire(wx.Dialog):
 ################################################################################ Main
 
 def main():
+	try:
+		platform2 = platform.Platform()
+		if not platform2.postInstall(version,'mcs'):
+			subprocess.Popen(['openplotterPostInstall', platform2.admin+' MCSPostInstall'])
+			return
+	except: pass
+
 	app = wx.App()
 	MyFrame().Show()
 	app.MainLoop()
