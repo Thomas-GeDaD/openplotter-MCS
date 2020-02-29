@@ -16,12 +16,20 @@ Clone the repository:
 
 `git clone https://github.com/Thomas-GeDaD/openplotter-MCS`
 
-Install:
+Make your changes and create the package:
 
 ```
 cd openplotter-MCS
-sudo python3 setup.py install
+dpkg-buildpackage -b
 ```
+
+Install the package:
+
+```
+cd ..
+sudo dpkg -i openplotter-mcs_x.x.x-xxx_all.deb
+```
+
 Run post-installation script:
 
 `sudo MCSPostInstall`
@@ -30,7 +38,8 @@ Run:
 
 `openplotter-MCS`
 
-Make your changes and repeat installation and post-installation steps to test. Pull request your changes to github and we will check and add them to the next version of the [Debian package](https://launchpad.net/~openplotter/+archive/ubuntu/openplotter/).
+
+Make your changes and repeat package, installation and post-installation steps to test. Pull request your changes to github and we will check and add them to the next version of the [Debian package](xxx).
 
 ### Documentation
 

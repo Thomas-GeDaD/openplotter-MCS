@@ -1,0 +1,15 @@
+Source: openplotter-mcs
+Section: misc
+Priority: optional
+Maintainer: Sailoog <info@sailoog.com>
+Build-Depends: debhelper (>=9),dh-python,python3-all,python3-setuptools
+Standards-Version: 3.9.6
+Homepage: https://github.com/Thomas-GeDaD/openplotter-MCS
+X-Python3-Version: >= 3.2
+
+Package: openplotter-mcs
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}, ${python3:Depends}, openplotter-settings
+Description: This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer Hardware
+ This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer Hardware
