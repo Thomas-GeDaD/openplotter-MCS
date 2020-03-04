@@ -154,8 +154,8 @@ class MyFrame(wx.Frame):
 		self.cbasd = wx.CheckBox(self.MCS_Settings, label=_('Enable Autoshutdown'))
 		
 		## Widget Input conf:
-		self.choices_digin= ["","key1","key2"]
-		self.choices_type= ["disable","Freq.","State",]
+		self.choices_digin= ["propulsion.*.revolutions","electrical.inverters.*.ac.frequency","electrical.alternators.*.revolutions"]
+		self.choices_type= ["disable","Frequenz"]
 		widget_input_label = wx.StaticText(self.MCS_Settings, label=_('Widget to configure digital inputs based on MCS (IN1-IN4) :'))
 		widget_input_label.SetForegroundColour((0,0,139))
 		self.widget_input_state = wx.CheckBox(self.MCS_Settings, label=_('Enable Input Widget'))
