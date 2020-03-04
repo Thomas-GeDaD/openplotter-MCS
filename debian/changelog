@@ -1,11 +1,6 @@
 openplotter-mcs (2.0.1-dev) bionic; urgency=medium
 
-  * Add Debian package files and post installation scripts
+  * Add wic Window/Service
+  
+ -- GeDaD <t.gersmann@gedad.de>  Sat, 29 Feb 2020 21:06:13 +0100
 
- -- Sailoog <info@sailoog.com>  Sat, 29 Feb 2020 21:06:13 +0100
-
-openplotter-mcs (2.0.0-dev) bionic; urgency=medium
-
-  * Initial release
-
- -- Sailoog <info@sailoog.com>  Thu, 09 Jan 2020 18:01:48 +0100
