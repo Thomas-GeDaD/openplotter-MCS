@@ -1,6 +1,6 @@
-openplotter-mcs (2.0.3-dev) bionic; urgency=medium
+openplotter-mcs (2.0.4-dev) buster; urgency=medium
 
-  * Add wic Window/Service
+  * Add wic Window/Service / Update Version
   
- -- GeDaD <t.gersmann@gedad.de>  Wed, 04 Mar 2020 21:06:13 +0100
+ -- GeDaD <t.gersmann@gedad.de>  Thu, 05 Mar 2020 17:34:13 +0100
 
