@@ -1,0 +1,7 @@
+# Source: Cloudsmith (support@cloudsmith.io)
+# Repository: Thomas Gersmann / openplotter-MCS
+# Description: A certifiably-awesome open-source package repository curated by Thomas Gersmann, hosted by Cloudsmith.
+
+deb https://dl.cloudsmith.io/public/thomas-gersmann/openplotter-mcs/deb/debian buster main
+
+# deb-src https://dl.cloudsmith.io/public/thomas-gersmann/openplotter-mcs/deb/debian buster main
