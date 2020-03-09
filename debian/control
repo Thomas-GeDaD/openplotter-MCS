@@ -1,7 +1,7 @@
 Source: openplotter-mcs
 Section: misc
 Priority: optional
-Maintainer: Sailoog <info@sailoog.com>
+Maintainer: GeDaD <t.gersmann@gedad.de>
 Build-Depends: debhelper (>=9),dh-python,python3-all,python3-setuptools
 Standards-Version: 3.9.6
 Homepage: https://github.com/Thomas-GeDaD/openplotter-MCS
