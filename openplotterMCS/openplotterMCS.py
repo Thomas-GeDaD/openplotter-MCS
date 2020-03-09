@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
 
-import wx, os, webbrowser, subprocess, socket
+import wx, os, webbrowser, subprocess, socket, time
 import wx.richtext as rt
 from openplotterSettings import conf
 from openplotterSettings import language
