@@ -14,23 +14,69 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
-import os, subprocess
+import os, subprocess, sys
 from openplotterSettings import conf
 from openplotterSettings import language
+from openplotterSettings import platform
 from .version import version
 
 def main():
 	# This file will be ran as sudo. Do here whatever you need after package installation.
 
 	conf2 = conf.Conf()
-	currentdir = os.path.dirname(__file__)
+	currentdir = os.path.dirname(os.path.abspath(__file__))
+	package= 'openplotter-MCS'
 	currentLanguage = conf2.get('GENERAL', 'lang')
-	language.Language(currentdir,'openplotter-MCS',currentLanguage)
-
-	# here we create a service to run openplotter-MCS-read file
-
-	print(_('Adding openplotter-read-MCS service...'))
+	language.Language(currentdir,package,currentLanguage)
+	platform2 = platform.Platform()
 	
+
+	app = {
+	'name': 'MCS',
+	'platform': 'rpi', ### rpi, debian or both
+	'package': package,
+	'preUninstall': platform2.admin+' '+'MCSPreUninstall',
+	'uninstall': package,
+	'sources': ['https://dl.cloudsmith.io/public/thomas-gersmann/openplotter-mcs/deb/debian buster'], ### replace by your repositories URLs separated by commas.
+	'dev': 'no', ### set to "yes" if you do not want your app to be updated from repositories yet.
+	'entryPoint': 'openplotter-MCS',
+	'postInstall': platform2.admin+' '+'MCSPostInstall',
+	'reboot': 'yes',
+	'module': 'openplotterMCS' ### replace by your python module name (see setup.py file).
+	}
+	gpgKey = currentdir+'/data/MCS.gpg.key' ### replace by the path to your gpg key file. Replace contents of this file by your key.
+	sourceList = currentdir+'/data/MCS.list' ### replace by the path to your sources list file. Replace contents of this file by your packages sources.
+
+	#########################
+	print(_('Adding MCS-app to OpenPlotter...'))
+	try:
+		externalApps0 = eval(conf2.get('APPS', 'external_apps'))
+		externalApps1 = []
+		for i in externalApps0:
+			if i['package'] != package: externalApps1.append(i)
+		externalApps1.append(app)
+		conf2.set('APPS', 'external_apps', str(externalApps1))
+		print(_('DONE'))
+	except Exception as e: print(_('FAILED: ')+str(e))	
+	
+	
+	print(_('Checking sources...'))
+	try:
+		sources = subprocess.check_output('apt-cache policy', shell=True).decode(sys.stdin.encoding)
+		exists = True
+		for i in app['sources']:
+			if not i in sources: exists = False
+		if not exists:
+			os.system('cp '+sourceList+' /etc/apt/sources.list.d')
+			os.system('apt-key add - < '+gpgKey)
+			os.system('apt update')
+		print(_('DONE'))
+	except Exception as e: print(_('FAILED: ')+str(e))
+	
+	
+	############Start
+	print(_('Adding openplotter-read-MCS service...'))
+	###add Service
 	try:
 		fo = open('/etc/systemd/system/openplotter-MCS-read.service', "w")
 		fo.write( '[Service]\nExecStart=openplotter-MCS-read\nStandardOutput=syslog\nStandardError=syslog\nUser='+conf2.user+'\n[Install]\nWantedBy=multi-user.target')
