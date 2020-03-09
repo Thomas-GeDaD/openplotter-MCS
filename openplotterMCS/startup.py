@@ -15,14 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
 
-import time, os, subprocess
+import time, os, subprocess, sys
 from openplotterSettings import language
 
 # This class will be always called at startup. You should start here only GUI programs. Non GUI progrmas should be started as a services, see setup.py and myappPostInstall.py
 class Start():
 	def __init__(self, conf, currentLanguage):
 		self.conf = conf
-		currentdir = os.path.dirname(__file__)
+		currentdir = os.path.dirname(os.path.abspath(__file__))
 		language.Language(currentdir,'openplotter-MCS',currentLanguage)
 		# "self.initialMessage" will be printed at startup if it has content. If not, the function "start" will not be called. Use trasnlatable text: _('Starting My App...')
 		self.initialMessage = 'Starting MCS-APP'
@@ -47,14 +47,14 @@ class Start():
 		########################
 		
 		
-		time.sleep(2) # "check" function is called after "start" function, so if we start any program here we should wait some seconds before checking it. 
+		time.sleep(1) # "check" function is called after "start" function, so if we start any program here we should wait some seconds before checking it. 
 		return {'green': green,'black': black,'red': red}
 
 # This class is called after "start" function and when the user checks the system
 class Check():
 	def __init__(self, conf, currentLanguage):
 		self.conf = conf
-		currentdir = os.path.dirname(__file__)
+		currentdir = os.path.dirname(os.path.abspath(__file__))
 		language.Language(currentdir,'openplotter-MCS',currentLanguage)
 		# "self.initialMessage" will be printed when checking the system. If it is empty the function check will not be called. Use trasnlatable text: _('Checking My App...')
 		self.initialMessage = _('Checking MCS-App running...')
@@ -74,7 +74,5 @@ class Check():
 		if "ds2482" not in av:
 			red = _('ds2482_1-Wire device not availible, Please restart System')
 			
-			
-
 		return {'green': green,'black': black,'red': red}
 
