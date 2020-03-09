@@ -19,12 +19,25 @@ from openplotterSettings import conf
 from openplotterSettings import language
 
 def main():
-	# This file will be ran as sudo. Do here whatever you need to remove files and programs before app uninstall.
 	conf2 = conf.Conf()
-	currentdir = os.path.dirname(__file__)
+	currentdir = os.path.dirname(os.path.abspath(__file__))
 	currentLanguage = conf2.get('GENERAL', 'lang')
-	language.Language(currentdir,'openplotter-MCS',currentLanguage)
+	package = 'openplotter-MCS'
+	language.Language(currentdir,package,currentLanguage)
 
+	print(_('Removing app from OpenPlotter...'))
+	try:
+		externalApps0 = eval(conf2.get('APPS', 'external_apps'))
+		externalApps1 = []
+		for i in externalApps0:
+			if i['package'] != package: externalApps1.append(i)
+		conf2.set('APPS', 'external_apps', str(externalApps1))
+		os.system('rm -f /etc/apt/sources.list.d/MCS.list') ### replace myapp.list by the name of your sources file (see myappPostInstall.py script).
+		os.system('apt update')
+		print(_('DONE'))
+	except Exception as e: print(_('FAILED: ')+str(e))
+	
+	
 	# here we remove the services
 	print(_('Removing openplotter-read-MCS service...'))
 	try:
