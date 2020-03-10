@@ -27,7 +27,9 @@ def main():
 
 	print(_('Removing app from OpenPlotter...'))
 	try:
-		externalApps0 = eval(conf2.get('APPS', 'external_apps'))
+		try:
+			externalApps0 = eval(conf2.get('APPS', 'external_apps'))
+		except: externalApps0 = []
 		externalApps1 = []
 		for i in externalApps0:
 			if i['package'] != package: externalApps1.append(i)
