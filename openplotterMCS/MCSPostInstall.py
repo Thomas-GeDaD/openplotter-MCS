@@ -25,7 +25,7 @@ def main():
 
 	conf2 = conf.Conf()
 	currentdir = os.path.dirname(os.path.abspath(__file__))
-	package= 'openplotter-MCS'
+	package= 'openplotter-mcs'
 	currentLanguage = conf2.get('GENERAL', 'lang')
 	language.Language(currentdir,package,currentLanguage)
 	platform2 = platform.Platform()
