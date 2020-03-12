@@ -23,7 +23,7 @@ def main():
 	currentdir = os.path.dirname(os.path.abspath(__file__))
 	currentLanguage = conf2.get('GENERAL', 'lang')
 	package = 'openplotter-MCS'
-	language.Language(currentdir,package,currentLanguage)
+	language.Language(currentdir,"openplotter-MCS",currentLanguage)
 
 	print(_('Removing app from OpenPlotter...'))
 	try:
