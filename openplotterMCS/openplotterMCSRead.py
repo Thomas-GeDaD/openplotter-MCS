@@ -42,22 +42,22 @@ def main():
 	if wic_state == "True":
 		GPIO.setmode(GPIO.BCM)
 		
-		if wic1[0]=="Frequenz":
+		if wic1[0]=="frequency":
 			measure1=MeasureFrequency(19)
 			measure1.start()
 			average1=MovingAverage(0.6)
 
-		if wic2[0]=="Frequenz":
+		if wic2[0]=="frequency":
 			measure2=MeasureFrequency(16)
 			measure2.start()
 			average2=MovingAverage(0.6)
 			
-		if wic3[0]=="Frequenz":
+		if wic3[0]=="frequency":
 			measure3=MeasureFrequency(26)
 			measure3.start()
 			average3=MovingAverage(0.6)
 			
-		if wic4[0]=="Frequenz":
+		if wic4[0]=="frequency":
 			measure4=MeasureFrequency(20)
 			measure4.start()
 			average4=MovingAverage(0.6)
@@ -68,32 +68,36 @@ def main():
 		while True:
 			values=""
 			if wic_state == "True":			
-				if wic1[0]=="Frequenz":
+				if wic1[0]=="frequency":
 					freq1=measure1.frequency()
 					average1.add(freq1)
 					freq1_=average1.value()
 					freq1_=freq1_*float(wic1[2])
+					freq1_=round(freq1_,2)
 					values += '{"path":"'+ str(wic1[1]) +'","value":' +str(freq1_)+ '},'
     
-				if wic2[0]=="Frequenz":
+				if wic2[0]=="frequency":
 					freq2=measure2.frequency()
 					average2.add(freq2)
 					freq2_=average2.value()
 					freq2_=freq2_*float(wic2[2])
+					freq2_=round(freq2_,2)
 					values += '{"path":"'+ str(wic2[1]) +'","value":' +str(freq2_)+ '},'
     
-				if wic3[0]=="Frequenz":
+				if wic3[0]=="frequency":
 					freq3=measure3.frequency()
 					average3.add(freq3)
 					freq3_=average3.value()
 					freq3_=freq3_*float(wic3[2])
+					freq3_=round(freq3_,2)
 					values += '{"path":"'+ str(wic3[1]) +'","value":' +str(freq3_)+ '},'
 			
-				if wic4[0]=="Frequenz":
+				if wic4[0]=="frequency":
 					freq4=measure4.frequency()
 					average4.add(freq4)
 					freq4_=average4.value()
 					freq4_=freq4_*float(wic4[2])
+					freq4_=round(freq4_,2)
 					values += '{"path":"'+ str(wic4[1]) +'","value":' +str(freq4_)+ '},'
 			
 			
