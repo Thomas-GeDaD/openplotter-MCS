@@ -1,7 +1,8 @@
-openplotter-mcs (2.1.2-dev) buster; urgency=medium
+openplotter-mcs (2.1.3-stable) buster; urgency=medium
 
   * 2.1.0 Update for OP 2.2.0
   * 2.1.1 Fixing gpg format in 2.1.1
   * 2.1.2 Fixing package error 
+  * 2.1.3 edit some bugs in frequency
   
- -- GeDaD <t.gersmann@gedad.de>  Thu, 12 Mar 2020 08:34:13 +0100
+ -- GeDaD <t.gersmann@gedad.de>  Tue, 17 Mar 2020 19:34:13 +0100
