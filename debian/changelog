@@ -4,5 +4,6 @@ openplotter-mcs (2.1.3-stable) buster; urgency=medium
   * 2.1.1 Fixing gpg format in 2.1.1
   * 2.1.2 Fixing package error 
   * 2.1.3 edit some bugs in frequency
+  * 2.1.4 fix bug in read service
   
  -- GeDaD <t.gersmann@gedad.de>  Tue, 17 Mar 2020 19:34:13 +0100
