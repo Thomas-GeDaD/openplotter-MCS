@@ -67,7 +67,8 @@ def main():
 	if value == '1':
 		while True:
 			values=""
-			if wic_state == "True":			
+			if wic_state == "True":	
+				print ("wic state true")
 				if wic1[0]=="frequency":
 					freq1=measure1.frequency()
 					average1.add(freq1)
@@ -118,10 +119,12 @@ def main():
 								
 				values += '{"path":"'+ str(i[2]) +'","value":' +str(temp)+ '},'
 
-			values=values[0:-1]
-			SignalK = '{"updates":[{"$source":"OpenPlotter.MCS","values":['+values+']}]}\n'	
-			sock.sendto(SignalK.encode('utf-8'), ('127.0.0.1', int(port)))
-			print (SignalK)
+			if values:
+				values=values[0:-1]
+				SignalK = '{"updates":[{"$source":"OpenPlotter.MCS","values":['+values+']}]}\n'	
+				sock.sendto(SignalK.encode('utf-8'), ('127.0.0.1', int(port)))
+				print (SignalK)
+			time.sleep (0.2)
 	
 
 class MeasureFrequency(object):
