@@ -6,4 +6,4 @@ openplotter-mcs (2.1.5-stable) buster; urgency=medium
   * 2.1.3 edit some bugs in frequency
   * 2.1.4 fix bug in read service
   * 2.1.5 fix bug: if a Sensor is configurated and not reachable the read scrip stops. Now it sends "no data"
- -- GeDaD <t.gersmann@gedad.de>  Tue, 17 Mar 2020 19:34:13 +0100
+ -- GeDaD <t.gersmann@gedad.de>  Tue, 22 Apr 2020 10:32:13 +0200
