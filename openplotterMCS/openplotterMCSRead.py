@@ -38,7 +38,6 @@ def main():
 		wic4 = list(wic4.split(","))
 		
 	except Exception as e: print (str(e))
-	print (wic_state)
 	if wic_state == "True":
 		GPIO.setmode(GPIO.BCM)
 		
@@ -68,7 +67,7 @@ def main():
 		while True:
 			values=""
 			if wic_state == "True":	
-				print ("wic state true")
+				#print ("wic state true")
 				if wic1[0]=="frequency":
 					freq1=measure1.frequency()
 					average1.add(freq1)
@@ -106,18 +105,18 @@ def main():
 				try:
 					x= os.listdir("/sys/bus/w1/devices")
 					x.remove ("w1_bus_master1")
-					for ii in x:
-						if ii ==i[0]:
-							foo = open("/sys/bus/w1/devices/"+ ii +"/w1_slave","r")
-							data = foo.read ()
-							foo.close()
-							spos=data.find("t=")
-							tempx=(data[spos+2:-1])
-							temp = int(tempx)/1000
-							temp = temp + 273.15
-				except Exception as e: print (str(e))
-								
-				values += '{"path":"'+ str(i[2]) +'","value":' +str(temp)+ '},'
+					if i[0] in x:
+						foo = open("/sys/bus/w1/devices/"+ i[0] +"/w1_slave","r")
+						data = foo.read ()
+						foo.close()
+						spos=data.find("t=")
+						tempx=(data[spos+2:-1])
+						temp = int(tempx)/1000
+						temp = temp + 273.15
+					else:
+						temp=str('"no data"')
+					values += '{"path":"'+ str(i[2]) +'","value":' +str(temp)+ '},'
+				except Exception as e: print (str(e))			
 
 			if values:
 				values=values[0:-1]
