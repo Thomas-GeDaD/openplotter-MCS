@@ -104,7 +104,6 @@ def main():
 			for i in config_osensors:
 				try:
 					x= os.listdir("/sys/bus/w1/devices")
-					x.remove ("w1_bus_master1")
 					if i[0] in x:
 						foo = open("/sys/bus/w1/devices/"+ i[0] +"/w1_slave","r")
 						data = foo.read ()
