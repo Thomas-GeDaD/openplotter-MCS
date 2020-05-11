@@ -826,22 +826,21 @@ class addowire(wx.Dialog):
 
 		try:
 			x= os.listdir("/sys/bus/w1/devices")
-			x.remove ("w1_bus_master1")
-
 			for i in x:
-				foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
-				data = foo.read ()
-				foo.close()
-				spos=data.find("t=")
-				tempx=(data[spos+2:-1])
-				temp = int(tempx)/1000
-				exist=0
-				if self.config_osensors:
-					for ii in self.config_osensors:
-						if i == ii[0]:
-							exist = 1
-				if exist==0:
-					self.list_detected.Append ([i,temp])
+				if i[0:2]=="28": #check family code
+					foo = open("/sys/bus/w1/devices/"+ i +"/w1_slave","r")
+					data = foo.read ()
+					foo.close()
+					spos=data.find("t=")
+					tempx=(data[spos+2:-1])
+					temp = int(tempx)/1000
+					exist=0
+					if self.config_osensors:
+						for ii in self.config_osensors:
+							if i == ii[0]:
+								exist = 1
+					if exist==0:
+						self.list_detected.Append ([i,temp])
 
 		except:
 			self.list_detected.Append (["cannot read Sensor",""])
