@@ -6,8 +6,7 @@ This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlSe
 
 #### For production
 
-Install [openplotter-settings](https://github.com/openplotter/openplotter-settings) for **production** and just install this app from *OpenPlotter Apps* tab.
-
+Install [openplotter-settings](https://github.com/openplotter/openplotter-settings) for **production** and download the [Debian package](https://cloudsmith.io/~thomas-gersmann/repos/openplotter-mcs/packages/detail/deb/openplotter-mcs/2.1.2-dev/d=debian%252Fbuster;t=1/). 
 #### For development
 
 Install [openplotter-settings](https://github.com/openplotter/openplotter-settings) for **development**.
@@ -44,6 +43,7 @@ Make your changes and repeat package, installation and post-installation steps t
 ### Documentation
 
 [GeDaD Support Site](https://www.gedad.de/support/)
+
 [Openplotter Support Forum](http://forum.openmarine.net/showthread.php?tid=1807)
 
 
