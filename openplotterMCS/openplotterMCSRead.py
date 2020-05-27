@@ -121,7 +121,7 @@ def main():
 				values=values[0:-1]
 				SignalK = '{"updates":[{"$source":"OpenPlotter.MCS","values":['+values+']}]}\n'	
 				sock.sendto(SignalK.encode('utf-8'), ('127.0.0.1', int(port)))
-				print (SignalK)
+				#print (SignalK)
 			time.sleep (0.2)
 	
 
