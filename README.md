@@ -39,17 +39,21 @@ Run:
 `openplotter-MCS`
 
 
-Make your changes and repeat package, installation and post-installation steps to test. Pull request your changes to github and we will check and add them to the next version of the [Debian package](xxx).
+Make your changes and repeat package, installation and post-installation steps to test. Pull request your changes to github and we will check and add them to the next version of the [Debian package](https://cloudsmith.io/~thomas-gersmann/repos/openplotter-mcs/packages/detail/deb/openplotter-mcs/2.1.2-dev/d=debian%252Fbuster;t=1/).
 
 ### Documentation
 
-xxx
+[GeDaD Support Site](https://www.gedad.de/support/)
+[Openplotter Support Forum](http://forum.openmarine.net/showthread.php?tid=1807)
+
 
 ### Support
 
-xxx
+t.gersmann@gmail.com
 
 
 ### Where to buy
-http://gedad.de
+
+https://www.gedad.de/shop/gecos-wired/#cc-m-product-15562399022
+
 
