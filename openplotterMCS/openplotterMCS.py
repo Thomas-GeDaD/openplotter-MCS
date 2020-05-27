@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # This file is part of Openplotter.
-# Copyright (C) 2019 by GeDaD <https://github.com/Thomas-GeDaD/openplotter-MCS>
+# Copyright (C) 2020 by GeDaD <https://github.com/Thomas-GeDaD/openplotter-MCS>
 #
 # Openplotter is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
 
-import wx, os, webbrowser, subprocess, socket, time
+import wx, os, webbrowser, subprocess, socket, time, serial, threading, ctypes
 import wx.richtext as rt
+import wx.lib.newevent
 from openplotterSettings import conf
 from openplotterSettings import language
 # use the class "platform" to get info about the host system. See: https://github.com/openplotter/openplotter-settings/blob/master/openplotterSettings/platform.py
 from openplotterSettings import platform
 from .version import version
+SerialEvent, SERIAL_EVENT = wx.lib.newevent.NewEvent()
 
 class MyFrame(wx.Frame):
 	def __init__(self):
@@ -279,20 +281,22 @@ class MyFrame(wx.Frame):
 					avser=i+" ; "+avser
 
 			if "ttySC0" not in avser:
-				avser= "no Serial Device found, MCP2515 in OP CAN App set?"
+				avser= _("no Serial Device found")
 		except:
 			self.ShowStatusBarYELLOW(_('Cannot read /dev/'))
 
 		SERstat_Label = wx.StaticText(self.support, label=_('Available MCS-Serial Interfaces: '))
 		SERstat_Label.SetForegroundColour((0,0,139))
 		SERstat = wx.StaticText(self.support, label = avser )
-		
+		########### Serial check
+		SERcheck_Label = wx.StaticText(self.support, label=_('Check Serial devices: '))
+		self.btnsercheck=wx.Button(self.support, id=404, label="check Datastream")
+		self.Bind(wx.EVT_BUTTON, self.onBtnsercheck, self.btnsercheck)
+				
 		########### install anydesk
 		AD_Label = wx.StaticText(self.support, label=_("For further assistance and for remote use you can install Anydesk. For non commercial use it´s free Software:"))
 		AD_Label.SetForegroundColour((0,0,139))
-		
-
-		
+				
 		self.btnai=wx.Button(self.support, id=401, label="Install Anydesk")
 		self.Bind(wx.EVT_BUTTON, self.onBtnai, self.btnai)
 		self.btnas=wx.Button(self.support, id=402, label="Start Anydesk")
@@ -305,8 +309,10 @@ class MyFrame(wx.Frame):
 		hbox1.Add(self.btnas,0,wx.ALIGN_LEFT)
 		hbox1.Add(self.btnap,0,wx.ALIGN_RIGHT)
 		
+		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox2.Add(SERcheck_Label,0,wx.ALIGN_LEFT)
+		hbox2.Add(self.btnsercheck,0,wx.ALIGN_RIGHT)
 		
-
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		vbox.Add(Info_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		vbox.Add(CANstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
@@ -314,13 +320,15 @@ class MyFrame(wx.Frame):
 		vbox.Add(wx.StaticLine(self.support), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 		vbox.Add(SERstat_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		vbox.Add(SERstat, 0, wx.LEFT | wx.EXPAND, 5)
+		vbox.AddSpacer(5)
+		vbox.Add(hbox2, 0, wx.ALL | wx.EXPAND, 5)
+		vbox.AddSpacer(5)
 		vbox.Add(wx.StaticLine(self.support), 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
 		vbox.Add(AD_Label, 0, wx.LEFT | wx.EXPAND, 5)
 		vbox.Add(hbox1, 0, wx.ALL | wx.EXPAND, 5)
 
 		self.support.SetSizer(vbox)
-		
 		self.readAD()
 		
 	def pageConnections(self):
@@ -419,6 +427,14 @@ class MyFrame(wx.Frame):
 			self.config_osensors.append(newoSensor)
 		dlg.Destroy()
 		self.printSensors()
+		
+		
+	def onBtnsercheck(self,e):	
+		dlg = serialcheck()
+		res = dlg.ShowModal()
+		if res == wx.ID_CANCEL:
+			dlg.thread1.stop()
+			dlg.thread1.join()
 
 
 	def OnEditButton(self,e):
@@ -896,9 +912,132 @@ class editowire(wx.Dialog):
 
 		panel.SetSizer(vbox)
 		self.Centre()
+		
+################################################################################ Edit owire
+class serialcheck(wx.Dialog):
+	def __init__(self):
+		wx.Dialog.__init__(self, None , title=_('Serialcheck'), size=(900,600))
+		self.panel = wx.Panel(self)
+		self.flag = True
+		label_Text1=wx.StaticText(self.panel, label=_('The interface to be read may not be used in any other program during reading! \n Output:'))
+		label_Text2=wx.StaticText(self.panel, label=_('Interface:'))
+		label_Text3=wx.StaticText(self.panel, label=_('Baudrate:'))
 
+		hline1 = wx.StaticLine(self.panel)
+		
+		cancelBtn = wx.Button(self.panel, wx.ID_CANCEL)
+		self.btnread=wx.Button(self.panel, id=1001, label="Read")
+		self.Bind(wx.EVT_BUTTON, self.onBtnread, self.btnread)
+		self.btnstopread=wx.Button(self.panel, id=1002, label="Stop Reading")
+		self.Bind(wx.EVT_BUTTON, self.onBtnstopread, self.btnstopread)
+
+		self.interface = wx.ComboBox(self.panel, choices = ["/dev/ttySC0","/dev/ttySC1","/dev/ttySC2","/dev/ttySC3","/dev/ttySC4","/dev/ttySC5"] )
+		hbox1 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox1.Add(label_Text2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		hbox1.Add(self.interface, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+
+		self.baudrate = wx.ComboBox(self.panel, choices = ["4800","1200","2400","9600","19200","38400","57600","115200"] )
+		hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+		hbox2.Add(label_Text3, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		hbox2.Add(self.baudrate, 1, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		
+		self.output = rt.RichTextCtrl(self.panel, style=wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_DONTWRAP|wx.LC_SORT_ASCENDING)
+		
+
+		hbox = wx.BoxSizer(wx.HORIZONTAL)
+		hbox.Add(cancelBtn, 1, wx.ALL | wx.EXPAND, 10)
+		hbox.Add(self.btnread, 1, wx.ALL | wx.EXPAND, 10)
+		hbox.Add(self.btnstopread, 1, wx.ALL | wx.EXPAND, 10)
+
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		vbox.AddSpacer(10)
+		vbox.Add(label_Text1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 10)
+		vbox.AddSpacer(10)
+		vbox.Add(self.output, 1, wx.EXPAND, 0)
+		vbox.Add(hbox1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.AddSpacer(10)
+		vbox.Add(hbox2, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
+		vbox.AddSpacer(10)
+		vbox.Add(hline1, 0, wx.RIGHT | wx.LEFT | wx.EXPAND, 20)
+		vbox.AddSpacer(10)
+		vbox.Add(hbox, 0, wx.EXPAND, 0)
+
+		self.panel.SetSizer(vbox)
+		self.Centre()
+	
+		self.Bind(SERIAL_EVENT, self.on_getdata)
+		
+	def onBtnread(self, e):
+		try:
+			self.thread1.stop()
+			self.thread1.join()
+		except: pass
+		
+		self.output.BeginTextColour((0, 134, 139))
+		self.output.WriteText(_('Start reading with configuration:'))
+		self.output.Newline()
+		self.thread1 = serialread(self,self.baudrate.GetValue(), self.interface.GetValue())
+		self.output.WriteText("Baudrate:" + self.baudrate.GetValue() + "\nInterface:" +self.interface.GetValue())
+		self.output.Newline()
+		self.output.EndTextColour()
+		self.thread1.start()
+	
+	def onBtnstopread(self, e):
+		self.thread1.stop()
+		self.thread1.join() 
+	
+	def on_getdata(self, evt):
+		self.output.WriteText(evt.data)
+		self.output.Newline()
+		self.output.ShowPosition(self.output.GetLastPosition())
+		
+		
+		#################################################### Thread for serial read
+class serialread (threading.Thread):
+	def __init__(self, mypanel, baud, port):
+		self.mypanel = mypanel
+		self.baud = baud
+		self.port = port
+		threading.Thread.__init__(self)
+	def run(self):
+		ser = serial.Serial(
+		port= self.port,
+			baudrate = self.baud,
+			parity = serial.PARITY_NONE,
+			stopbits = serial.STOPBITS_ONE,
+			bytesize = serial.EIGHTBITS,
+			timeout = 1 )
+	
+		if ser.is_open == 1:
+			ser.close()
+			ser.open()
+		
+		while True:
+			try:
+				newdata = str(ser.readline())	
+			except (OSError, serial.serialutil.SerialException):
+				newdata = "no data"
+				
+			evt=SerialEvent(data=newdata)
+			wx.PostEvent(self.mypanel,evt)
+			
+	def get_id(self): 
+  
+        # returns id of the respective thread 
+		if hasattr(self, '_thread_id'): 
+			return self._thread_id 
+		for id, thread in threading._active.items(): 
+			if thread is self: 
+				return id
+				
+	def stop(self):
+		thread_id = self.get_id() 
+		res = ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, 
+			ctypes.py_object(SystemExit)) 
+		if res > 1: 
+			ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, 0) 
+			print('Exception raise failure') 
 ################################################################################ Main
-
 def main():
 	try:
 		platform2 = platform.Platform()
@@ -913,3 +1052,5 @@ def main():
 
 if __name__ == '__main__':
 	main()
+	
+	#https://wiki.wxpython.org/LongRunningTasks
