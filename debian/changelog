@@ -1,4 +1,4 @@
-openplotter-mcs (2.1.6-stable) buster; urgency=medium
+openplotter-mcs (2.1.7-stable) buster; urgency=medium
 
   * 2.1.0 Update for OP 2.2.0
   * 2.1.1 Fixing gpg format in 2.1.1
@@ -7,4 +7,6 @@ openplotter-mcs (2.1.6-stable) buster; urgency=medium
   * 2.1.4 fix bug in read service
   * 2.1.5 fix bug: if a Sensor is configurated and not reachable the read scrip stops. Now it sends "no data"
   * 2.1.6 fix 1-wire bug with family code
- -- GeDaD <t.gersmann@gedad.de>  Mon, 11 May 2020 16:10:13 +0200
+  * 2.1.7 fix bug in logging and add Serial read option in Support
+  
+ -- GeDaD <t.gersmann@gedad.de>  Wed, 27 May 2020 13:10:20 +0200
