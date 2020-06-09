@@ -61,7 +61,7 @@ Make your changes and repeat package, installation and post-installation steps t
 
 ### Support
 
-t.gersmann@gmail.com
+t.gersmann@gedad.de
 
 
 ### Where to buy
