@@ -10,6 +10,6 @@ X-Python3-Version: >= 3.2
 Package: openplotter-mcs
 Architecture: all
 Multi-Arch: foreign
-Depends: ${misc:Depends}, ${python3:Depends}, openplotter-settings
+Depends: ${misc:Depends}, ${python3:Depends}, openplotter-settings, pigpio
 Description: This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer Hardware
  This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer Hardware
