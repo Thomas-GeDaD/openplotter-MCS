@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Openplotter. If not, see <http://www.gnu.org/licenses/>.
-import socket, time, random, os , statistics
+import socket, time, random, os , statistics, pigpio
 from openplotterSettings import conf
 import RPi.GPIO as GPIO
 from time import perf_counter
@@ -25,6 +25,7 @@ def main():
 		conf2 = conf.Conf()
 		value = conf2.get('MCS', 'sending')
 		port = conf2.get('MCS', 'MCSConn1')
+		portstalk = conf2.get('MCS', 'MCSConn2')
 		Sensor = conf2.get('MCS', 'owiresensors')
 		config_osensors = eval (Sensor)
 		wic_state = conf2.get('MCS', 'wic_state')
@@ -40,32 +41,72 @@ def main():
 	except Exception as e: print (str(e))
 	if wic_state == "True":
 		GPIO.setmode(GPIO.BCM)
+		st1read =pigpio.pi()
+		st1state=False
+		try:
+			system("sudo pigpiod")
+			time.sleep(2)
+		except: pass
+		try:
+			st1read.bb_serial_read_close(19) #close if already run
+		except: pass
+		try:
+			st1read.bb_serial_read_close(16) #close if already run
+		except: pass
+		try:
+			st1read.bb_serial_read_close(26) #close if already run
+		except: pass
+		try:
+			st1read.bb_serial_read_close(20) #close if already run
+		except: pass
+		
+		
 		
 		if wic1[0]=="frequency":
 			measure1=MeasureFrequency(19)
 			measure1.start()
 			average1=MovingAverage(0.6)
+		if wic1[0]=="Seatalk_1":
+			st1gpio=19
+			st1read.bb_serial_read_open(st1gpio, 4800,9)
+			st1state=True
 
 		if wic2[0]=="frequency":
 			measure2=MeasureFrequency(16)
 			measure2.start()
 			average2=MovingAverage(0.6)
+		if wic2[0]=="Seatalk_1":
+			st1gpio=16
+			st1read.bb_serial_read_open(st1gpio, 4800,9)
+			st1state=True
 			
 		if wic3[0]=="frequency":
 			measure3=MeasureFrequency(26)
 			measure3.start()
 			average3=MovingAverage(0.6)
+		if wic3[0]=="Seatalk_1":
+			st1gpio=26
+			st1read.bb_serial_read_open(st1gpio, 4800,9)
+			st1state=True
 			
 		if wic4[0]=="frequency":
 			measure4=MeasureFrequency(20)
 			measure4.start()
 			average4=MovingAverage(0.6)
-
+		if wic4[0]=="Seatalk_1":
+			st1gpio=20
+			st1read.bb_serial_read_open(st1gpio, 4800,9)
+			st1state=True
+			
+#initiate socket
 	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	if st1state:
+		sockst1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	
 	if value == '1':
 		while True:
 			values=""
+			#WIC readings:
 			if wic_state == "True":	
 				#print ("wic state true")
 				if wic1[0]=="frequency":
@@ -100,7 +141,7 @@ def main():
 					freq4_=round(freq4_,2)
 					values += '{"path":"'+ str(wic4[1]) +'","value":' +str(freq4_)+ '},'
 			
-			
+			#1-wire readings
 			for i in config_osensors:
 				try:
 					x= os.listdir("/sys/bus/w1/devices")
@@ -122,6 +163,29 @@ def main():
 				SignalK = '{"updates":[{"$source":"OpenPlotter.MCS","values":['+values+']}]}\n'	
 				sock.sendto(SignalK.encode('utf-8'), ('127.0.0.1', int(port)))
 				#print (SignalK)
+			#seatalk1 readings
+			if st1state:
+				data=""
+				try:
+					out=(st1read.bb_serial_read(st1gpio))
+					out0=out[0]
+					print(portstalk)
+					if out0>0:
+						out_data=out[1]
+						x=0
+						while x < out0:
+							if out_data[x+1] ==0:
+								string1=str(hex(out_data[x]))
+								data= data+string1[2:]+ ","
+							else:
+								data=data[0:-1]
+								data="$STALK,"+data+"\r\n"
+								sockst1.sendto(data.encode('utf-8'), ('127.0.0.1', int(portstalk)))
+								print (data)
+								string2=str(hex(out_data[x]))
+								data=string2[2:]+ ","
+							x+=2
+				except  Exception as e: print (str(e))
 			time.sleep (0.2)
 	
 
