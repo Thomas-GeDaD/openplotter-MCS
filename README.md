@@ -5,8 +5,20 @@ This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlSe
 ### Installing
 
 #### For production
+Install dependencies (for production and development):  
+```
+sudo apt install pigpio
+```
 
-Install [openplotter-settings](https://github.com/openplotter/openplotter-settings) for **production** and download the [Debian package](https://cloudsmith.io/~thomas-gersmann/repos/openplotter-mcs/packages/detail/deb/openplotter-mcs/2.1.2-dev/d=debian%252Fbuster;t=1/). 
+Install [openplotter-settings](https://github.com/openplotter/openplotter-settings) for **production** and download the latest [Debian package](https://cloudsmith.io/~thomas-gersmann/repos/openplotter-mcs/packages/). 
+
+
+```
+sudo dpkg -i openplotter-mcs_x.x.x-xxx_all.deb
+```
+  
+    
+    
 #### For development
 
 Install [openplotter-settings](https://github.com/openplotter/openplotter-settings) for **development**.
