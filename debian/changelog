@@ -8,5 +8,6 @@ openplotter-mcs (2.1.7-stable) buster; urgency=medium
   * 2.1.5 fix bug: if a Sensor is configurated and not reachable the read scrip stops. Now it sends "no data"
   * 2.1.6 fix 1-wire bug with family code
   * 2.1.7 fix bug in logging and add Serial read option in Support
+  * 2.1.8 add Seatalk1 reading support, cleanup code
   
- -- GeDaD <t.gersmann@gedad.de>  Wed, 27 May 2020 13:10:20 +0200
+ -- GeDaD <t.gersmann@gedad.de>  Wed, 09 Jun 2020 15:02:00 +0200
