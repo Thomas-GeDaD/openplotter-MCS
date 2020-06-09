@@ -99,8 +99,7 @@ class MyFrame(wx.Frame):
 		self.pageConnections()
 		self.pageOutput()
 		self.readMCS()
-		self.read_sensors()
-		self.readwic()
+		self.read_sensors()		
 
 		self.Centre()
 		
@@ -155,33 +154,39 @@ class MyFrame(wx.Frame):
 		
 		self.cbasd = wx.CheckBox(self.MCS_Settings, label=_('Enable Autoshutdown'))
 		
+		
+		#self.widget_func1.GetValue()
 		## Widget Input conf:
 		self.choices_digin= ["propulsion.*.revolutions","electrical.inverters.*.ac.frequency","electrical.alternators.*.revolutions"]
-		self.choices_type= ["disable","frequency"]
+		self.choices_type= ["disable","frequency","Seatalk_1"]
 		widget_input_label = wx.StaticText(self.MCS_Settings, label=_('Widget to configure digital inputs based on MCS (IN1-IN4) :'))
 		widget_input_label.SetForegroundColour((0,0,139))
 		self.widget_input_state = wx.CheckBox(self.MCS_Settings, label=_('Enable Input Widget'))
 		#
 		widget_input1_label = wx.StaticText(self.MCS_Settings, label=_('In1:'))
 		self.widget_func1 = wx.ComboBox(self.MCS_Settings, choices = self.choices_type)
+		self.widget_func1.Bind(wx.EVT_COMBOBOX, self.OnCombo_func) 
 		self.widget_signalkkey1 = wx.ComboBox(self.MCS_Settings, choices = self.choices_digin)
 		widget_input_label_end1 = wx.StaticText(self.MCS_Settings, label=_('Factor:'))
 		self.widget_factor1 = wx.TextCtrl(self.MCS_Settings, value="1")
 		
 		widget_input2_label = wx.StaticText(self.MCS_Settings, label=_('In2:'))
 		self.widget_func2 = wx.ComboBox(self.MCS_Settings, choices = self.choices_type)
+		self.widget_func2.Bind(wx.EVT_COMBOBOX, self.OnCombo_func) 
 		self.widget_signalkkey2 = wx.ComboBox(self.MCS_Settings, choices = self.choices_digin)
 		widget_input_label_end2 = wx.StaticText(self.MCS_Settings, label=_('Factor:'))
 		self.widget_factor2 = wx.TextCtrl(self.MCS_Settings, value="1")
 		
 		widget_input3_label = wx.StaticText(self.MCS_Settings, label=_('In3:'))
 		self.widget_func3 = wx.ComboBox(self.MCS_Settings, choices = self.choices_type)
+		self.widget_func3.Bind(wx.EVT_COMBOBOX, self.OnCombo_func) 
 		self.widget_signalkkey3 = wx.ComboBox(self.MCS_Settings, choices = self.choices_digin)
 		widget_input_label_end3 = wx.StaticText(self.MCS_Settings, label=_('Factor:'))
 		self.widget_factor3 = wx.TextCtrl(self.MCS_Settings, value="1")
 		
 		widget_input4_label = wx.StaticText(self.MCS_Settings, label=_('In4:'))
 		self.widget_func4 = wx.ComboBox(self.MCS_Settings, choices = self.choices_type)
+		self.widget_func4.Bind(wx.EVT_COMBOBOX, self.OnCombo_func) 
 		self.widget_signalkkey4 = wx.ComboBox(self.MCS_Settings, choices = self.choices_digin)
 		widget_input_label_end4 = wx.StaticText(self.MCS_Settings, label=_('Factor:'))
 		self.widget_factor4 = wx.TextCtrl(self.MCS_Settings, value="1")
@@ -225,7 +230,9 @@ class MyFrame(wx.Frame):
 		
 		self.MCS_Settings.SetSizer(vbox)
 		
+		self.readwic()
 		self.read_asd()
+		self.widget_buttondisable()
 		
 
 	def pageowire(self):
@@ -368,6 +375,10 @@ class MyFrame(wx.Frame):
 		self.printConnections()
 		
 		#----------------------------------button actions-------------------------------------#
+	def OnCombo_func(self,e):
+		self.widget_buttondisable()
+		
+		
 	def onBtnai (self,e): #install anydesk
 		self.logger.Clear()
 		self.notebook.ChangeSelection(4)
@@ -559,37 +570,17 @@ class MyFrame(wx.Frame):
 	def readwic (self): #read wic settings
 		wic_state = self.conf.get('MCS', 'wic_state')
 		if wic_state == 'True': self.widget_input_state.SetValue(True)
-		
-		wic1 = self.conf.get('MCS', 'wic1')
-		if wic1:
-			wic1 = list(wic1.split(","))
-			self.widget_func1.SetValue(wic1[0])
-			self.widget_signalkkey1.SetValue(wic1[1])
-			self.widget_factor1.SetValue(wic1[2])
-		
-		wic2 = self.conf.get('MCS', 'wic2')
-		if wic2 :
-			wic2 = list(wic2.split(","))
-			self.widget_func2.SetValue(wic2[0])
-			self.widget_signalkkey2.SetValue(wic2[1])
-			self.widget_factor2.SetValue(wic2[2])
-		
-		wic3 = self.conf.get('MCS', 'wic3')
-		if wic3:
-			wic3 = list(wic3.split(","))
-			self.widget_func3.SetValue(wic3[0])
-			self.widget_signalkkey3.SetValue(wic3[1])
-			self.widget_factor3.SetValue(wic3[2])
-		
-		wic4 = self.conf.get('MCS', 'wic4')
-		if wic3:
-			wic4 = list(wic4.split(","))
-			self.widget_func4.SetValue(wic4[0])
-			self.widget_signalkkey4.SetValue(wic4[1])
-			self.widget_factor4.SetValue(wic4[2])
-				
-		
-	
+		x=1
+		while x<5:
+			wicn="wic"+str(x)
+			wicx=self.conf.get('MCS', wicn)
+			if wicx:
+				wicx = list(wicx.split(","))
+				eval ('self.widget_func'+str(x)+'.SetValue(wicx[0])')
+				eval ('self.widget_signalkkey'+str(x)+'.SetValue(wicx[1])')
+				eval ('self.widget_factor'+str(x)+'.SetValue(wicx[2])')
+			x+=1
+
 	def OnToolSend(self,e):
 		pass
 
@@ -660,6 +651,30 @@ class MyFrame(wx.Frame):
 		self.toolbar4.EnableTool(402,False)
 
 	def OnToolApply(self,e):
+
+		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))
+		self.conf.set('MCS', 'asd_state', str(self.cbasd.IsChecked()))
+		
+		# Autoshutdown
+		if self.cbasd.IsChecked():
+			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'asdenable'])
+			self.ShowStatusBarYELLOW(_('Autoshutdown enable'))
+		else:
+			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'asddisable'])
+			self.ShowStatusBarYELLOW(_('Autoshutdown disable'))
+		#set ports
+		for i in self.ports.connections:
+			self.conf.set('MCS', i['id'], str(i['port']))
+			
+		
+		# Widget Input Config
+		self.conf.set('MCS', 'wic_state', str(self.widget_input_state.IsChecked()))
+		self.conf.set('MCS', 'wic1', str(self.widget_func1.GetValue()+","+self.widget_signalkkey1.GetValue()+","+self.widget_factor1.GetValue()))
+		self.conf.set('MCS', 'wic2', str(self.widget_func2.GetValue()+","+self.widget_signalkkey2.GetValue()+","+self.widget_factor2.GetValue()))
+		self.conf.set('MCS', 'wic3', str(self.widget_func3.GetValue()+","+self.widget_signalkkey3.GetValue()+","+self.widget_factor3.GetValue()))
+		self.conf.set('MCS', 'wic4', str(self.widget_func4.GetValue()+","+self.widget_signalkkey4.GetValue()+","+self.widget_factor4.GetValue()))
+		
+		
 		# sending data
 		if self.toolbar1.GetToolState(103):
 			self.conf.set('MCS', 'sending', '1')
@@ -669,33 +684,12 @@ class MyFrame(wx.Frame):
 			self.conf.set('MCS', 'sending', '0')
 			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'disable'])
 			self.ShowStatusBarYELLOW(_('Sending data disabled'))
-		for i in self.ports.connections:
-			self.conf.set('MCS', i['id'], str(i['port']))
 
-		self.conf.set('MCS', 'owiresensors', str(self.config_osensors))
-		
-		# Autoshutdown
-		if self.cbasd.IsChecked():
-			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'asdenable'])
-			self.ShowStatusBarYELLOW(_('Autoshutdown enable'))
-		else:
-			subprocess.Popen([self.platform.admin, 'python3', self.currentdir+'/service.py', 'asddisable'])
-			self.ShowStatusBarYELLOW(_('Autoshutdown disable'))
-		
-		self.conf.set('MCS', 'asd_state', str(self.cbasd.IsChecked()))
-		
+		self.ShowStatusBarGREEN(_('Saved'))
 		self.readMCS()
 		self.readConnections()
-		self.printConnections()
+		self.printConnections()	
 		
-		self.ShowStatusBarGREEN(_('Saved'))
-		# Widget Input Config
-		self.conf.set('MCS', 'wic_state', str(self.widget_input_state.IsChecked()))
-		self.conf.set('MCS', 'wic1', str(self.widget_func1.GetValue()+","+self.widget_signalkkey1.GetValue()+","+self.widget_factor1.GetValue()))
-		self.conf.set('MCS', 'wic2', str(self.widget_func2.GetValue()+","+self.widget_signalkkey2.GetValue()+","+self.widget_factor2.GetValue()))
-		self.conf.set('MCS', 'wic3', str(self.widget_func3.GetValue()+","+self.widget_signalkkey3.GetValue()+","+self.widget_factor3.GetValue()))
-		self.conf.set('MCS', 'wic4', str(self.widget_func4.GetValue()+","+self.widget_signalkkey4.GetValue()+","+self.widget_factor4.GetValue()))
-
 	def OnToolCancel(self,e):
 		self.ShowStatusBarRED(_('Changes canceled'))
 		self.readMCS()
@@ -744,6 +738,26 @@ class MyFrame(wx.Frame):
 				self.logger.ShowPosition(self.logger.GetLastPosition())
 		self.logger.EndTextColour()
 
+	def widget_buttondisable(self):
+		c=1
+		while c<5:
+			if eval("self.widget_func"+str(c)+".GetValue()")!= 'frequency':
+				eval("self.widget_signalkkey"+str(c)+".Enable(False)")
+				eval("self.widget_factor"+str(c)+".Enable(False)")
+			else:
+				eval("self.widget_signalkkey"+str(c)+".Enable(True)")
+				eval("self.widget_factor"+str(c)+".Enable(True)")
+			c+=1
+		if self.widget_func1.GetValue()=="Seatalk_1" or self.widget_func2.GetValue()=="Seatalk_1" or self.widget_func3.GetValue()=="Seatalk_1" or self.widget_func4.GetValue()=="Seatalk_1":
+			self.widget_func1.Set(["disable","frequency"])
+			self.widget_func2.Set(["disable","frequency"])
+			self.widget_func3.Set(["disable","frequency"])
+			self.widget_func4.Set(["disable","frequency"])
+		else:
+			self.widget_func1.Set(["disable","frequency","Seatalk_1"])
+			self.widget_func2.Set(["disable","frequency","Seatalk_1"])
+			self.widget_func3.Set(["disable","frequency","Seatalk_1"])
+			self.widget_func4.Set(["disable","frequency","Seatalk_1"])
 ################################################################################ edit Port
 
 class editPort(wx.Dialog):
@@ -1052,5 +1066,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
-	
-	#https://wiki.wxpython.org/LongRunningTasks
+
