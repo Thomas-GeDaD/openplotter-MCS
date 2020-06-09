@@ -9,7 +9,7 @@
 # any later version.
 # Openplotter is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See 
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
@@ -39,12 +39,19 @@ class Ports:
 		language.Language(currentdir,'openplotter-MCS',currentLanguage)
 		# here you have to define what connections will be always present in your app
 		self.connections = []
-		connectionId = 'MCSConn1'
-		try: port = int(self.conf.get('MCS', connectionId))
-		except: port = 50000 #default port
-		self.connections.append({'id':connectionId, 'description':_('1-Wire Sensors'), 'data':_('Signal K keys: as defined '), 'direction':'2', 'type':'UDP', 'mode':'client', 'address':'localhost', 'port':port, 'editable':'1'})
-
+		connectionId0 = 'MCSConn1'
+		connectionId1 = 'MCSConn2'
+		try: 
+			port0 = int(self.conf.get('MCS', connectionId0))
+			port1 = int(self.conf.get('MCS', connectionId1))
+		except: 
+			port0 = 50000 #default port
+			port1 = 50001 #default port
+			
+		self.connections.append({'id':connectionId0, 'description':_('1-Wire Sensors'), 'data':_('Signal K keys 1-Wire '), 'direction':'2', 'type':'UDP', 'mode':'client', 'address':'localhost', 'port':port0, 'editable':'1'})
+		self.connections.append({'id':connectionId1, 'description':_('1-Wire Sensors'), 'data':_('STALK Data '), 'direction':'2', 'type':'UDP', 'mode':'client', 'address':'localhost', 'port':port1, 'editable':'1'})
+		
 	def usedPorts(self):
-		# here you have to define what connections are enabled when this function is called to check servers conflicts or provide a list of the enabled connections in your system.
+
 		state = self.conf.get('MCS', 'sending')
 		if state == '1': return self.connections
