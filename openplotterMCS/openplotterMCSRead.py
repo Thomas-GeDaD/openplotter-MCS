@@ -37,16 +37,19 @@ def main():
 		wic3 = list(wic3.split(","))
 		wic4 = conf2.get('MCS', 'wic4')
 		wic4 = list(wic4.split(","))
-		
+		st1state=False
 	except Exception as e: print (str(e))
+	
 	if wic_state == "True":
 		GPIO.setmode(GPIO.BCM)
-		st1read =pigpio.pi()
-		st1state=False
 		try:
-			system("sudo pigpiod")
+			os.system("sudo pigpiod")
 			time.sleep(2)
 		except: pass
+		try:
+			st1read =pigpio.pi()
+		except: pass
+
 		try:
 			st1read.bb_serial_read_close(19) #close if already run
 		except: pass
@@ -68,7 +71,9 @@ def main():
 			average1=MovingAverage(0.6)
 		if wic1[0]=="Seatalk_1":
 			st1gpio=19
-			st1read.bb_serial_read_open(st1gpio, 4800,9)
+			try:
+				st1read.bb_serial_read_open(st1gpio, 4800,9)
+			except:pass
 			st1state=True
 
 		if wic2[0]=="frequency":
@@ -77,7 +82,9 @@ def main():
 			average2=MovingAverage(0.6)
 		if wic2[0]=="Seatalk_1":
 			st1gpio=16
-			st1read.bb_serial_read_open(st1gpio, 4800,9)
+			try:
+				st1read.bb_serial_read_open(st1gpio, 4800,9)
+			except: pass
 			st1state=True
 			
 		if wic3[0]=="frequency":
@@ -86,7 +93,9 @@ def main():
 			average3=MovingAverage(0.6)
 		if wic3[0]=="Seatalk_1":
 			st1gpio=26
-			st1read.bb_serial_read_open(st1gpio, 4800,9)
+			try:
+				st1read.bb_serial_read_open(st1gpio, 4800,9)
+			except: pass
 			st1state=True
 			
 		if wic4[0]=="frequency":
@@ -95,7 +104,9 @@ def main():
 			average4=MovingAverage(0.6)
 		if wic4[0]=="Seatalk_1":
 			st1gpio=20
-			st1read.bb_serial_read_open(st1gpio, 4800,9)
+			try:
+				st1read.bb_serial_read_open(st1gpio, 4800,9)
+			except: pass
 			st1state=True
 			
 #initiate socket
@@ -169,7 +180,7 @@ def main():
 				try:
 					out=(st1read.bb_serial_read(st1gpio))
 					out0=out[0]
-					print(portstalk)
+					#print(portstalk)
 					if out0>0:
 						out_data=out[1]
 						x=0
@@ -181,7 +192,7 @@ def main():
 								data=data[0:-1]
 								data="$STALK,"+data+"\r\n"
 								sockst1.sendto(data.encode('utf-8'), ('127.0.0.1', int(portstalk)))
-								print (data)
+								#print (data)
 								string2=str(hex(out_data[x]))
 								data=string2[2:]+ ","
 							x+=2
