@@ -172,6 +172,7 @@ def main():
 		conf2.set('APPS', 'mcs', version)
 		print(_('DONE'))
 	except Exception as e: print(_('FAILED: ')+str(e))
+	print(_('Reboot your System!!!'))
 	
 if __name__ == '__main__':
 
