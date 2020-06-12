@@ -161,6 +161,11 @@ def main():
 		modules.close()
 			
 	except Exception as e: print(_('FAILED: ')+str(e))
+	
+	try:
+		os.system("sudo apt-get install pigpio")	
+	except: 
+		print(_("pigpio already installed"))
 		
 	print(_('Setting version...'))
 	try:
