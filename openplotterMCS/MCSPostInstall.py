@@ -42,7 +42,8 @@ def main():
 	'entryPoint': 'openplotter-MCS',
 	'postInstall': platform2.admin+' '+'MCSPostInstall',
 	'reboot': 'yes',
-	'module': 'openplotterMCS' ### replace by your python module name (see setup.py file).
+	'module': 'openplotterMCS', ### replace by your python module name (see setup.py file).
+	'conf': 'myapp' ### replace myapp by the name of your app, use the same name in openplotterMyapp.py and myappPreUninstall.py scripts.
 	}
 	gpgKey = currentdir+'/data/MCS.gpg.key' ### replace by the path to your gpg key file. Replace contents of this file by your key.
 	sourceList = currentdir+'/data/MCS.list' ### replace by the path to your sources list file. Replace contents of this file by your packages sources.
