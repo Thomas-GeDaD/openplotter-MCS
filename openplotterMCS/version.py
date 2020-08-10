@@ -1,3 +1,3 @@
-version = '2.1.9'
+version = '2.2.0'
 codeName = 'Open Arms'
 state = 'stable'
