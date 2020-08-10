@@ -1,4 +1,4 @@
-openplotter-mcs (2.1.9-stable) buster; urgency=medium
+openplotter-mcs (2.2.0-stable) buster; urgency=medium
 
   * 2.1.0 Update for OP 2.2.0
   * 2.1.1 Fixing gpg format in 2.1.1
@@ -10,5 +10,6 @@ openplotter-mcs (2.1.9-stable) buster; urgency=medium
   * 2.1.7 fix bug in logging and add Serial read option in Support
   * 2.1.8 add Seatalk1 reading support, cleanup code
   * 2.1.9 fix error in read Service and add pigpio install in postinstallation script
+  * 2.2.0 Update for OP 2.4.1 
   
- -- GeDaD <t.gersmann@gedad.de>  Fri, 12 Jun 2020 09:02:00 +0200
+ -- GeDaD <t.gersmann@gedad.de>  Fri, 10 Aug 2020 09:02:00 +0200
