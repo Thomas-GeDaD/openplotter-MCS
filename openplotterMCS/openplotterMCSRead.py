@@ -194,7 +194,10 @@ def main():
 								sockst1.sendto(data.encode('utf-8'), ('127.0.0.1', int(portstalk)))
 								#print (data)
 								string2=str(hex(out_data[x]))
-								data=string2[2:]+ ","
+								string2_new=string2[2:]
+								if len(string2_new)==1:
+									string2_new="0"+string2_new
+								data=string2_new + ","
 							x+=2
 				except  Exception as e: print (str(e))
 			time.sleep (0.2)
