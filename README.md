@@ -1,3 +1,8 @@
+## Attention  
+This app for openplotter is not longer supported. Because of  better integration we have written a plugin directly for SignalK  
+You find it here: https://github.com/Thomas-GeDaD/SignalK_raspberry_MCS
+
+
 ## openplotter-MCS
 
 This is a App for Openplotter 2.0 and higher to use with a GeDaD MarineControlServer Hardware
